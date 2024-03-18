@@ -1,0 +1,97 @@
+﻿<ui:FluentWindow
+    x:Class="IncrementalCivilization.Mvvm.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    mc:Ignorable="d"
+    Title="MainWindow" 
+    Height="800" 
+    Width="1000"    
+    ExtendsContentIntoTitleBar="True"
+    WindowBackdropType="Acrylic"
+    WindowCornerPreference="Default"
+    WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource MenuBorderStyle}">
+                <DockPanel LastChildFill="False">
+                    <Border DockPanel.Dock="Top"
+                            Style="{StaticResource MenuIconBorderStyle}">
+                        <Ellipse>
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/rubik.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <!-- Application title -->
+                    <StackPanel DockPanel.Dock="Top"
+                                HorizontalAlignment="Center"
+                                Margin="0 20">
+                        <TextBlock Text="Incremental"
+                                   Style="{StaticResource MenuTextStyle}"/>
+                        <TextBlock Text="Civilization"
+                                   Style="{StaticResource MenuTextStyle}"/>
+                    </StackPanel>
+
+                    <!-- Main page buttons -->
+                    <StackPanel DockPanel.Dock="Top"
+                                HorizontalAlignment="Center">
+                        <ui:Button Content="Home" 
+                                   Icon="{ui:SymbolIcon Home24}"
+                                   Style="{StaticResource MenuButtonStyle}"/>
+                        <ui:Button Content="Jobs" 
+                                   Icon="{ui:SymbolIcon PeopleTeam24}" 
+                                   Style="{StaticResource MenuButtonStyle}"
+                                   Margin="0 20 0 0"/>
+                        <ui:Button Content="Research" 
+                                   Icon="{ui:SymbolIcon Beaker24}" 
+                                   Style="{StaticResource MenuButtonStyle}"
+                                   Margin="0 20 0 0"/>
+                    </StackPanel>
+
+                    <!-- Bottom page buttons -->
+                    <ui:Button DockPanel.Dock="Bottom"
+                               HorizontalAlignment="Center"
+                               Content="Settings" 
+                               Icon="{ui:SymbolIcon Home24}"
+                               Style="{StaticResource MenuButtonStyle}"
+                               Margin="0 0 0 20"/>
+                </DockPanel>
+            </Border>
+
+            <DockPanel Grid.Column="1">
+                <Border DockPanel.Dock="Top"
+                        Style="{StaticResource HeaderBorderStyle}">
+                    <TextBlock Text="Step title"
+                               Style="{StaticResource HeaderTextStyle}"/>
+                </Border>
+
+                <TextBlock DockPanel.Dock="Bottom"
+                           Text="Ticks: xxx"
+                           Margin="10"/>
+
+                <Border Background="Aqua"
+                        Margin="10 10 10 0">
+                    
+                </Border>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

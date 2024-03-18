@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\rubik.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\rubik.ico" />
+    <None Remove="Assets\rubik.png" />
+    <None Remove="Assets\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\rubik.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="WPF-UI" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\rubik.ico" />
+    <Resource Include="Assets\rubik.png" />
+    <Resource Include="Assets\settings.png" />
+  </ItemGroup>
+
+</Project>
