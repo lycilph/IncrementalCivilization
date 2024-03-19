@@ -58,7 +58,8 @@
                            Content="Settings" 
                            Icon="{ui:SymbolIcon Home24}"
                            Style="{StaticResource MenuButtonStyle}"
-                           Margin="0 0 0 20"/>
+                           Margin="0 0 0 20"
+                           Command="{Binding ShowSettingsCommand}"/>
             </DockPanel>
         </Border>
 

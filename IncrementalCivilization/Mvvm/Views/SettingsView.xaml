@@ -31,7 +31,8 @@
                 <ui:Button DockPanel.Dock="Right"
                            Icon="{ui:SymbolIcon ArrowLeft24}"
                            Background="{StaticResource ApplicationAccent5Brush}"
-                           Margin="20 0"/>
+                           Margin="20 0"
+                           Command="{Binding ShowMainCommand}"/>
             </DockPanel>
         </Border>
         

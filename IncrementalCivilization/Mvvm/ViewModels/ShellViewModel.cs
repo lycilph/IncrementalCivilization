@@ -2,8 +2,8 @@
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
-public partial class ShellViewModel : ObservableObject
+public partial class ShellViewModel : ObservableObject, IShellViewModel
 {
     [ObservableProperty]
-    private ObservableObject? _current;
+    private IViewModel? _current;
 }
