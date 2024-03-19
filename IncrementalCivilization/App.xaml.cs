@@ -33,6 +33,10 @@ public partial class App : Application
         services.AddSingleton<IMainViewModel, MainViewModel>();
         services.AddSingleton<ISettingsViewModel, SettingsViewModel>();
 
+        services.AddSingleton<IPageViewModel, HomePageViewModel>();
+        services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
+        services.AddSingleton<IPageViewModel, TimePageViewModel>();
+
         services.AddSingleton<INavigationService, NavigationService>();
 
         return services.BuildServiceProvider();

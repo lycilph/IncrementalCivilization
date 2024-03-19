@@ -7,20 +7,19 @@ namespace IncrementalCivilization.Mvvm.ViewModels;
 
 public partial class MainViewModel : ObservableObject, IMainViewModel
 {
-    private INavigationService _navigationService;
+    private readonly INavigationService _navigationService;
 
     public ObservableCollection<IPageViewModel> Pages { get; private set; } = new ObservableCollection<IPageViewModel>();
 
     [ObservableProperty]
     private IPageViewModel? _currentPage;
 
-    public MainViewModel(INavigationService navigationService)
+    public MainViewModel(INavigationService navigationService, IEnumerable<IPageViewModel> pages)
     {
         _navigationService = navigationService;
 
-        Pages.Add(new HomePageViewModel());
-        Pages.Add(new ResearchPageViewModel());
-        Pages.Add(new TimePageViewModel());
+        foreach (var pageViewModel in pages)
+            Pages.Add(pageViewModel);
 
         CurrentPage = Pages.First();
     }
