@@ -3,10 +3,81 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:IncrementalCivilization.Mvvm.Views"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Style="{StaticResource MenuBorderStyle}">
+            <DockPanel LastChildFill="False">
+                <!-- Application Icon -->
+                <Border DockPanel.Dock="Top"
+                        Style="{StaticResource MenuIconBorderStyle}">
+                    <Ellipse>
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Assets/rubik.png"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+
+                <!-- Application title -->
+                <StackPanel DockPanel.Dock="Top"
+                            HorizontalAlignment="Center"
+                            Margin="0 20">
+                    <TextBlock Text="Incremental"
+                               Style="{StaticResource MenuTextStyle}"/>
+                    <TextBlock Text="Civilization"
+                               Style="{StaticResource MenuTextStyle}"/>
+                </StackPanel>
+
+                <!-- Main page buttons -->
+                <StackPanel DockPanel.Dock="Top"
+                            HorizontalAlignment="Center">
+                    <ui:Button Content="Home" 
+                               Icon="{ui:SymbolIcon Home24}"
+                               Style="{StaticResource MenuButtonStyle}"/>
+                    <ui:Button Content="Jobs" 
+                               Icon="{ui:SymbolIcon PeopleTeam24}" 
+                               Style="{StaticResource MenuButtonStyle}"
+                               Margin="0 20 0 0"/>
+                    <ui:Button Content="Research" 
+                               Icon="{ui:SymbolIcon Beaker24}" 
+                               Style="{StaticResource MenuButtonStyle}"
+                               Margin="0 20 0 0"/>
+                </StackPanel>
+
+                <!-- Bottom page buttons -->
+                <ui:Button DockPanel.Dock="Bottom"
+                           HorizontalAlignment="Center"
+                           Content="Settings" 
+                           Icon="{ui:SymbolIcon Home24}"
+                           Style="{StaticResource MenuButtonStyle}"
+                           Margin="0 0 0 20"/>
+            </DockPanel>
+        </Border>
+
+        <DockPanel Grid.Column="1">
+            <!-- Step Header -->
+            <Border DockPanel.Dock="Top"
+                    Style="{StaticResource MainHeaderBorderStyle}">
+                <TextBlock Text="Step title" 
+                           Style="{StaticResource HeaderTextStyle}"/>
+            </Border>
+
+            <!-- Status bar -->
+            <TextBlock DockPanel.Dock="Bottom"
+                       Text="Ticks: xxx"
+                       Margin="10"/>
+
+            <!-- Main page content -->
+            <Border Background="Aqua"
+                    Margin="10 10 10 0"/>
+        </DockPanel>
     </Grid>
 </UserControl>

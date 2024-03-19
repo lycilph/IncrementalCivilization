@@ -32,11 +32,28 @@
         </Style.Setters>
     </Style>
 
-    <Style x:Key="HeaderBorderStyle" TargetType="Border">
+    <Style x:Key="MainHeaderBorderStyle" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource ApplicationAccent3Brush}"/>
         <Setter Property="CornerRadius" Value="25 0 0 25"/>
         <Setter Property="Height" Value="60"/>
-        <Setter Property="Margin" Value="20 -20 0 0"/>
+        <Setter Property="Margin" Value="40 -20 0 0"/>
+    </Style>
+    
+    <Style x:Key="SettingsHeaderBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource ApplicationAccent3Brush}"/>
+        <Setter Property="CornerRadius" Value="25 0 0 25"/>
+        <Setter Property="Margin" Value="40 -20 0 0"/>
+    </Style>
+
+    <Style x:Key="SettingsIconBorderStyle" TargetType="Border">
+        <Style.Setters>
+            <Setter Property="Background" Value="{StaticResource ApplicationAccent5Brush}"/>
+            <Setter Property="CornerRadius" Value="50"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style.Setters>
     </Style>
 
     <Style x:Key="MenuTextStyle" TargetType="TextBlock">

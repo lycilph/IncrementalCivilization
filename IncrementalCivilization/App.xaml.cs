@@ -1,15 +1,17 @@
-﻿using System.Windows;
-
-// INFO: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/
-// INFO: https://www.youtube.com/watch?v=wFzmBZpjuAo (about dependency injection / inversion of control)
-// INFO: https://wpfui.lepo.co/index.html (UI for win 11)
-// - INFO: https://github.com/lepoco/wpfui/blob/main/src/Wpf.Ui.Gallery/Views/Windows/MainWindow.xaml.cs (github for above)
-// INFO: https://www.youtube.com/watch?v=mlmyFXJy8gQ (UI for the app)
-
-// INFO: https://color.adobe.com/da/explore - N I S H I K I G O - Furniture Design Award 2014
+﻿using IncrementalCivilization.Mvvm.ViewModels;
+using IncrementalCivilization.Mvvm.Views;
+using System.Windows;
 
 namespace IncrementalCivilization;
 
 public partial class App : Application
 {
+    private void Application_Startup(object sender, StartupEventArgs e)
+    {
+        var mainVm = new SettingsViewModel();
+        //var mainVm = new MainViewModel();
+        var shellVm = new ShellViewModel { Current = mainVm };
+        var win = new MainWindow { DataContext = shellVm };
+        win.Show();
+    }
 }
