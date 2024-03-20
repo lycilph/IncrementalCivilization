@@ -22,6 +22,13 @@ public partial class Resource : ObservableObject
         Type = type;
         Amount = amount;
     }
+
+    public void Add(double val) 
+    {
+        Amount += val;
+        if (Amount > 0)
+            Active = true;
+    }
 }
 
 public class ResourceBundle

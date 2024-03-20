@@ -1,10 +1,12 @@
 ﻿using IncrementalCivilization.Domain;
-using IncrementalCivilization.Mvvm.Services;
 using IncrementalCivilization.Mvvm.ViewModels;
 using IncrementalCivilization.Mvvm.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Windows;
+using Wpf.Ui;
+using INavigationService = IncrementalCivilization.Mvvm.Services.INavigationService;
+using NavigationService = IncrementalCivilization.Mvvm.Services.NavigationService;
 
 namespace IncrementalCivilization;
 
@@ -25,12 +27,8 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton(provider => new MainWindow 
-        {
-            DataContext = provider.GetRequiredService<IShellViewModel>()
-        });
-
-        // The application shell (shows a single IViewModel)
+        // The application window and shell (shows a single IViewModel)
+        services.AddSingleton<MainWindow>();
         services.AddSingleton<IShellViewModel, ShellViewModel>();
 
         // Main views (takes up the entire window)
@@ -44,6 +42,7 @@ public partial class App : Application
 
         // Services
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<ISnackbarService, SnackbarService>();
 
         // Game related
         services.AddSingleton<IGame, Game>();

@@ -26,7 +26,7 @@ public partial class MainViewModel : ObservableObject, IMainViewModel
         foreach (var pageViewModel in pages)
             Pages.Add(pageViewModel);
 
-        CurrentPage = Pages.First();
+        ShowPage(Pages.First());
     }
 
     [RelayCommand]
@@ -38,6 +38,9 @@ public partial class MainViewModel : ObservableObject, IMainViewModel
     [RelayCommand]
     private void ShowPage(IPageViewModel page)
     {
+        if (!page.Initialized)
+            page.Initialize();
+
         CurrentPage = page;
     }
 }

@@ -22,7 +22,9 @@
 
         <ui:TitleBar Grid.Row="0"/>
 
-        <ContentControl Grid.Row="1" 
-                        Content="{Binding Current}"/>
+        <Grid Grid.Row="1" >
+            <ContentControl Content="{Binding Current}"/>
+            <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
+        </Grid>
     </Grid>
 </ui:FluentWindow>

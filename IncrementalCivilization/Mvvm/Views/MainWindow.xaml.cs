@@ -1,11 +1,17 @@
-﻿using Wpf.Ui.Controls;
+﻿using IncrementalCivilization.Mvvm.ViewModels;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.Mvvm.Views;
 
 public partial class MainWindow : FluentWindow
 {
-    public MainWindow()
+    public MainWindow(IShellViewModel shellVM, ISnackbarService snackbarService)
     {
+        DataContext = shellVM;
+
         InitializeComponent();
+
+        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
     }
 }

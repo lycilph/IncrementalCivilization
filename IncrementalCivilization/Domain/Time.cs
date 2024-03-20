@@ -12,15 +12,4 @@ public partial class Time : ObservableObject
 
     [ObservableProperty]
     private int _day = 0;
-
-    public void Update()
-    {
-        Ticks += 1;
-
-        if (Ticks > ticksPerDay)
-        {
-            Day += 1;
-            Ticks -= ticksPerDay;
-        }
-    }
 }

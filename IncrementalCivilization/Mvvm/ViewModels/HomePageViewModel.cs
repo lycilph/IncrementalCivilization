@@ -1,38 +1,30 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Domain;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
-public partial class HomePageViewModel : ObservableObject, IHomePageViewModel
+public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
 {
-    private readonly IGame _game;
+    private readonly IGame game;
 
-    public string Title { get; set; }
-    public SymbolRegular Icon { get; set; }
+    public ObservableCollection<Resource>? Resources { get; set; }
 
-    public ObservableCollection<Resource> Resources { get; set; }
-
-    public HomePageViewModel(IGame game)
+    public HomePageViewModel(IGame game) : base("Home", SymbolRegular.Home24)
     {
-        Title = "Home";
-        Icon = SymbolRegular.Home24;
+        this.game = game;
+    }
 
-        _game = game;
-        Resources = new ObservableCollection<Resource>(_game.Resources.GetAll());
+    public override void Initialize()
+    {
+        Resources = new ObservableCollection<Resource>(game.Resources.GetAll());
+        base.Initialize();
     }
 
     [RelayCommand]
     private void CollectFood()
     {
-        var food = _game.Resources[ResourceType.Food];
-
-        if (!food.Active)
-            food.Active = true;
-
-        food.Amount += 1;
+        game.Resources[ResourceType.Food].Add(1);
     }
 }

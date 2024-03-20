@@ -1,11 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Threading;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
+using Wpf.Ui.Extensions;
 
 namespace IncrementalCivilization.Domain;
 
 public partial class Game : ObservableObject, IGame
 {
     private readonly DispatcherTimer timer;
+    private readonly ISnackbarService snackbarService;
 
     public Time Time { get; private set; } = new Time();
 
@@ -17,8 +21,10 @@ public partial class Game : ObservableObject, IGame
         set => SetProperty(timer.IsEnabled, value, timer, (t, v) => t.IsEnabled = v);
     }
 
-    public Game()
+    public Game(ISnackbarService snackbarService)
     {
+        this.snackbarService = snackbarService;
+        
         timer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(1000 / Time.ticksPerSecond)
@@ -28,17 +34,24 @@ public partial class Game : ObservableObject, IGame
 
     private void TimerTick(object? sender, EventArgs e)
     {
-        Time.Update();
+        Time.Ticks += 1;
 
-        // DEBUG
-        //var wood = Resources.Get(ResourceType.Wood);
-        //wood.Amount += 0.01;
+        if (Time.Ticks > Time.ticksPerDay)
+        {
+            Time.Day += 1;
+            Time.Ticks -= Time.ticksPerDay;
 
-        // Debug
-        //if (wood.Amount > 1)
-        //{
-        //    Resources.Get(ResourceType.Mineral).Active = true;
-        //}
+            // Trigger progress
+            var food = Resources[ResourceType.Food];
+            var wood = Resources[ResourceType.Wood];
+
+            if (!wood.Active && food.Amount >= 5)
+            {
+                wood.Active = true;
+                wood.Amount += 1;
+                snackbarService.Show("Wood", "While searching for food you found some wood", ControlAppearance.Light);
+            }
+        }
     }
 
     public void Initialize()

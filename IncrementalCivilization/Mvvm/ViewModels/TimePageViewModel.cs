@@ -1,16 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
-public partial class TimePageViewModel : ObservableObject, ITimePageViewModel
+public partial class TimePageViewModel : PageViewModelBase, ITimePageViewModel
 {
-    public string Title { get; set; }
-    public SymbolRegular Icon { get; set; }
-
-    public TimePageViewModel()
-    {
-        Title = "Time";
-        Icon = SymbolRegular.HourglassHalf24;
-    }
+    public TimePageViewModel() : base("Time", SymbolRegular.HourglassHalf24)
+    {}
 }
