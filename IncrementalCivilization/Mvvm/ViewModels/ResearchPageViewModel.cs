@@ -2,8 +2,6 @@
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
-public partial class ResearchPageViewModel : PageViewModelBase, IResearchPageViewModel
+public partial class ResearchPageViewModel() : PageViewModelBase("Research", SymbolRegular.Beaker24), IResearchPageViewModel
 {
-    public ResearchPageViewModel() : base("Research", SymbolRegular.Beaker24)
-    {}
 }

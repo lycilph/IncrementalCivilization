@@ -2,8 +2,6 @@
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
-public partial class TimePageViewModel : PageViewModelBase, ITimePageViewModel
+public partial class TimePageViewModel() : PageViewModelBase("Time", SymbolRegular.HourglassHalf24), ITimePageViewModel
 {
-    public TimePageViewModel() : base("Time", SymbolRegular.HourglassHalf24)
-    {}
 }

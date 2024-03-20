@@ -5,16 +5,11 @@ using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
-public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
+public partial class HomePageViewModel(IGame game) : PageViewModelBase("Home", SymbolRegular.Home24), IHomePageViewModel
 {
-    private readonly IGame game;
+    private readonly IGame game = game;
 
     public ObservableCollection<Resource>? Resources { get; set; }
-
-    public HomePageViewModel(IGame game) : base("Home", SymbolRegular.Home24)
-    {
-        this.game = game;
-    }
 
     public override void Initialize()
     {
