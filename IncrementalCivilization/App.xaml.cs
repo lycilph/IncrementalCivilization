@@ -1,4 +1,5 @@
-﻿using IncrementalCivilization.Mvvm.Services;
+﻿using IncrementalCivilization.Domain;
+using IncrementalCivilization.Mvvm.Services;
 using IncrementalCivilization.Mvvm.ViewModels;
 using IncrementalCivilization.Mvvm.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,15 +30,23 @@ public partial class App : Application
             DataContext = provider.GetRequiredService<IShellViewModel>()
         });
 
+        // The application shell (shows a single IViewModel)
         services.AddSingleton<IShellViewModel, ShellViewModel>();
+
+        // Main views (takes up the entire window)
         services.AddSingleton<IMainViewModel, MainViewModel>();
         services.AddSingleton<ISettingsViewModel, SettingsViewModel>();
 
+        // Pages in the main view (takes up only part of the main view)
         services.AddSingleton<IPageViewModel, HomePageViewModel>();
         services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
+        // Services
         services.AddSingleton<INavigationService, NavigationService>();
+
+        // Game related
+        services.AddSingleton<IGame, Game>();
 
         return services.BuildServiceProvider();
     }
@@ -51,5 +60,8 @@ public partial class App : Application
 
         var navigation = Services.GetRequiredService<INavigationService>();
         navigation.Initialize();
+
+        var game = Services.GetRequiredService<IGame>();
+        game.Initialize();
     }
 }

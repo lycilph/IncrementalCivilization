@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using IncrementalCivilization.Domain;
 using IncrementalCivilization.Mvvm.Services;
 using System.Collections.ObjectModel;
 
@@ -14,9 +15,13 @@ public partial class MainViewModel : ObservableObject, IMainViewModel
     [ObservableProperty]
     private IPageViewModel? _currentPage;
 
-    public MainViewModel(INavigationService navigationService, IEnumerable<IPageViewModel> pages)
+    [ObservableProperty]
+    private IGame _game;
+
+    public MainViewModel(INavigationService navigationService, IGame game, IEnumerable<IPageViewModel> pages)
     {
         _navigationService = navigationService;
+        _game = game;
 
         foreach (var pageViewModel in pages)
             Pages.Add(pageViewModel);

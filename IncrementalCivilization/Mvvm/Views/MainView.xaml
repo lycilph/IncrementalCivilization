@@ -59,7 +59,7 @@
                 <ui:Button DockPanel.Dock="Bottom"
                            HorizontalAlignment="Center"
                            Content="Settings" 
-                           Icon="{ui:SymbolIcon Home24}"
+                           Icon="{ui:SymbolIcon Settings24}"
                            Style="{StaticResource MenuButtonStyle}"
                            Margin="0 0 0 20"
                            Command="{Binding ShowSettingsCommand}"/>
@@ -70,18 +70,54 @@
             <!-- Step Header -->
             <Border DockPanel.Dock="Top"
                     Style="{StaticResource MainHeaderBorderStyle}">
-                <TextBlock Text="Step title" 
-                           Style="{StaticResource HeaderTextStyle}"/>
+                <DockPanel LastChildFill="False">
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding CurrentPage.Title}" 
+                               Style="{StaticResource HeaderTextStyle}"/>
+
+                    <ToggleButton DockPanel.Dock="Right"
+                                  Background="{StaticResource ApplicationAccent5Brush}"
+                                  BorderBrush="{StaticResource ApplicationAccent5Brush}"
+                                  IsChecked="{Binding Game.IsRunning}"
+                                  Margin="0 0 20 0">
+                        <ui:SymbolIcon>
+                            <ui:SymbolIcon.Style>
+                                <Style TargetType="ui:SymbolIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Game.IsRunning}" Value="true">
+                                            <Setter Property="Symbol" Value="Pause24"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Game.IsRunning}" Value="false">
+                                            <Setter Property="Symbol" Value="Play24"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:SymbolIcon.Style>
+                        </ui:SymbolIcon>
+                    </ToggleButton>
+                </DockPanel>
             </Border>
 
             <!-- Status bar -->
-            <TextBlock DockPanel.Dock="Bottom"
-                       Text="Ticks: xxx"
-                       Margin="10"/>
+            <StatusBar DockPanel.Dock="Bottom"
+                       Padding="0">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem Width="100">
+                    <TextBlock Text="{Binding Game.Time.Ticks, StringFormat=Ticks: {0}}"/>
+                </StatusBarItem>
+                <Separator/>
+                <StatusBarItem Width="100">
+                    <TextBlock Text="{Binding Game.Time.Day, StringFormat=Day: {0}}"/>
+                </StatusBarItem>
+            </StatusBar>
 
             <!-- Main page content -->
             <ContentControl Content="{Binding CurrentPage}"
-                            Margin="10 10 10 0"/>
+                            Margin="10 10 10 10"/>
         </DockPanel>
     </Grid>
 </UserControl>
