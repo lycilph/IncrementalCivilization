@@ -12,8 +12,8 @@ public partial class Game : ObservableObject, IGame
     private readonly ISnackbarService snackbarService;
 
     public Time Time { get; private set; } = new Time();
-
     public ResourceBundle Resources { get; private set; } = ResourceBundle.AllResources();
+    public BuildingsBundle Buildings { get; private set; } = BuildingsBundle.AllBuildings();
 
     public bool IsRunning
     { 
@@ -35,6 +35,10 @@ public partial class Game : ObservableObject, IGame
     private void TimerTick(object? sender, EventArgs e)
     {
         Time.Ticks += 1;
+
+        // This updates if the player can afford the buildings
+        foreach (var b in Buildings)
+            b.Update(Resources);
 
         if (Time.Ticks > Time.ticksPerDay)
         {

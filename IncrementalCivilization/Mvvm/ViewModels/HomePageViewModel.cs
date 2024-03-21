@@ -7,13 +7,17 @@ namespace IncrementalCivilization.Mvvm.ViewModels;
 
 public partial class HomePageViewModel(IGame game) : PageViewModelBase("Home", SymbolRegular.Home24), IHomePageViewModel
 {
-    private readonly IGame game = game;
+    public IGame Game { get => game; }
 
     public ObservableCollection<Resource>? Resources { get; set; }
+
+    public ObservableCollection<Building>? Buildings { get; set; }
 
     public override void Initialize()
     {
         Resources = new ObservableCollection<Resource>(game.Resources.GetAll());
+        Buildings = new ObservableCollection<Building>(game.Buildings.GetAll());
+
         base.Initialize();
     }
 
