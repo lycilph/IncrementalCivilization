@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IncrementalCivilization.Mvvm.Services;
 using System.Windows.Threading;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
@@ -10,6 +11,7 @@ public partial class Game : ObservableObject, IGame
 {
     private readonly DispatcherTimer timer;
     private readonly ISnackbarService snackbarService;
+    private readonly ILogService logService;
 
     public Time Time { get; private set; } = new Time();
     public ResourceBundle Resources { get; private set; } = ResourceBundle.AllResources();
@@ -21,10 +23,11 @@ public partial class Game : ObservableObject, IGame
         set => SetProperty(timer.IsEnabled, value, timer, (t, v) => t.IsEnabled = v);
     }
 
-    public Game(ISnackbarService snackbarService)
+    public Game(ISnackbarService snackbarService, ILogService logService)
     {
         this.snackbarService = snackbarService;
-        
+        this.logService = logService;
+
         timer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(1000 / Time.ticksPerSecond)
@@ -61,5 +64,6 @@ public partial class Game : ObservableObject, IGame
     public void Initialize()
     {
         IsRunning = true;
+        logService.Add("Welcome to the game");
     }
 }

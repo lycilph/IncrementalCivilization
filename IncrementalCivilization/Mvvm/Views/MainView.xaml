@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:vm="clr-namespace:IncrementalCivilization.Mvvm.ViewModels"
              xmlns:view="clr-namespace:IncrementalCivilization.Mvvm.Views"
              xmlns:control="clr-namespace:IncrementalCivilization.Mvvm.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             d:DataContext="{x:Type view:MainView}">
+             d:DataContext="{x:Type vm:MainViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -123,7 +124,7 @@
             <control:LogViewer DockPanel.Dock="Bottom"
                                Height="100"
                                Margin="10"
-                               ItemsSource="{Binding Log}"/>
+                               ItemsSource="{Binding LogService.Log}"/>
             <Separator DockPanel.Dock="Bottom"
                        Margin="10 0"/>
             

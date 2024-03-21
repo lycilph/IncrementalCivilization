@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Domain;
 using IncrementalCivilization.Mvvm.Services;
 using System.Collections.ObjectModel;
-using System.Windows.Threading;
 
 namespace IncrementalCivilization.Mvvm.ViewModels;
 
@@ -19,25 +18,20 @@ public partial class MainViewModel : ObservableObject, IMainViewModel
     [ObservableProperty]
     private IGame _game;
 
-    public ObservableCollection<string> Log { get; private set; } = [];
+    [ObservableProperty]
+    private ILogService _logService;
 
-    public MainViewModel(INavigationService navigationService, IGame game, IEnumerable<IPageViewModel> pages)
+    public MainViewModel(INavigationService navigationService, ILogService logService, IGame game, IEnumerable<IPageViewModel> pages)
     {
         _navigationService = navigationService;
-        _game = game;
+
+        Game = game;
+        LogService = logService;
 
         foreach (var pageViewModel in pages)
             Pages.Add(pageViewModel);
 
         ShowPage(Pages.First());
-
-        var i = 0;
-        var timer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(500)
-        };
-        timer.Tick += (s,e) => { Log.Add($"Test {i++}"); };
-        timer.Start();
     }
 
     [RelayCommand]

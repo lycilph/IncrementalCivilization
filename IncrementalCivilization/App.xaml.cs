@@ -1,4 +1,5 @@
 ﻿using IncrementalCivilization.Domain;
+using IncrementalCivilization.Mvvm.Services;
 using IncrementalCivilization.Mvvm.ViewModels;
 using IncrementalCivilization.Mvvm.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +42,7 @@ public partial class App : Application
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
         // Services
+        services.AddSingleton<ILogService, LogService>();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<ISnackbarService, SnackbarService>();
 
