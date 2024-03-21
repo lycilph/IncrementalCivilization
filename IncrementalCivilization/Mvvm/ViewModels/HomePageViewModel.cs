@@ -24,6 +24,6 @@ public partial class HomePageViewModel(IGame game) : PageViewModelBase("Home", S
     [RelayCommand]
     private void CollectFood()
     {
-        game.Resources[ResourceType.Food].Add(1);
+        game.Resources[ResourceType.Food].Amount += 1;
     }
 }

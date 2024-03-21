@@ -31,17 +31,25 @@ public partial class Building : ObservableObject
 
     public void Update(ResourceBundle resources)
     {
-        CanAfford = resources > Cost;
+        foreach (var resource in Cost)
+            resource.Amount = resources[resource.Type].Amount;
+
+        CanAfford = Cost.Resources.Values.All(r => r.OverThreshold);
     }
 
     [RelayCommand(CanExecute = nameof(CanAfford))]
     private void Buy(ResourceBundle resources)
     {
-        if (resources > Cost) 
+        Update(resources);
+        if (CanAfford)
         {
             Amount += 1;
-            resources -= Cost;
-            Cost *= CostIncrease;
+
+            foreach (var key in Cost.Keys.Intersect(resources.Keys))
+                resources[key].Amount -= Cost[key].Threshold;
+
+            foreach (var r in Cost.Resources.Values)
+                r.Threshold *= CostIncrease;
         }
     }
 }
@@ -73,9 +81,9 @@ public class BuildingsBundle : IEnumerable<Building>
     {
         return
         [
-            new Building(BuildingType.Field, ResourceBundle.SingleResourceBundle(ResourceType.Food, 10)),
-            new Building(BuildingType.Mine, ResourceBundle.SingleResourceBundle(ResourceType.Wood, 10)
-                                                          .Add(ResourceType.Mineral, 5))
+            new Building(BuildingType.Field, ResourceBundle.SingleResourceBundle(ResourceType.Food, 0, 10)),
+            new Building(BuildingType.Mine, ResourceBundle.SingleResourceBundle(ResourceType.Wood, 0, 10)
+                                                          .Add(ResourceType.Mineral, 0, 5))
         ];
     }
 }

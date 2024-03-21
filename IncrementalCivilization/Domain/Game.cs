@@ -52,7 +52,7 @@ public partial class Game : ObservableObject, IGame
             if (!wood.Active && food.Amount >= 5)
             {
                 wood.Active = true;
-                wood.Amount += 1;
+                wood.Amount += 100;
                 snackbarService.Show("Wood", "While searching for food you found some wood", ControlAppearance.Light);
             }
         }

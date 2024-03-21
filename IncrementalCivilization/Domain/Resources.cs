@@ -14,26 +14,38 @@ public partial class Resource : ObservableObject
     private double _amount = 0;
 
     [ObservableProperty]
+    private double _threshold = 0; // This can be used as both a maximum (for storage) or as a price (in buildings etc.)
+
+    [ObservableProperty]
+    private bool _overThreshold = false;
+
+    [ObservableProperty]
     private bool _active = false;
 
-    public Resource(ResourceType type, double amount = 0)
+    public Resource(ResourceType type, double amount, double threshold)
     {
         Type = type;
         Name = type.ToString() ?? string.Empty;
         Amount = amount;
+        Threshold = threshold;
     }
 
-    public void Add(double val) 
+    public Resource(ResourceType type, double amount = 0) : this(type, amount, 0) { }
+
+    partial void OnAmountChanged(double value)
     {
-        Amount += val;
-        if (Amount > 0)
+        if (!Active && Amount > 0)
             Active = true;
+
+        OverThreshold = Amount >= Threshold;
     }
 }
 
 public class ResourceBundle : IEnumerable<Resource>
 {
     public Dictionary<ResourceType, Resource> Resources { get; private set; } = [];
+
+    public Dictionary<ResourceType, Resource>.KeyCollection Keys { get => Resources.Keys; }
 
     public ResourceBundle Add(Resource resource)
     {
@@ -44,6 +56,12 @@ public class ResourceBundle : IEnumerable<Resource>
     public ResourceBundle Add(ResourceType type, double amount = 0)
     {
         Resources.Add(type, new Resource(type, amount));
+        return this;
+    }
+
+    public ResourceBundle Add(ResourceType type, double amount, double threshold)
+    {
+        Resources.Add(type, new Resource(type, amount, threshold));
         return this;
     }
 
@@ -61,52 +79,6 @@ public class ResourceBundle : IEnumerable<Resource>
 
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<Resource>)this).GetEnumerator();
 
-    public static ResourceBundle operator -(ResourceBundle a, ResourceBundle b)
-    {
-        foreach (var key in b.Resources.Keys)
-        {
-            var a_item = a.Resources[key];
-            var b_item = b.Resources[key];
-
-            if (a_item != null)
-                a_item.Amount -= b_item.Amount;
-        }
-        return a;
-    }
-
-    public static ResourceBundle operator *(ResourceBundle a, double v)
-    {
-        foreach (var i in a.Resources)
-            i.Value.Amount *= v;
-        return a;
-    }
-
-    public static bool operator >(ResourceBundle a, ResourceBundle b)
-    {
-        foreach (var key in b.Resources.Keys)
-        {
-            var a_item = a.Resources[key];
-            var b_item = b.Resources[key];
-
-            if (a_item == null || a_item.Amount < b_item.Amount)
-                return false;
-        }
-        return true;
-    }
-
-    public static bool operator <(ResourceBundle a, ResourceBundle b)
-    {
-        foreach (var key in b.Resources.Keys)
-        {
-            var a_item = a.Resources[key];
-            var b_item = b.Resources[key];
-
-            if (a_item == null || a_item.Amount > b_item.Amount)
-                return false;
-        }
-        return true;
-    }
-
     public static ResourceBundle AllResources()
     {
         return
@@ -118,11 +90,11 @@ public class ResourceBundle : IEnumerable<Resource>
         ];
     }
 
-    public static ResourceBundle SingleResourceBundle(ResourceType type, double amount = 0)
+    public static ResourceBundle SingleResourceBundle(ResourceType type, double amount = 0, double threshold = 0)
     {
         return
         [
-            new Resource(type, amount)
+            new Resource(type, amount, threshold)
         ];
     }
 }
