@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections;
-using System.Resources;
 
 namespace IncrementalCivilization.Domain;
 
@@ -34,7 +33,7 @@ public partial class Building : ObservableObject
         foreach (var resource in Cost)
             resource.Amount = resources[resource.Type].Amount;
 
-        CanAfford = Cost.Resources.Values.All(r => r.OverThreshold);
+        CanAfford = Cost.GetAll().All(r => r.OverThreshold);
     }
 
     [RelayCommand(CanExecute = nameof(CanAfford))]
@@ -48,7 +47,7 @@ public partial class Building : ObservableObject
             foreach (var key in Cost.Keys.Intersect(resources.Keys))
                 resources[key].Amount -= Cost[key].Threshold;
 
-            foreach (var r in Cost.Resources.Values)
+            foreach (var r in Cost.GetAll())
                 r.Threshold *= CostIncrease;
         }
     }
@@ -56,19 +55,17 @@ public partial class Building : ObservableObject
 
 public class BuildingsBundle : IEnumerable<Building>
 {
-    public Dictionary<BuildingType, Building> Buildings { get; private set; } = [];
+    private readonly Dictionary<BuildingType, Building> buildings = [];
     
-    public void Add(Building building) => Buildings.Add(building.Type, building);
+    public void Add(Building building) => buildings.Add(building.Type, building);
 
-    public Building Get(BuildingType type) => Buildings[type];
+    public IEnumerable<Building> GetAll() => buildings.Values;
 
-    public IEnumerable<Building> GetAll() => Buildings.Values;
-
-    public Building this[BuildingType type] => Buildings[type];
+    public Building this[BuildingType type] => buildings[type];
 
     public IEnumerator<Building> GetEnumerator()
     {
-        foreach (var b in Buildings.Values)
+        foreach (var b in buildings.Values)
             yield return b;
     }
 
@@ -81,8 +78,8 @@ public class BuildingsBundle : IEnumerable<Building>
     {
         return
         [
-            new Building(BuildingType.Field, ResourceBundle.SingleResourceBundle(ResourceType.Food, 0, 10)),
-            new Building(BuildingType.Mine, ResourceBundle.SingleResourceBundle(ResourceType.Wood, 0, 10)
+            new Building(BuildingType.Field, ResourceBundle.Single(ResourceType.Food, 0, 10)),
+            new Building(BuildingType.Mine, ResourceBundle.Single(ResourceType.Wood, 0, 10)
                                                           .Add(ResourceType.Mineral, 0, 5))
         ];
     }

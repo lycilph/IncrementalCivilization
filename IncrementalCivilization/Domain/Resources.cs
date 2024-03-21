@@ -43,37 +43,35 @@ public partial class Resource : ObservableObject
 
 public class ResourceBundle : IEnumerable<Resource>
 {
-    public Dictionary<ResourceType, Resource> Resources { get; private set; } = [];
+    private readonly Dictionary<ResourceType, Resource> resources = [];
 
-    public Dictionary<ResourceType, Resource>.KeyCollection Keys { get => Resources.Keys; }
+    public Dictionary<ResourceType, Resource>.KeyCollection Keys { get => resources.Keys; }
 
     public ResourceBundle Add(Resource resource)
     {
-        Resources.Add(resource.Type, resource);
+        resources.Add(resource.Type, resource);
         return this;
     }
 
     public ResourceBundle Add(ResourceType type, double amount = 0)
     {
-        Resources.Add(type, new Resource(type, amount));
+        resources.Add(type, new Resource(type, amount));
         return this;
     }
 
     public ResourceBundle Add(ResourceType type, double amount, double threshold)
     {
-        Resources.Add(type, new Resource(type, amount, threshold));
+        resources.Add(type, new Resource(type, amount, threshold));
         return this;
     }
 
-    public Resource Get(ResourceType type) => Resources[type];
+    public IEnumerable<Resource> GetAll() => resources.Values;
 
-    public IEnumerable<Resource> GetAll() => Resources.Values;
-
-    public Resource this[ResourceType type] => Resources[type];
+    public Resource this[ResourceType type] => resources[type];
 
     public IEnumerator<Resource> GetEnumerator()
     {
-        foreach (var r in Resources.Values)
+        foreach (var r in resources.Values)
             yield return r;
     }
 
@@ -90,7 +88,7 @@ public class ResourceBundle : IEnumerable<Resource>
         ];
     }
 
-    public static ResourceBundle SingleResourceBundle(ResourceType type, double amount = 0, double threshold = 0)
+    public static ResourceBundle Single(ResourceType type, double amount = 0, double threshold = 0)
     {
         return
         [
