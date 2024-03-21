@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:view="clr-namespace:IncrementalCivilization.Mvvm.Views"
+             xmlns:control="clr-namespace:IncrementalCivilization.Mvvm.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             d:DataContext="{x:Type view:MainView}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -17,6 +19,7 @@
         <Border Grid.Column="0"
                 Style="{StaticResource MenuBorderStyle}">
             <DockPanel LastChildFill="False">
+                
                 <!-- Application Icon -->
                 <Border DockPanel.Dock="Top"
                         Style="{StaticResource MenuIconBorderStyle}">
@@ -75,6 +78,7 @@
                                Text="{Binding CurrentPage.Title}" 
                                Style="{StaticResource HeaderTextStyle}"/>
 
+                    <!-- Start/stop game time button -->
                     <ToggleButton DockPanel.Dock="Right"
                                   Background="{StaticResource ApplicationAccent5Brush}"
                                   BorderBrush="{StaticResource ApplicationAccent5Brush}"
@@ -114,7 +118,15 @@
                     <TextBlock Text="{Binding Game.Time.Day, StringFormat=Day: {0}}"/>
                 </StatusBarItem>
             </StatusBar>
-
+            
+            <!-- Log -->
+            <control:LogViewer DockPanel.Dock="Bottom"
+                               Height="100"
+                               Margin="10"
+                               ItemsSource="{Binding Log}"/>
+            <Separator DockPanel.Dock="Bottom"
+                       Margin="10 0"/>
+            
             <!-- Main page content -->
             <ContentControl Content="{Binding CurrentPage}"
                             Margin="10 10 10 10"/>
