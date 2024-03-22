@@ -3,19 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
-             xmlns:view="clr-namespace:IncrementalCivilization.Mvvm.Views"
-             xmlns:vm="clr-namespace:IncrementalCivilization.Mvvm.ViewModels"
-             xmlns:converter="clr-namespace:IncrementalCivilization.Mvvm.Converters"
+             xmlns:control="clr-namespace:IncrementalCivilization.Mvvm.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{x:Type vm:HomePageViewModel}">
-    <UserControl.Resources>
-        <converter:BoolToVisibilityConverter x:Key="visibility_converter"/>
-        <converter:BoolToColorConverter x:Key="color_converter"
-                                        FalseColor="Red"
-                                        TrueColor="{StaticResource TextFillColorPrimaryBrush}"/>
-    </UserControl.Resources>
+             d:DesignHeight="450" d:DesignWidth="800">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,23 +13,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
-            <Label Content="Resources"/>
-            <ItemsControl ItemsSource="{Binding Resources}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="domain:Resource">
-                        <StackPanel Orientation="Horizontal" 
-                                    Visibility="{Binding Active, Converter={StaticResource visibility_converter}}">
-                            <TextBlock Text="{Binding Name, Mode=OneTime}" Width="75"/>
-                            <TextBlock Text="{Binding Amount, StringFormat={}{0:N1}}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+        <control:ResourcesViewer Grid.Column="0"
+                                 ItemsSource="{Binding Resources}"/>
 
         <StackPanel Grid.Column="1"
                     Margin="20 0">
+            
             <Border BorderBrush="{StaticResource ApplicationAccent5Brush}"
                     BorderThickness="1"
                     CornerRadius="10"
@@ -52,44 +31,9 @@
                     <TextBlock Text="Your civilization has just started!"/>
                 </DockPanel>
             </Border>
-            
-            <ItemsControl ItemsSource="{Binding Buildings}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="domain:Building">
-                        <Button Command="{Binding BuyCommand}"
-                                CommandParameter="{Binding Path=DataContext.Game.Resources,
-                                                           RelativeSource={RelativeSource FindAncestor,
-                                                                                          AncestorType={x:Type view:HomePageView}}}"
-                                Visibility="{Binding Active, Converter={StaticResource visibility_converter}}"
-                                Width="150"
-                                Margin="0 10"
-                                ToolTipService.InitialShowDelay="100"
-                                ToolTipService.ShowOnDisabled="True">
-                            <Button.Content>
-                                <TextBlock>
-                                    <Run Text="{Binding Name, Mode=OneTime}"/>
-                                    <Run Text="{Binding Amount, StringFormat=({0})}"/>
-                                </TextBlock>
-                            </Button.Content>
-                            <Button.ToolTip>
-                                <ItemsControl ItemsSource="{Binding Cost}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="domain:Resource">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Name}" Width="100"/>
-                                                <TextBlock Foreground="{Binding OverThreshold, Converter={StaticResource color_converter}}">
-                                                    <Run Text="{Binding Amount, StringFormat={}{0:N1}}"/>
-                                                    <Run Text="{Binding Threshold, StringFormat=/{0:N1}}"/>
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </Button.ToolTip>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+
+            <control:BuildingsViewer BuildingsSource="{Binding Buildings}"
+                                     ResourcesSource="{Binding Game.Resources}"/>
         </StackPanel>
     </Grid>
 </UserControl>
