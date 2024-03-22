@@ -1,5 +1,4 @@
 ﻿using IncrementalCivilization.Domain;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,13 +6,13 @@ namespace IncrementalCivilization.Mvvm.Controls;
 
 public partial class BuildingsViewer : UserControl
 {
-    public ObservableCollection<Building> BuildingsSource
+    public IEnumerable<Building> BuildingsSource
     {
-        get { return (ObservableCollection<Building>)GetValue(BuildingsSourceProperty); }
+        get { return (IEnumerable<Building>)GetValue(BuildingsSourceProperty); }
         set { SetValue(BuildingsSourceProperty, value); }
     }
     public static readonly DependencyProperty BuildingsSourceProperty =
-        DependencyProperty.Register("BuildingsSource", typeof(ObservableCollection<Building>), typeof(BuildingsViewer), new PropertyMetadata(null));
+        DependencyProperty.Register("BuildingsSource", typeof(IEnumerable<Building>), typeof(BuildingsViewer), new PropertyMetadata(null));
 
     public ResourceBundle ResourcesSource
     {

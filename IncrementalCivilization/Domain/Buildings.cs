@@ -36,7 +36,7 @@ public partial class Building : ObservableObject
         foreach (var resource in Cost)
             resource.Amount = resources[resource.Type].Amount;
 
-        CanAfford = Cost.GetAll().All(r => r.OverThreshold);
+        CanAfford = Cost.All(r => r.OverThreshold);
     }
 
     [RelayCommand(CanExecute = nameof(CanAfford))]
@@ -50,7 +50,7 @@ public partial class Building : ObservableObject
             foreach (var key in Cost.Keys.Intersect(resources.Keys))
                 resources[key].Amount -= Cost[key].Threshold;
 
-            foreach (var r in Cost.GetAll())
+            foreach (var r in Cost)
                 r.Threshold *= CostIncrease;
         }
     }
@@ -62,8 +62,6 @@ public class BuildingsBundle : IEnumerable<Building>
     
     public void Add(Building building) => buildings.Add(building.Type, building);
 
-    public IEnumerable<Building> GetAll() => buildings.Values;
-
     public Building this[BuildingType type] => buildings[type];
 
     public IEnumerator<Building> GetEnumerator()
@@ -72,10 +70,7 @@ public class BuildingsBundle : IEnumerable<Building>
             yield return b;
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<Building>)this).GetEnumerator();
 
     public static BuildingsBundle AllBuildings()
     {

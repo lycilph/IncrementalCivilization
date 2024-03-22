@@ -65,8 +65,6 @@ public class ResourceBundle : IEnumerable<Resource>
         return this;
     }
 
-    public IEnumerable<Resource> GetAll() => resources.Values;
-
     public Resource this[ResourceType type] => resources[type];
 
     public IEnumerator<Resource> GetEnumerator()
