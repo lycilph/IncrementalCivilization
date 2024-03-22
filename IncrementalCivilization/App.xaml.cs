@@ -65,4 +65,12 @@ public partial class App : Application
         var game = Services.GetRequiredService<IGame>();
         game.Initialize();
     }
+
+    private void Application_Exit(object sender, ExitEventArgs e)
+    {
+        Trace.WriteLine("Application - stopping");
+
+        var game = Services.GetRequiredService<IGame>();
+        game.Cleanup();
+    }
 }

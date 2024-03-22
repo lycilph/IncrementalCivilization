@@ -18,6 +18,9 @@ public partial class Building : ObservableObject
     private int amount = 0;
 
     [ObservableProperty]
+    private bool _active = false;
+
+    [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(BuyCommand))]
     private bool canAfford = false;
 

@@ -25,5 +25,6 @@ public partial class HomePageViewModel(IGame game) : PageViewModelBase("Home", S
     private void CollectFood()
     {
         game.Resources[ResourceType.Food].Amount += 1;
+        game.Statistics.CollectWoodClicks++;
     }
 }

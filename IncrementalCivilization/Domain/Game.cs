@@ -2,7 +2,6 @@
 using IncrementalCivilization.Mvvm.Services;
 using System.Windows.Threading;
 using Wpf.Ui;
-using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 
 namespace IncrementalCivilization.Domain;
@@ -14,6 +13,7 @@ public partial class Game : ObservableObject, IGame
     private readonly ILogService logService;
 
     public Time Time { get; private set; } = new Time();
+    public Statistics Statistics { get; private set; } = new Statistics();
     public ResourceBundle Resources { get; private set; } = ResourceBundle.AllResources();
     public BuildingsBundle Buildings { get; private set; } = BuildingsBundle.AllBuildings();
 
@@ -37,27 +37,37 @@ public partial class Game : ObservableObject, IGame
 
     private void TimerTick(object? sender, EventArgs e)
     {
-        Time.Ticks += 1;
+        Time.Update();
 
+        UpdateResources();
+        UpdateBuildings();
+        UpdateProgress();
+    }
+
+    private void UpdateResources()
+    {
+        Resources[ResourceType.Food].Amount += Buildings[BuildingType.Field].Amount * 0.1;
+    }
+
+    private void UpdateBuildings()
+    {
         // This updates if the player can afford the buildings
         foreach (var b in Buildings)
             b.Update(Resources);
+    }
 
-        if (Time.Ticks > Time.ticksPerDay)
+    private void UpdateProgress()
+    {
+        if (!Buildings[BuildingType.Field].Active && Resources[ResourceType.Food].Amount >= 5)
         {
-            Time.Day += 1;
-            Time.Ticks -= Time.ticksPerDay;
+            Buildings[BuildingType.Field].Active = true;
+            snackbarService.Show("Progress", "With enough food, you have time to invent the field");
+        }
 
-            // Trigger progress
-            var food = Resources[ResourceType.Food];
-            var wood = Resources[ResourceType.Wood];
-
-            if (!wood.Active && food.Amount >= 5)
-            {
-                wood.Active = true;
-                wood.Amount += 100;
-                snackbarService.Show("Wood", "While searching for food you found some wood", ControlAppearance.Light);
-            }
+        if (!Resources[ResourceType.Wood].Active && Statistics.CollectWoodClicks >= 10)
+        {
+            Resources[ResourceType.Wood].Amount += 10;
+            snackbarService.Show("Progress", "While foraging for food you notice some wood");
         }
     }
 
@@ -65,5 +75,11 @@ public partial class Game : ObservableObject, IGame
     {
         IsRunning = true;
         logService.Add("Welcome to the game");
+        logService.Add("Try to collect some food");
+    }
+
+    public void Cleanup()
+    {
+        IsRunning = false;
     }
 }
