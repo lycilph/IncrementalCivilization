@@ -33,7 +33,7 @@
             </Border>
 
             <control:BuildingsViewer BuildingsSource="{Binding Buildings}"
-                                     ResourcesSource="{Binding Game.Resources}"/>
+                                     ResourcesSource="{Binding Resources}"/>
         </StackPanel>
     </Grid>
 </UserControl>

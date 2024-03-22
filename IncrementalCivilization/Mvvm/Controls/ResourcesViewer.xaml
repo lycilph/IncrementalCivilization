@@ -9,12 +9,13 @@
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="Root">
     <UserControl.Resources>
-        <conv:BoolToVisibilityConverter x:Key="visibility_converter"/>
+        <conv:BoolToVisibilityConverter x:Key="visibility_converter"
+                                        FalseValue="Collapsed"/>
     </UserControl.Resources>
-    
+
     <StackPanel>
         <Label Content="Resources"/>
-        
+
         <ItemsControl ItemsSource="{Binding ElementName=Root, Path=ItemsSource}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type domain:Resource}">
@@ -22,6 +23,8 @@
                             Visibility="{Binding Active, Converter={StaticResource visibility_converter}}">
                         <TextBlock Text="{Binding Name, Mode=OneTime}" Width="75"/>
                         <TextBlock Text="{Binding Amount, StringFormat={}{0:N1}}"/>
+                        <TextBlock Text="{Binding Threshold, StringFormat={} / {0:N1}}"/>
+                        <TextBlock Text="{Binding Rate, StringFormat={} {0:N1}}"/>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -4,15 +4,15 @@ using System.Collections;
 
 namespace IncrementalCivilization.Domain;
 
-public enum BuildingType { Field, Mine };
+public enum BuildingType { Field, Hut, Mine };
 
 public partial class Building : ObservableObject
 {
     public BuildingType Type { get; private set; }
     public string Name { get; private set; } = string.Empty;
- 
     public ResourceBundle Cost { get; set; } = [];
-    public double CostIncrease { get; set; } = 1.12;
+    public double CostIncrease { get; set; } = 1.15;
+    public Action BuyAction { get; set; } = () => { };
 
     [ObservableProperty]
     private int amount = 0;
@@ -24,11 +24,12 @@ public partial class Building : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(BuyCommand))]
     private bool canAfford = false;
 
-    public Building(BuildingType type, ResourceBundle cost)
+    public Building(BuildingType type, ResourceBundle cost, double increase = 1.15)
     {
         Type = type;
         Name = type.ToString() ?? string.Empty;
         Cost = cost;
+        CostIncrease = increase;
     }
 
     public void Update(ResourceBundle resources)
@@ -52,15 +53,27 @@ public partial class Building : ObservableObject
 
             foreach (var r in Cost)
                 r.Threshold *= CostIncrease;
+
+            BuyAction();
         }
+    }
+
+    public Building AddBuyAction(Action buyAction)
+    {
+        BuyAction = buyAction;
+        return this;
     }
 }
 
 public class BuildingsBundle : IEnumerable<Building>
 {
     private readonly Dictionary<BuildingType, Building> buildings = [];
-    
-    public void Add(Building building) => buildings.Add(building.Type, building);
+
+    public BuildingsBundle Add(Building building)
+    {
+        buildings.Add(building.Type, building);
+        return this;
+    }
 
     public Building this[BuildingType type] => buildings[type];
 
@@ -71,14 +84,4 @@ public class BuildingsBundle : IEnumerable<Building>
     }
 
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<Building>)this).GetEnumerator();
-
-    public static BuildingsBundle AllBuildings()
-    {
-        return
-        [
-            new Building(BuildingType.Field, ResourceBundle.Single(ResourceType.Food, 0, 10)),
-            new Building(BuildingType.Mine, ResourceBundle.Single(ResourceType.Wood, 0, 10)
-                                                          .Add(ResourceType.Mineral, 0, 5))
-        ];
-    }
 }

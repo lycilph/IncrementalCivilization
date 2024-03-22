@@ -6,6 +6,10 @@ public partial class Time : ObservableObject
 {
     public const int ticksPerSecond = 20;
     public const int ticksPerDay = 40;
+    public const int ticksPerPopulationIncrease = ticksPerSecond * 4;
+
+    [ObservableProperty]
+    public int _populationTicks = 0;
 
     [ObservableProperty]
     private int _ticks = 0;

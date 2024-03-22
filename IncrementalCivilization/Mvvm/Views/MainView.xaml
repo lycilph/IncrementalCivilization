@@ -114,6 +114,9 @@
                 <StatusBarItem Width="100">
                     <TextBlock Text="{Binding Game.Time.Ticks, StringFormat=Ticks: {0}}"/>
                 </StatusBarItem>
+                <StatusBarItem Width="150">
+                    <TextBlock Text="{Binding Game.Time.PopulationTicks, StringFormat=Population Ticks: {0}}"/>
+                </StatusBarItem>
                 <Separator/>
                 <StatusBarItem Width="100">
                     <TextBlock Text="{Binding Game.Time.Day, StringFormat=Day: {0}}"/>

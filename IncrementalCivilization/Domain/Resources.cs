@@ -1,20 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections;
+using IncrementalCivilization.Utils;
 
 namespace IncrementalCivilization.Domain;
 
-public enum ResourceType { Food, Wood, Mineral, Iron };
+public enum ResourceType { People, Food, Wood, Mineral, Iron };
 
 public partial class Resource : ObservableObject
 {
     public ResourceType Type { get; private set; }
     public string Name { get; private set; } = string.Empty;
+    public bool ShowRate { get; set; } = true;
 
     [ObservableProperty]
     private double _amount = 0;
 
     [ObservableProperty]
     private double _threshold = 0; // This can be used as both a maximum (for storage) or as a price (in buildings etc.)
+
+    [ObservableProperty]
+    private double _rate = 0;
 
     [ObservableProperty]
     private bool _overThreshold = false;
@@ -38,6 +43,23 @@ public partial class Resource : ObservableObject
             Active = true;
 
         OverThreshold = Amount >= Threshold;
+    }
+
+    partial void OnAmountChanging(double oldValue, double newValue)
+    {
+        Rate = newValue - oldValue;
+    }
+
+    public void AddAndCap(double v)
+    {
+        Amount += v;
+        Amount = Amount.Clamp(0, Threshold);
+    }
+
+    public void Zero()
+    {
+        Amount = 0;
+        Rate = 0;
     }
 }
 
@@ -77,13 +99,10 @@ public class ResourceBundle : IEnumerable<Resource>
 
     public static ResourceBundle AllResources()
     {
-        return
-        [
-            new Resource(ResourceType.Food),
-            new Resource(ResourceType.Wood),
-            new Resource(ResourceType.Mineral),
-            new Resource(ResourceType.Iron)
-        ];
+        var bundle = new ResourceBundle();
+        foreach (var r in Enum.GetValues(typeof(ResourceType)).Cast<ResourceType>())
+            bundle.Add(new Resource(r));
+        return bundle;
     }
 
     public static ResourceBundle Single(ResourceType type, double amount = 0, double threshold = 0)
