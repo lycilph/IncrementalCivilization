@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:control="clr-namespace:IncrementalCivilization.Mvvm.Controls"
+             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -16,10 +18,16 @@
         <control:ResourcesViewer Grid.Column="0"
                                  ItemsSource="{Binding Resources}"/>
 
-        <StackPanel Grid.Column="1"
-                    Margin="20 0">
-            
-            <Border BorderBrush="{StaticResource ApplicationAccent5Brush}"
+        <Grid Grid.Column="1"
+              Margin="20 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    BorderBrush="{StaticResource ApplicationAccent5Brush}"
                     BorderThickness="1"
                     CornerRadius="10"
                     Padding="20">
@@ -32,8 +40,38 @@
                 </DockPanel>
             </Border>
 
-            <control:BuildingsViewer BuildingsSource="{Binding Buildings}"
-                                     ResourcesSource="{Binding Resources}"/>
-        </StackPanel>
+            <control:BuildingsViewer Grid.Row="1"
+                                     BuildingsSource="{Binding Buildings}"
+                                     ResourcesSource="{Binding Resources}"
+                                     Background="AliceBlue"/>
+
+            <ItemsControl Grid.Row="2"
+                          ItemsSource="{Binding Jobs}"
+                          Background="LightGreen">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type domain:Job}">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 5">
+                            <TextBlock Text="{Binding Name}"
+                                       Width="150"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="0"
+                                       Width="50"
+                                       VerticalAlignment="Center"/>
+                            <ui:Button Icon="{ui:SymbolIcon ChevronUp24}"
+                                       Height="20"
+                                       Width="20"
+                                       Padding="0"
+                                       Appearance="Secondary"/>
+                            <ui:Button Icon="{ui:SymbolIcon ChevronDown24}"
+                                       Height="20"
+                                       Width="20"
+                                       Padding="0"
+                                       Appearance="Secondary"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

@@ -61,8 +61,9 @@ public partial class Game : ObservableObject, IGame
             Resources[ResourceType.Food].Zero();
             Resources[ResourceType.People].Amount -= dead;
 
-            logService.Add($"People started and {dead} died");
+            logService.Add($"People starved and {dead} died");
         }
+        Resources[ResourceType.Food].Limit();
 
         // Update people
         if (Resources[ResourceType.People].Amount < Resources[ResourceType.People].Threshold)

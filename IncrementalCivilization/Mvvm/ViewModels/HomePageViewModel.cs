@@ -8,11 +8,12 @@ public partial class HomePageViewModel(IGame game) : PageViewModelBase("Home", S
 {
     public ResourceBundle Resources { get => game.Resources; }
     public BuildingsBundle Buildings { get => game.Buildings; }
+    public JobsBundle Jobs { get => game.Jobs; }
 
     [RelayCommand]
     private void CollectFood()
     {
-        game.Resources[ResourceType.Food].AddAndCap(1);
+        game.Resources[ResourceType.Food].AddAndLimit(1);
         game.Statistics.CollectFoodClicks++;
     }
 }

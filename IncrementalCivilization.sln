@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncrementalCivilization", "IncrementalCivilization\IncrementalCivilization.csproj", "{7BAE2FC4-F200-4D12-975E-ECF50F80B17E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IncrementalCivilization", "IncrementalCivilization\IncrementalCivilization.csproj", "{7BAE2FC4-F200-4D12-975E-ECF50F80B17E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{B62EB796-3C4D-42B3-AC31-E144C061F841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7BAE2FC4-F200-4D12-975E-ECF50F80B17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BAE2FC4-F200-4D12-975E-ECF50F80B17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BAE2FC4-F200-4D12-975E-ECF50F80B17E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B62EB796-3C4D-42B3-AC31-E144C061F841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B62EB796-3C4D-42B3-AC31-E144C061F841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B62EB796-3C4D-42B3-AC31-E144C061F841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B62EB796-3C4D-42B3-AC31-E144C061F841}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

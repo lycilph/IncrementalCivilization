@@ -50,7 +50,7 @@ public partial class Resource : ObservableObject
         Rate = newValue - oldValue;
     }
 
-    public void AddAndCap(double v)
+    public void AddAndLimit(double v)
     {
         Amount += v;
         Amount = Amount.Clamp(0, Threshold);
@@ -60,6 +60,11 @@ public partial class Resource : ObservableObject
     {
         Amount = 0;
         Rate = 0;
+    }
+
+    public void Limit()
+    {
+        Amount = Amount.Clamp(0, Threshold);
     }
 }
 

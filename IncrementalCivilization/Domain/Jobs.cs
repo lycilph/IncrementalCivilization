@@ -7,7 +7,7 @@ public enum JobType { Farmer, WoodCutter, Miner };
 
 public partial class Job : ObservableObject
 {
-    public ResourceType Type { get; private set; }
+    public JobType Type { get; private set; }
     public string Name { get; private set; } = string.Empty;
 
     [ObservableProperty]

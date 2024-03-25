@@ -6,6 +6,7 @@ public interface IGame
     Statistics Statistics { get; }
     ResourceBundle Resources { get; }
     BuildingsBundle Buildings { get; }
+    JobsBundle Jobs { get; }
 
     void Initialize();
     void Cleanup();
