@@ -8,25 +8,24 @@ namespace Sandbox.ViewModels;
 public partial class BuildingItemViewModel : ObservableObject
 {
     public BuildingItem Item { get; private set; }
-    public ObservableCollection<CostItemViewModel> CostItems { get; private set; } = [];
+    public ObservableCollection<CostItemViewModel> CostItems { get; private set; }
 
-    public BuildingItemViewModel(BuildingItem item, ResourcesBundle resources)
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(BuyCommand))]
+    public bool canBuy = false;
+
+    public BuildingItemViewModel(BuildingItem item)
     {
         Item = item;
 
-        foreach (var cost_res in Item.Cost)
-            CostItems.Add(new CostItemViewModel(cost_res, resources[cost_res.Type]));
+        CostItems = new ObservableCollection<CostItemViewModel>(item.Cost.Select(c => new CostItemViewModel(c)));
+        foreach (var i in CostItems)
+            i.PropertyChanged += (s, e) => CanBuy = CostItems.All(i => i.CanAfford);
     }
 
-    //private void Update()
-    //{
-    //    foreach (var cost_res in Item.Cost)
-    //        cost_res.Value = Resources[cost_res.Type].Value;
-    //}
-
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanBuy))]
     private void Buy()
     {
-        Item.Count++;
+        Item.Buy();
     }
 }

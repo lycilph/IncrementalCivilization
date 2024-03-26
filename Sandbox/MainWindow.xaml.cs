@@ -54,10 +54,10 @@ public partial class MainWindow : Window
         timer.Tick += Timer_Tick;
 
         GameResources = ResourceExtensions.AllResources();
-        GameBuildings = BuildingsExtensions.AllBuildings();
+        GameBuildings = BuildingsExtensions.AllBuildings(GameResources);
         GameJobs = JobsExtensions.AllJobs();
 
-        BuildingsVM = new BuildingsBundleViewModel(GameBuildings, GameResources);
+        BuildingsVM = new BuildingsBundleViewModel(GameBuildings);
     }
 
     private void Timer_Tick(object? sender, EventArgs e)

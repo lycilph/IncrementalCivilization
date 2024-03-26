@@ -3,20 +3,24 @@ using Sandbox.Domain;
 
 namespace Sandbox.ViewModels;
 
-public class CostItemViewModel : ObservableObject
+public partial class CostItemViewModel : ObservableObject
 {
-    private ResourceItem cost;
-    private ResourceItem resource;
+    private CostItem costItem;
    
-    public string Name { get => cost.Name; }
-    public double Value { get => resource.Value; }
-    public double Threshold { get => cost.Threshold; }
+    public string Name { get => costItem.Name; }
+    public double Value { get => costItem.Value; }
+    public double Cost { get => costItem.Cost; }
 
-    public CostItemViewModel(ResourceItem cost, ResourceItem resource)
+    [ObservableProperty]
+    private bool canAfford = false;
+
+    public CostItemViewModel(CostItem costItem)
     {
-        this.cost = cost;
-        this.resource = resource;
-
-        resource.PropertyChanged += (s, e) => OnPropertyChanged(e.PropertyName);
+        this.costItem = costItem;
+        this.costItem.PropertyChanged += (s, e) => 
+        {
+            OnPropertyChanged(e.PropertyName);
+            CanAfford = Value >= Cost;
+        };
     }
 }

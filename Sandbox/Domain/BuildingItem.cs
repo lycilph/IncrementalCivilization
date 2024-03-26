@@ -10,7 +10,7 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
 {
     public BuildingItemType Type { get; private set; }
 
-    public ResourcesBundle Cost { get; set; }
+    public CostsBundle Cost { get; set; } = [];
 
     [ObservableProperty]
     private double costIncrease = 1;
@@ -28,4 +28,14 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
     }
 
     public BuildingItem(BuildingItemType type) : this(type, type.ToString()) { }
+
+    public void Buy()
+    {
+        Count++;
+        foreach (var item in Cost) 
+        { 
+            item.SubtractCostFromResources();
+            item.Cost *= CostIncrease;
+        }
+    }
 }

@@ -2,19 +2,15 @@
 
 public static class BuildingsExtensions
 {
-    public static BuildingsBundle AllBuildings()
+    public static BuildingsBundle AllBuildings(ResourcesBundle resources)
     {
         var bundle = new BuildingsBundle();
 
-        var food = new ResourceItem(ResourceItemType.Food)
-        {
-            Threshold = 10
-        };
         var field = new BuildingItem(BuildingItemType.Field)
         {
-            Cost = ResourceExtensions.SingleResource(food),
             CostIncrease = 1.12
         };
+        field.Cost.Add(new CostItem(resources.Food(), 10));
         bundle.Add(field);
 
         return bundle;
