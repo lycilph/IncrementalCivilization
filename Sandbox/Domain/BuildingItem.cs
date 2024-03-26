@@ -10,6 +10,11 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
 {
     public BuildingItemType Type { get; private set; }
 
+    public ResourcesBundle Cost { get; set; }
+
+    [ObservableProperty]
+    private double costIncrease = 1;
+
     [ObservableProperty]
     private string name = string.Empty;
 

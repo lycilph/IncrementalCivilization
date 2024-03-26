@@ -9,7 +9,7 @@ public class ResourcesBundle : ItemsBundle<ResourceItemType, ResourceItem> { }
 
 public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemType>
 {
-    private readonly CircularBuffer<double> rateBuffer = new CircularBuffer<double>(10);
+    private readonly CircularBuffer<double> rateBuffer = new(10);
 
     public ResourceItemType Type { get; private set; }
 

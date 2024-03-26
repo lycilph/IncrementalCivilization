@@ -21,6 +21,14 @@ public static class ResourceExtensions
         return bundle;
     }
 
+    public static ResourcesBundle SingleResource(ResourceItem item)
+    {
+        return
+        [
+            item
+        ];
+    }
+
     public static ResourceItem Food(this ResourcesBundle bundle)
     {
         return bundle[ResourceItemType.Food];

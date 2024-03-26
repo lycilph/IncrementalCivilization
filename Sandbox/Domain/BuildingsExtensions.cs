@@ -6,7 +6,15 @@ public static class BuildingsExtensions
     {
         var bundle = new BuildingsBundle();
 
-        var field = new BuildingItem(BuildingItemType.Field);
+        var food = new ResourceItem(ResourceItemType.Food)
+        {
+            Threshold = 10
+        };
+        var field = new BuildingItem(BuildingItemType.Field)
+        {
+            Cost = ResourceExtensions.SingleResource(food),
+            CostIncrease = 1.12
+        };
         bundle.Add(field);
 
         return bundle;

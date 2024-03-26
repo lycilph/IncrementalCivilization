@@ -8,6 +8,8 @@
     <ContentControl>
         <ContentControl.Template>
             <ControlTemplate>
+                <!-- This must be under a control template to give a common "namespace", that the trigger below can "see" -->
+                <!-- See this stackoverflow post: https://stackoverflow.com/questions/6967367/wpf-chainging-another-controls-property-in-some-controls-trigger -->
                 <Grid>
                     <Button x:Name="building_button" 
                             Command="{Binding BuyCommand}">
@@ -26,7 +28,7 @@
                                 BorderThickness="1"
                                 Padding="5"
                                 CornerRadius="5">
-                            <TextBlock Text="aldskjf"/>
+                            <ContentControl Content="{Binding Item.Cost}"/>
                         </Border>
                     </Popup>
                 </Grid>
