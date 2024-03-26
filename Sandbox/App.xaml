@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:Sandbox.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- Direct mappings from bundle to view -->
+        <!-- Direct mappings to view -->
         <DataTemplate DataType="{x:Type domain:ResourcesBundle}">
             <views:ResourceBundleView/>
         </DataTemplate>
@@ -19,7 +19,6 @@
             <views:JobsBundleView/>
         </DataTemplate>
 
-        <!-- Direct mappings from item to view -->
         <DataTemplate DataType="{x:Type domain:ResourceItem}">
             <views:ResourceItemView/>
         </DataTemplate>
@@ -32,14 +31,24 @@
             <views:JobItemView/>
         </DataTemplate>
 
-        <!-- Mappings from bundle view model to view -->
+        <!-- Mappings from view model to view -->
         <DataTemplate DataType="{x:Type vm:BuildingsBundleViewModel}">
             <views:BuildingsBundleView/>
         </DataTemplate>
 
-        <!-- Mappings from Item view model to view -->
         <DataTemplate DataType="{x:Type vm:BuildingItemViewModel}">
             <views:BuildingItemView/>
+        </DataTemplate>
+        
+        <!-- Named datatemplates -->
+        <DataTemplate x:Key="cost_bundle_view" 
+                      DataType="{x:Type domain:ResourcesBundle}">
+            <views:CostResourceBundleView/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="cost_item_view" 
+                      DataType="{x:Type domain:ResourceItem}">
+            <views:CostResourceItemView/>
         </DataTemplate>
     </Application.Resources>
 </Application>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Sandbox.Views.ResourceBundleView"
+﻿<UserControl x:Class="Sandbox.Views.CostResourceBundleView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <TextBlock Text="Resources"/>
-        <ItemsControl ItemsSource="{Binding}"/>
+        <TextBlock Text="Cost"/>
+        <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource cost_item_view}"/>
     </StackPanel>
 </UserControl>
