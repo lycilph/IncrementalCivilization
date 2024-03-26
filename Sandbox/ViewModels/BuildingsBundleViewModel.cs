@@ -8,8 +8,8 @@ public partial class BuildingsBundleViewModel : ObservableObject
 {
     public ObservableCollection<BuildingItemViewModel> Items { get; private set; }
 
-    public BuildingsBundleViewModel(IEnumerable<BuildingItem> items)
+    public BuildingsBundleViewModel(IEnumerable<BuildingItem> items, ResourcesBundle resources)
     {
-        Items = new ObservableCollection<BuildingItemViewModel>(items.Select(x => new BuildingItemViewModel(x)));
+        Items = new ObservableCollection<BuildingItemViewModel>(items.Select(x => new BuildingItemViewModel(x, resources)));
     }
 }

@@ -7,18 +7,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <!-- Direct mappings to view -->
-        <DataTemplate DataType="{x:Type domain:ResourcesBundle}">
-            <views:ResourceBundleView/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type domain:BuildingsBundle}">
-            <views:SimpleBuildingsBundleView/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type domain:JobsBundle}">
-            <views:JobsBundleView/>
-        </DataTemplate>
-
         <DataTemplate DataType="{x:Type domain:ResourceItem}">
             <views:ResourceItemView/>
         </DataTemplate>
@@ -32,23 +20,12 @@
         </DataTemplate>
 
         <!-- Mappings from view model to view -->
-        <DataTemplate DataType="{x:Type vm:BuildingsBundleViewModel}">
-            <views:BuildingsBundleView/>
-        </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:BuildingItemViewModel}">
             <views:BuildingItemView/>
         </DataTemplate>
         
-        <!-- Named datatemplates -->
-        <DataTemplate x:Key="cost_bundle_view" 
-                      DataType="{x:Type domain:ResourcesBundle}">
-            <views:CostResourceBundleView/>
-        </DataTemplate>
-
-        <DataTemplate x:Key="cost_item_view" 
-                      DataType="{x:Type domain:ResourceItem}">
-            <views:CostResourceItemView/>
+        <DataTemplate DataType="{x:Type vm:CostItemViewModel}">
+            <views:CostItemView/>
         </DataTemplate>
     </Application.Resources>
 </Application>

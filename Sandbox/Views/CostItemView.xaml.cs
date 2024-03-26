@@ -2,9 +2,9 @@
 
 namespace Sandbox.Views;
 
-public partial class SimpleBuildingsBundleView : UserControl
+public partial class CostItemView : UserControl
 {
-    public SimpleBuildingsBundleView()
+    public CostItemView()
     {
         InitializeComponent();
     }
