@@ -1,9 +1,45 @@
 ﻿<Application x:Class="Sandbox.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Sandbox"
+             xmlns:domain="clr-namespace:Sandbox.Domain"
+             xmlns:vm="clr-namespace:Sandbox.ViewModels"
+             xmlns:views="clr-namespace:Sandbox.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Direct mappings from bundle to view -->
+        <DataTemplate DataType="{x:Type domain:ResourcesBundle}">
+            <views:ResourceBundleView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type domain:BuildingsBundle}">
+            <views:SimpleBuildingsBundleView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type domain:JobsBundle}">
+            <views:JobsBundleView/>
+        </DataTemplate>
+
+        <!-- Direct mappings from item to view -->
+        <DataTemplate DataType="{x:Type domain:ResourceItem}">
+            <views:ResourceItemView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type domain:BuildingItem}">
+            <views:SimpleBuildingsItemView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type domain:JobItem}">
+            <views:JobItemView/>
+        </DataTemplate>
+
+        <!-- Mappings from bundle view model to view -->
+        <DataTemplate DataType="{x:Type vm:BuildingsBundleViewModel}">
+            <views:BuildingsBundleView/>
+        </DataTemplate>
+
+        <!-- Mappings from Item view model to view -->
+        <DataTemplate DataType="{x:Type vm:BuildingItemViewModel}">
+            <views:BuildingItemView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -3,10 +3,54 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sandbox"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Column="0"
+                        Margin="10"
+                        Content="{Binding GameResources}"/>
+
+        <Separator Grid.Column="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+        <ContentControl Grid.Column="2"
+                        Margin="10"
+                        Content="{Binding GameBuildings}"/>
+
+        <Separator Grid.Column="3" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+        <ContentControl Grid.Column="4"
+                        Margin="10"
+                        Content="{Binding GameJobs}"/>
+
+        <ContentControl Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="10"
+                        Content="{Binding BuildingsVM}"/>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    Margin="10">
+            <Button Content="Food" Margin="0 0 10 0" Click="AddFoodClick"/>
+            <Button Content="Wood" Margin="0 0 10 0" Click="AddWoodClick"/>
+            <Button Content="Limit" Margin="0 0 10 0" Click="LimitAllClick"/>
+            <Separator Margin="0 0 10 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <Button Content="Start" Margin="0 0 10 0" Click="StartClick"/>
+            <Button Content="Stop" Margin="0 0 10 0" Click="StopClick"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Sandbox.Views.BuildingItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ContentControl>
+        <ContentControl.Template>
+            <ControlTemplate>
+                <Grid>
+                    <Button x:Name="building_button" 
+                            Command="{Binding BuyCommand}">
+                        <TextBlock>
+                            <Run Text="{Binding Item.Name}"/>
+                            <Run Text="{Binding Item.Count, StringFormat=({0})}"/>
+                        </TextBlock>
+                    </Button>
+
+                    <Popup x:Name="building_popup"
+                           AllowsTransparency="True"
+                           PlacementTarget="{Binding ElementName=building_button}"
+                           Placement="Left"
+                           HorizontalOffset="20">
+                        <Border BorderBrush="Black"
+                                BorderThickness="1"
+                                Padding="5"
+                                CornerRadius="5">
+                            <TextBlock Text="aldskjf"/>
+                        </Border>
+                    </Popup>
+                </Grid>
+
+                <ControlTemplate.Triggers>
+                    <Trigger SourceName="building_button" Property="IsMouseOver" Value="true">
+                        <Setter TargetName="building_popup" Property="IsOpen" Value="true"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </ContentControl.Template>
+    </ContentControl>
+</UserControl>
