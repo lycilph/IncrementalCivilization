@@ -10,8 +10,10 @@
             <ControlTemplate>
                 <!-- This must be under a control template to give a common "namespace", that the trigger below can "see" -->
                 <!-- See this stackoverflow post: https://stackoverflow.com/questions/6967367/wpf-chainging-another-controls-property-in-some-controls-trigger -->
-                <Grid x:Name="control_grid">
-                    <Button Command="{Binding BuyCommand}">
+                <Grid x:Name="control_grid"
+                      Margin="0 5">
+                    <Button x:Name="building_button"
+                            Command="{Binding BuyCommand}">
                         <TextBlock>
                             <Run Text="{Binding Item.Name}"/>
                             <Run Text="{Binding Item.Count, StringFormat=({0})}"/>

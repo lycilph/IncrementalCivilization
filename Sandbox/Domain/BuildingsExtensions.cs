@@ -13,11 +13,24 @@ public static class BuildingsExtensions
         field.Cost.Add(new CostItem(resources.Food(), 10));
         bundle.Add(field);
 
+        var hut = new BuildingItem(BuildingItemType.Hut)
+        {
+            CostIncrease = 1.15
+        };
+        hut.Cost.Add(new CostItem(resources.Wood(), 5));
+        hut.BuyAction = () => resources.People().Value += 2;
+        bundle.Add(hut);
+
         return bundle;
     }
 
     public static BuildingItem Field(this BuildingsBundle bundle)
     {
         return bundle[BuildingItemType.Field];
+    }
+
+    public static BuildingItem Hut(this BuildingsBundle bundle)
+    {
+        return bundle[BuildingItemType.Hut];
     }
 }

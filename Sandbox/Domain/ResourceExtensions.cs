@@ -6,15 +6,18 @@ public static class ResourceExtensions
     {
         var bundle = new ResourcesBundle();
 
+        var people = new ResourceItem(ResourceItemType.People);
+        bundle.Add(people);
+
         var food = new ResourceItem(ResourceItemType.Food)
         {
-            Threshold = 10
+            Threshold = 1000
         };
         bundle.Add(food);
 
         var wood = new ResourceItem(ResourceItemType.Wood)
         {
-            Threshold = 5
+            Threshold = 100
         };
         bundle.Add(wood);
 
@@ -27,6 +30,11 @@ public static class ResourceExtensions
         [
             item
         ];
+    }
+
+    public static ResourceItem People(this ResourcesBundle bundle)
+    {
+        return bundle[ResourceItemType.People];
     }
 
     public static ResourceItem Food(this ResourcesBundle bundle)

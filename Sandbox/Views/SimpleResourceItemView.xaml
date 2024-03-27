@@ -9,7 +9,7 @@
         <TextBlock Text="{Binding Name}" Width="75"/>
         <TextBlock Text="{Binding Value, StringFormat={}{0:N1}}" Width="50"/>
         <TextBlock Text="/"/>
-        <TextBlock Text="{Binding Threshold}" Width="25"/>
+        <TextBlock Text="{Binding Threshold}" Width="50"/>
         <TextBlock Text="{Binding Rate, StringFormat={}{0:N2}}" Width="25"/>
     </StackPanel>
 </UserControl>

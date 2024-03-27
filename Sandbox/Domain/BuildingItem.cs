@@ -11,6 +11,7 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
     public BuildingItemType Type { get; private set; }
 
     public CostsBundle Cost { get; set; } = [];
+    public Action BuyAction { get; set; } = () => { };
 
     [ObservableProperty]
     private double costIncrease = 1;
@@ -37,5 +38,6 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
             item.SubtractCostFromResources();
             item.Cost *= CostIncrease;
         }
+        BuyAction();
     }
 }
