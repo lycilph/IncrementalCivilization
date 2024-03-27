@@ -20,7 +20,7 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
     private string name = string.Empty;
 
     [ObservableProperty]
-    private double count = 0;
+    private int count = 0;
 
     public BuildingItem(BuildingItemType type, string name)
     {

@@ -14,7 +14,7 @@ public partial class JobItem : ObservableObject, ITypedItem<JobItemType>
     private string name = string.Empty;
 
     [ObservableProperty]
-    private double count = 0;
+    private int count = 0;
 
     public JobItem(JobItemType type, string name)
     {

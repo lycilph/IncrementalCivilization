@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:conv="clr-namespace:Sandbox.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
     <UserControl.Resources>
         <conv:BoolToColorConverter x:Key="color_converter"
                                    TrueColor="Black"
@@ -13,9 +12,9 @@
     </UserControl.Resources>
     
     <StackPanel Orientation="Horizontal">
-        <TextBlock Text="{Binding Name}" Width="75"/>
-        <TextBlock Text="{Binding Value, StringFormat={}{0:N1}}" Foreground="{Binding CanAfford, Converter={StaticResource color_converter}}"/>
+        <TextBlock Text="{Binding Item.Name}" Width="75"/>
+        <TextBlock Text="{Binding Item.Value, StringFormat={}{0:N1}}" Foreground="{Binding CanAfford, Converter={StaticResource color_converter}}"/>
         <TextBlock Text=" / " Foreground="{Binding CanAfford, Converter={StaticResource color_converter}}"/>
-        <TextBlock Text="{Binding Cost, StringFormat={}{0:N1}}" Foreground="{Binding CanAfford, Converter={StaticResource color_converter}}"/>
+        <TextBlock Text="{Binding Item.Cost, StringFormat={}{0:N1}}" Foreground="{Binding CanAfford, Converter={StaticResource color_converter}}"/>
     </StackPanel>
 </UserControl>

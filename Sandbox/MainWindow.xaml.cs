@@ -42,6 +42,14 @@ public partial class MainWindow : Window
     public static readonly DependencyProperty BuildingsVMProperty =
         DependencyProperty.Register("BuildingsVM", typeof(BuildingsBundleViewModel), typeof(MainWindow), new PropertyMetadata(null));
 
+    public JobsBundleViewModel JobsVM
+    {
+        get { return (JobsBundleViewModel)GetValue(JobsVMProperty); }
+        set { SetValue(JobsVMProperty, value); }
+    }
+    public static readonly DependencyProperty JobsVMProperty =
+        DependencyProperty.Register("JobsVM", typeof(JobsBundleViewModel), typeof(MainWindow), new PropertyMetadata(null));
+
     public MainWindow()
     {
         InitializeComponent();
@@ -58,6 +66,7 @@ public partial class MainWindow : Window
         GameJobs = JobsExtensions.AllJobs();
 
         BuildingsVM = new BuildingsBundleViewModel(GameBuildings);
+        JobsVM = new JobsBundleViewModel(GameJobs, GameResources.Population());
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
@@ -76,6 +85,11 @@ public partial class MainWindow : Window
     private void AddWoodClick(object sender, RoutedEventArgs e)
     {
         GameResources.Wood().Value += 1;
+    }
+
+    private void AddPeopleClick(object sender, RoutedEventArgs e)
+    {
+        GameResources.Population().Value += 1;
     }
 
     private void LimitAllClick(object sender, RoutedEventArgs e)

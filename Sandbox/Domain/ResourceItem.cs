@@ -3,7 +3,7 @@ using Sandbox.Utils;
 
 namespace Sandbox.Domain;
 
-public enum ResourceItemType { People, Food, Wood, Mineral, Iron };
+public enum ResourceItemType { Population, Food, Wood, Mineral, Iron };
 
 public class ResourcesBundle : ItemsBundle<ResourceItemType, ResourceItem> { }
 

@@ -23,6 +23,10 @@
         <DataTemplate DataType="{x:Type vm:BuildingItemViewModel}">
             <views:BuildingItemView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:JobsItemViewModel}">
+            <views:JobItemView/>
+        </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:CostItemViewModel}">
             <views:CostItemView/>

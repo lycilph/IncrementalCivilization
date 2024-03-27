@@ -6,8 +6,8 @@ public static class ResourceExtensions
     {
         var bundle = new ResourcesBundle();
 
-        var people = new ResourceItem(ResourceItemType.People);
-        bundle.Add(people);
+        var population = new ResourceItem(ResourceItemType.Population);
+        bundle.Add(population);
 
         var food = new ResourceItem(ResourceItemType.Food)
         {
@@ -32,9 +32,9 @@ public static class ResourceExtensions
         ];
     }
 
-    public static ResourceItem People(this ResourcesBundle bundle)
+    public static ResourceItem Population(this ResourcesBundle bundle)
     {
-        return bundle[ResourceItemType.People];
+        return bundle[ResourceItemType.Population];
     }
 
     public static ResourceItem Food(this ResourcesBundle bundle)

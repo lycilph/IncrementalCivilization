@@ -5,22 +5,18 @@ namespace Sandbox.ViewModels;
 
 public partial class CostItemViewModel : ObservableObject
 {
-    private CostItem costItem;
-   
-    public string Name { get => costItem.Name; }
-    public double Value { get => costItem.Value; }
-    public double Cost { get => costItem.Cost; }
+    public CostItem Item { get; private set; }
 
     [ObservableProperty]
     private bool canAfford = false;
 
-    public CostItemViewModel(CostItem costItem)
+    public CostItemViewModel(CostItem item)
     {
-        this.costItem = costItem;
-        this.costItem.PropertyChanged += (s, e) => 
+        Item = item;
+        this.Item.PropertyChanged += (s, e) =>
         {
             OnPropertyChanged(e.PropertyName);
-            CanAfford = Value >= Cost;
+            CanAfford = Item.Value >= Item.Cost;
         };
     }
 }

@@ -48,11 +48,24 @@
                       Margin="10"
                       ItemsSource="{Binding BuildingsVM.Items}"/>
 
+        <StackPanel Grid.Row="1"
+                    Grid.Column="4"
+                    Margin="10">
+            <TextBlock>
+                <Run Text="Free population"/>
+                <Run Text="{Binding JobsVM.FreePopulation.Value}"/>
+                <Run Text=" / "/>
+                <Run Text="{Binding JobsVM.FreePopulation.Threshold}"/>
+            </TextBlock>
+            <ItemsControl ItemsSource="{Binding JobsVM.Items}"/>
+        </StackPanel>
+
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     Margin="10">
             <Button Content="Food" Margin="0 0 10 0" Click="AddFoodClick"/>
             <Button Content="Wood" Margin="0 0 10 0" Click="AddWoodClick"/>
+            <Button Content="People" Margin="0 0 10 0" Click="AddPeopleClick"/>
             <Button Content="Limit" Margin="0 0 10 0" Click="LimitAllClick"/>
             <Separator Margin="0 0 10 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Button Content="Start" Margin="0 0 10 0" Click="StartClick"/>

@@ -18,7 +18,7 @@ public static class BuildingsExtensions
             CostIncrease = 1.15
         };
         hut.Cost.Add(new CostItem(resources.Wood(), 5));
-        hut.BuyAction = () => resources.People().Value += 2;
+        hut.BuyAction = () => resources.Population().Threshold += 2;
         bundle.Add(hut);
 
         return bundle;

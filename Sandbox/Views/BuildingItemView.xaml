@@ -28,7 +28,8 @@
                         <Border BorderBrush="Black"
                                 BorderThickness="1"
                                 Padding="5"
-                                CornerRadius="5">
+                                CornerRadius="5"
+                                Background="White">
                             <StackPanel>
                                 <TextBlock Text="Cost:" FontWeight="Bold"/>
                                 <ItemsControl ItemsSource="{Binding CostItems}"/>
