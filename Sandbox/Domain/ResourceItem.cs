@@ -20,7 +20,7 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
     private double value = 0;
 
     [ObservableProperty]
-    private double threshold = 0;
+    private double maximum = 0;
 
     [ObservableProperty]
     private double rate = 0;
@@ -44,6 +44,6 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
 
     public void Limit()
     {
-        Value = Math.Clamp(Value, 0, Threshold);
+        Value = Math.Clamp(Value, 0, Maximum);
     }
 }

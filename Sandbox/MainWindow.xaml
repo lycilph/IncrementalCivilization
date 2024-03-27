@@ -55,12 +55,13 @@
                 <Run Text="Free population"/>
                 <Run Text="{Binding JobsVM.FreePopulation.Value}"/>
                 <Run Text=" / "/>
-                <Run Text="{Binding JobsVM.FreePopulation.Threshold}"/>
+                <Run Text="{Binding JobsVM.FreePopulation.Maximum}"/>
             </TextBlock>
             <ItemsControl ItemsSource="{Binding JobsVM.Items}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2"
+                    Grid.ColumnSpan="5"
                     Orientation="Horizontal"
                     Margin="10">
             <Button Content="Food" Margin="0 0 10 0" Click="AddFoodClick"/>

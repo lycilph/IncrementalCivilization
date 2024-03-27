@@ -25,7 +25,7 @@ public partial class JobsBundleViewModel : ObservableObject
 
     private void PopulationPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        FreePopulation.Threshold = population.Value;
-        FreePopulation.Value = FreePopulation.Threshold - Items.Aggregate(0, (a, b) => a + b.Item.Count);
+        FreePopulation.Maximum = population.Value;
+        FreePopulation.Value = FreePopulation.Maximum - Items.Aggregate(0, (a, b) => a + b.Item.Count);
     }
 }

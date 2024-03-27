@@ -11,13 +11,13 @@ public static class ResourceExtensions
 
         var food = new ResourceItem(ResourceItemType.Food)
         {
-            Threshold = 1000
+            Maximum = 1000
         };
         bundle.Add(food);
 
         var wood = new ResourceItem(ResourceItemType.Wood)
         {
-            Threshold = 100
+            Maximum = 100
         };
         bundle.Add(wood);
 
