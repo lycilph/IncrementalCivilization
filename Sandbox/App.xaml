@@ -8,7 +8,7 @@
     <Application.Resources>
         <!-- Direct mappings to view -->
         <DataTemplate DataType="{x:Type domain:ResourceItem}">
-            <views:ResourceItemView/>
+            <views:SimpleResourceItemView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type domain:BuildingItem}">
@@ -16,7 +16,7 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type domain:JobItem}">
-            <views:JobItemView/>
+            <views:SimpleJobItemView/>
         </DataTemplate>
 
         <!-- Mappings from view model to view -->

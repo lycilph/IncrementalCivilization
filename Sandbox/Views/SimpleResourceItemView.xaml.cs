@@ -2,9 +2,9 @@
 
 namespace Sandbox.Views;
 
-public partial class JobItemView : UserControl
+public partial class SimpleResourceItemView : UserControl
 {
-    public JobItemView()
+    public SimpleResourceItemView()
     {
         InitializeComponent();
     }

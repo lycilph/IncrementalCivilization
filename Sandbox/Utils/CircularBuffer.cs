@@ -9,7 +9,7 @@ public class CircularBuffer<T> : List<T> where T : INumber<T>
     public CircularBuffer(int capacity) : base(capacity)
     {
         for (int i = 0; i < capacity; i++)
-            Add(default);
+            Add(default!);
     }
 
     public void Set(T item)
