@@ -10,6 +10,22 @@ public partial class MainWindow : Window
 {
     private DispatcherTimer timer;
 
+    public int Ticks
+    {
+        get { return (int)GetValue(TicksProperty); }
+        set { SetValue(TicksProperty, value); }
+    }
+    public static readonly DependencyProperty TicksProperty =
+        DependencyProperty.Register("Ticks", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
+
+    public int PopulationTicks
+    {
+        get { return (int)GetValue(PopulationTicksProperty); }
+        set { SetValue(PopulationTicksProperty, value); }
+    }
+    public static readonly DependencyProperty PopulationTicksProperty =
+        DependencyProperty.Register("PopulationTicks", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
+
     public ResourcesBundle GameResources
     {
         get { return (ResourcesBundle)GetValue(GameResourcesProperty); }
@@ -50,6 +66,14 @@ public partial class MainWindow : Window
     public static readonly DependencyProperty JobsVMProperty =
         DependencyProperty.Register("JobsVM", typeof(JobsBundleViewModel), typeof(MainWindow), new PropertyMetadata(null));
 
+    public bool CanRefineFood
+    {
+        get { return (bool)GetValue(CanRefineFoodProperty); }
+        set { SetValue(CanRefineFoodProperty, value); }
+    }
+    public static readonly DependencyProperty CanRefineFoodProperty =
+        DependencyProperty.Register("CanRefineFood", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
     public MainWindow()
     {
         InitializeComponent();
@@ -67,24 +91,49 @@ public partial class MainWindow : Window
 
         BuildingsVM = new BuildingsBundleViewModel(GameBuildings);
         JobsVM = new JobsBundleViewModel(GameJobs, GameResources.Population());
+
+        GameResources.Food().PropertyChanging += (s, e) => 
+        {
+            if (s is ResourceItem i)
+            {
+                CanRefineFood = i.Value >= 100;
+            }
+        };
+
+        timer.Start();
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
     {
-        GameResources.Food().Value += 0.01;
-        GameResources.Wood().Value += 0.05;
+        Ticks += 1;
+
+        GameResources.Food().Value += 0.125 * GameBuildings.Field().Count + GameJobs.Farmer().Count - 0.85 * GameResources.Population().Value;
+
+        GameResources.Wood().Value += 0.018 * GameJobs.WoodCutters().Count;
+
+        var pop = GameResources.Population();
+        if (pop.Value < pop.Maximum)
+        {
+            PopulationTicks += 1;
+
+            if (PopulationTicks >= 40)
+            {
+                PopulationTicks -= 40;
+                pop.Value += 1;
+            }
+        }
 
         GameResources.Apply(i => i.Limit());
     }
 
     private void AddFoodClick(object sender, RoutedEventArgs e)
     {
-        GameResources.Food().Value += 1;
+        GameResources.Food().Value += 10;
     }
 
     private void AddWoodClick(object sender, RoutedEventArgs e)
     {
-        GameResources.Wood().Value += 1;
+        GameResources.Wood().Value += 10;
     }
 
     private void AddPeopleClick(object sender, RoutedEventArgs e)
@@ -105,5 +154,16 @@ public partial class MainWindow : Window
     private void StopClick(object sender, RoutedEventArgs e)
     {
         timer.Stop();
+    }
+
+    private void GatherFoodClick(object sender, RoutedEventArgs e)
+    {
+        GameResources.Food().Value += 1;
+    }
+
+    private void RefineFoodClick(object sender, RoutedEventArgs e)
+    {
+        GameResources.Food().Value -= 100;
+        GameResources.Wood().Value += 1;
     }
 }

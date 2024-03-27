@@ -19,4 +19,9 @@ public static class JobsExtensions
     {
         return bundle[JobItemType.Farmer];
     }
+
+    public static JobItem WoodCutters(this JobsBundle bundle)
+    {
+        return bundle[JobItemType.WoodCutter];
+    }
 }

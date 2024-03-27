@@ -15,7 +15,7 @@ public static class BuildingsExtensions
 
         var hut = new BuildingItem(BuildingItemType.Hut)
         {
-            CostIncrease = 1.15
+            CostIncrease = 2.5
         };
         hut.Cost.Add(new CostItem(resources.Wood(), 5));
         hut.BuyAction = () => resources.Population().Maximum += 2;

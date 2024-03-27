@@ -14,7 +14,7 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
     public Action BuyAction { get; set; } = () => { };
 
     [ObservableProperty]
-    private double costIncrease = 1;
+    private double costIncrease = 1.15;
 
     [ObservableProperty]
     private string name = string.Empty;

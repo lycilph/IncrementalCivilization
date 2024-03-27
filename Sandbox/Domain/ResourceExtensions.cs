@@ -6,7 +6,10 @@ public static class ResourceExtensions
     {
         var bundle = new ResourcesBundle();
 
-        var population = new ResourceItem(ResourceItemType.Population);
+        var population = new ResourceItem(ResourceItemType.Population)
+        {
+            ShowRate = false
+        };
         bundle.Add(population);
 
         var food = new ResourceItem(ResourceItemType.Food)
@@ -22,14 +25,6 @@ public static class ResourceExtensions
         bundle.Add(wood);
 
         return bundle;
-    }
-
-    public static ResourcesBundle SingleResource(ResourceItem item)
-    {
-        return
-        [
-            item
-        ];
     }
 
     public static ResourceItem Population(this ResourcesBundle bundle)

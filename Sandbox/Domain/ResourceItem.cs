@@ -10,6 +10,7 @@ public class ResourcesBundle : ItemsBundle<ResourceItemType, ResourceItem> { }
 public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemType>
 {
     private readonly CircularBuffer<double> rateBuffer = new(10);
+    private bool updateRate = true;
 
     public ResourceItemType Type { get; private set; }
 
@@ -25,6 +26,9 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
     [ObservableProperty]
     private double rate = 0;
 
+    [ObservableProperty]
+    private bool showRate = true;
+
     public ResourceItem(ResourceItemType type, string name)
     {
         Type = type;
@@ -35,6 +39,9 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
 
     partial void OnValueChanged(double oldValue, double newValue)
     {
+        if (!updateRate)
+            return;
+
         rateBuffer.Set(newValue - oldValue);
 
         var total = 0.0;
@@ -45,5 +52,13 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
     public void Limit()
     {
         Value = Math.Clamp(Value, 0, Maximum);
+    }
+
+    // This does NOT update the rates (used when buying buildings)
+    public void Subtract(double v) 
+    {
+        updateRate = false;
+        Value -= v;
+        updateRate = true;
     }
 }

@@ -19,6 +19,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0"
@@ -61,9 +62,24 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2"
+            Grid.ColumnSpan="5"
+            Orientation="Horizontal"
+            Margin="10">
+            <TextBlock Text="Game" Margin="0 0 10 0"/>
+            <Separator Margin="0 0 10 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <Button Content="Gather food" Margin="0 0 10 0" Click="GatherFoodClick"/>
+            <Button Content="Refine food" Margin="0 0 10 0" Click="RefineFoodClick" IsEnabled="{Binding CanRefineFood}"/>
+            <Separator Margin="0 0 10 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <TextBlock Margin="0 0 10 0" Text="{Binding Ticks, StringFormat=Ticks: {0}}"/>
+            <TextBlock Margin="0 0 10 0" Text="{Binding PopulationTicks, StringFormat=Population Ticks: {0}}"/>
+        </StackPanel>
+
+            <StackPanel Grid.Row="3"
                     Grid.ColumnSpan="5"
                     Orientation="Horizontal"
                     Margin="10">
+            <TextBlock Text="Debug stuff" Margin="0 0 10 0"/>
+            <Separator Margin="0 0 10 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Button Content="Food" Margin="0 0 10 0" Click="AddFoodClick"/>
             <Button Content="Wood" Margin="0 0 10 0" Click="AddWoodClick"/>
             <Button Content="People" Margin="0 0 10 0" Click="AddPeopleClick"/>
