@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:vm="clr-namespace:IncrementalCivilization.ViewModels"
+             xmlns:v="clr-namespace:IncrementalCivilization.Views"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
@@ -10,9 +12,23 @@
                 <ui:ThemesDictionary Theme="Light" />
                 <ui:ControlsDictionary />
 
-                <ResourceDictionary Source="Mvvm/Resources/ApplicationStyles.xaml"/>
-                
-                <ResourceDictionary Source="Mvvm/Resources/Mappings.xaml"/>
+                <ResourceDictionary>
+                    <Color x:Key="ApplicationAccent1">#127369</Color>
+                    <Color x:Key="ApplicationAccent2">#10403B</Color>
+                    <Color x:Key="ApplicationAccent3">#8AA6A3</Color>
+                    <Color x:Key="ApplicationAccent4">#4C5958</Color>
+                    <Color x:Key="ApplicationAccent5">#BFBFBF</Color>
+
+                    <SolidColorBrush x:Key="ApplicationAccent1Brush" Color="{StaticResource ApplicationAccent1}"/>
+                    <SolidColorBrush x:Key="ApplicationAccent3Brush" Color="{StaticResource ApplicationAccent3}"/>
+                    <SolidColorBrush x:Key="ApplicationAccent5Brush" Color="{StaticResource ApplicationAccent5}"/>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <DataTemplate DataType="{x:Type vm:MainViewModel}">
+                        <v:MainView/>
+                    </DataTemplate>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
