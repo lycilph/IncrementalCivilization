@@ -16,6 +16,16 @@ public class NavigationService : INavigationService
         _logger = logger;
     }
 
+    public void NavigateToMain()
+    {
+        NavigateTo<IMainViewModel>();
+    }
+
+    public void NavigateToSettings()
+    {
+        NavigateTo<ISettingsViewModel>();
+    }
+
     public void NavigateTo<IVM>()
     {
         _logger.LogInformation("Navigating to {vm}", typeof(IVM).Name);

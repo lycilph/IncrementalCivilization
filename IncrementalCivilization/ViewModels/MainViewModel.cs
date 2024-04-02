@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Pages;
 using Microsoft.Extensions.Logging;
@@ -25,5 +26,11 @@ public partial class MainViewModel : ViewModelBase, IMainViewModel
     {
         base.Initialize();
         _navigationService.NavigateToPage(Pages.First());
+    }
+
+    [RelayCommand]
+    private void ShowSettings()
+    {
+        _navigationService.NavigateToSettings();
     }
 }

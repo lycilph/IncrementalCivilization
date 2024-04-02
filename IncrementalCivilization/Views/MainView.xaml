@@ -69,6 +69,7 @@
                 <ui:Button DockPanel.Dock="Bottom"
                            Content="Settings" 
                            Icon="{ui:SymbolIcon Settings24}"
+                           Command="{Binding ShowSettingsCommand}"
                            Width="150"
                            Margin="0 0 0 20"
                            Padding="20 5"

@@ -12,7 +12,7 @@ public partial class App : Application
     public new static App Current => (App)Application.Current;
 
     public IServiceProvider Services { get; private set; }
-    private ILogger _logger;
+    private readonly ILogger _logger;
 
     public App()
     {
@@ -38,6 +38,7 @@ public partial class App : Application
 
         // Application view models
         services.AddSingleton<IMainViewModel, MainViewModel>();
+        services.AddSingleton<ISettingsViewModel, SettingsViewModel>();
 
         // Page view models
         services.AddSingleton<IPageViewModel, HomePageViewModel>();
@@ -56,7 +57,7 @@ public partial class App : Application
         win.Show();
 
         var navigation = Services.GetRequiredService<Services.INavigationService>();
-        navigation.NavigateTo<IMainViewModel>();
+        navigation.NavigateToMain();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
