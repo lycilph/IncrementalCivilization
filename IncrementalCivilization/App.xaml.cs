@@ -1,9 +1,9 @@
 ﻿using IncrementalCivilization.ViewModels;
+using IncrementalCivilization.ViewModels.Pages;
 using IncrementalCivilization.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Windows;
-using Wpf.Ui;
 
 namespace IncrementalCivilization;
 
@@ -38,6 +38,11 @@ public partial class App : Application
 
         // Application view models
         services.AddSingleton<IMainViewModel, MainViewModel>();
+
+        // Page view models
+        services.AddSingleton<IPageViewModel, HomePageViewModel>();
+        services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
+        services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
         return services.BuildServiceProvider();
     }

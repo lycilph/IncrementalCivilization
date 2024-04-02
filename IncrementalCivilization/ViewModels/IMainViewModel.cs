@@ -1,3 +1,8 @@
-﻿namespace IncrementalCivilization.ViewModels;
+﻿using IncrementalCivilization.ViewModels.Pages;
 
-public interface IMainViewModel : IViewModel { }
+namespace IncrementalCivilization.ViewModels;
+
+public interface IMainViewModel : IViewModel 
+{
+    IPageViewModel? CurrentPage { get; set; }
+}

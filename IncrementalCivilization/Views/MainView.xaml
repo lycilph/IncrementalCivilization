@@ -13,7 +13,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
         <!-- Menu -->
@@ -50,11 +49,21 @@
                 </StackPanel>
                 
                 <!-- Page navigation buttons -->
-                <StackPanel>
-                    <TextBlock Text="Home"/>
-                    <TextBlock Text="Research"/>
-                    <TextBlock Text="Time"/>
-                </StackPanel>                
+                <ItemsControl DockPanel.Dock="Top"
+                              ItemsSource="{Binding Pages}"
+                              HorizontalAlignment="Center">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ui:Button Content="{Binding Title}"
+                                       Icon="{Binding Icon}"
+                                       Width="150"
+                                       Margin="0 0 0 20"
+                                       Padding="20 5"
+                                       HorizontalContentAlignment="Left"
+                                       Command="{Binding NavigateToPageCommand}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
                 
                 <!-- Footer buttons -->
                 <ui:Button DockPanel.Dock="Bottom"
@@ -67,5 +76,66 @@
                            HorizontalContentAlignment="Left"/>
             </DockPanel>
         </Border>
+
+        <!-- Main page content -->
+        <DockPanel Grid.Column="1">
+            
+            <!-- Main Content Header -->
+            <Border DockPanel.Dock="Top"
+                    Background="{StaticResource ApplicationAccent3Brush}"
+                    CornerRadius="25 0 0 25"
+                    Height="60"
+                    Margin="40 -20 0 0">
+                <DockPanel LastChildFill="False">
+                    
+                    <!-- Header Title -->
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding CurrentPage.Title}"
+                               VerticalAlignment="Center"
+                               FontSize="25"
+                               FontWeight="DemiBold"
+                               Margin="20 -5 0 0"/>
+
+                    <!-- Header Button -->
+                    <ToggleButton x:Name="start_stop_timer_button"
+                                  DockPanel.Dock="Right"
+                                  Background="{StaticResource ApplicationAccent5Brush}"
+                                  BorderBrush="{StaticResource ApplicationAccent5Brush}"
+                                  Margin="0 0 20 0">
+                        <ui:SymbolIcon>
+                            <ui:SymbolIcon.Style>
+                                <Style TargetType="ui:SymbolIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=start_stop_timer_button, Path=IsChecked}" Value="true">
+                                            <Setter Property="Symbol" Value="Pause24"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=start_stop_timer_button, Path=IsChecked}" Value="false">
+                                            <Setter Property="Symbol" Value="Play24"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:SymbolIcon.Style>
+                        </ui:SymbolIcon>
+                    </ToggleButton>
+                </DockPanel>
+            </Border>
+
+            <!-- Main Content Messages -->
+
+            <!-- Main Content status bar -->
+            <StatusBar DockPanel.Dock="Bottom"
+                       Padding="0">
+                <StatusBarItem MinWidth="125" Content="Ticks: 0"/>
+                <Separator/>
+                <StatusBarItem MinWidth="125" Content="Pop Ticks: 0"/>
+                <Separator/>
+                <StatusBarItem MinWidth="125" Content="Day: 0"/>
+            </StatusBar>
+
+            <!-- Main Content -->
+            <ContentControl Grid.Column="1"
+                            Content="{Binding CurrentPage}"
+                            Margin="10"/>
+        </DockPanel>
     </Grid>
 </UserControl>
