@@ -49,6 +49,10 @@
                     <DataTemplate DataType="{x:Type i:CostViewModel}">
                         <iv:CostView/>
                     </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type i:JobViewModel}">
+                        <iv:JobView/>
+                    </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

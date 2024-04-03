@@ -15,6 +15,8 @@ public partial class Game : ObservableObject
 
     public ResourcesBundle Resources { get; private set; } = [];
     public BuildingsBundle Buildings { get; private set; } = [];
+    public JobsBundle Jobs { get; private set; } = [];
+
     public DispatcherTimer Timer { get; private set; }
 
     [ObservableProperty]
@@ -44,6 +46,7 @@ public partial class Game : ObservableObject
     {
         Resources = ResourcesExtensions.AllResources();
         Buildings = BuildingsExtensions.AllBuildings(Resources);
+        Jobs = JobsExtensions.AllJobs();
     }
 
     public void ToogleDebugging()
@@ -61,11 +64,18 @@ public partial class Game : ObservableObject
             Days += 1;
         }
 
-        var food = Resources.Food();
+        // Resources
         var population = Resources.Population();
+        var food = Resources.Food();
+        var wood = Resources.Wood();
+        // Buildings
         var field = Buildings.Field();
+        // Jobs
+        var farmer = Jobs.Farmer();
+        var woodCutters = Jobs.WoodCutters();
 
-        food.Value += 0.125 * field.Count - 0.85 * population.Value;
+        food.Value += 0.125 * field.Count + 1.0 * farmer.Count - 0.85 * population.Value;
+        wood.Value += 0.018 * woodCutters.Count;
 
         if (food.Value < 0)
         {

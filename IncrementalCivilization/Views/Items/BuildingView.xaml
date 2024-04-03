@@ -32,7 +32,7 @@
                                 CornerRadius="5"
                                 Background="White">
                             <StackPanel>
-                                <TextBlock Text="Cost:" FontStyle="Italic"/>
+                                <TextBlock Text="{Binding Item.CostIncrease, StringFormat=Cost (Increase {0:N2}):}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Cost}"/>
                             </StackPanel>
                         </Border>
