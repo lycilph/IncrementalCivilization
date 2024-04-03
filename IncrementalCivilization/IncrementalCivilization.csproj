@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Assets\rubik.png" />
     <Resource Include="Assets\settings.png" />
   </ItemGroup>

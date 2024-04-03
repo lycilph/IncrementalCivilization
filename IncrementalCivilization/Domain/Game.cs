@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IncrementalCivilization.Utils;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;
@@ -10,6 +11,7 @@ public partial class Game : ObservableObject
     private const int ticksPerPopulationIncrease = ticksPerSecond * 4;
 
     public ResourcesBundle Resources { get; private set; } = [];
+    public BuildingsBundle Buildings { get; private set; } = [];
     public DispatcherTimer Timer { get; private set; }
 
     [ObservableProperty]
@@ -36,6 +38,7 @@ public partial class Game : ObservableObject
     public void Initialize()
     {
         Resources = ResourcesExtensions.AllResources();
+        Buildings = BuildingsExtensions.AllBuildings(Resources);
     }
 
     public void ToogleDebugging()
@@ -54,6 +57,22 @@ public partial class Game : ObservableObject
         }
 
         var food = Resources.Food();
-        food.Value += 0.125;
+        var population = Resources.Population();
+        var field = Buildings.Field();
+
+        food.Value += 0.125 * field.Count - 0.85 * population.Value;
+
+        if (population.Value < population.Maximum)
+        {
+            PopulationTicks += 1;
+
+            if (PopulationTicks > ticksPerPopulationIncrease)
+            {
+                PopulationTicks -= ticksPerPopulationIncrease;
+                population.Value += 1;
+            }
+        }
+
+        Resources.Apply(i => i.Limit());
     }
 }

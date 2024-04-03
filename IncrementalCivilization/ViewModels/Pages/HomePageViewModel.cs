@@ -2,7 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Domain;
 using IncrementalCivilization.Services;
+using IncrementalCivilization.ViewModels.Items;
 using Microsoft.Extensions.Logging;
+using System.Collections.ObjectModel;
 using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
@@ -10,6 +12,8 @@ namespace IncrementalCivilization.ViewModels.Pages;
 public partial class HomePageViewModel(Game game, INavigationService navigationService, ILogger<HomePageViewModel> logger) : PageViewModelBase("Home", SymbolRegular.Home24, navigationService, logger)
 {
     public Game Game { get; set; } = game;
+
+    public ObservableCollection<BuildingViewModel> Buildings { get; set; } = [];
 
     [ObservableProperty]
     private bool _showRefineFood = false;
@@ -21,6 +25,8 @@ public partial class HomePageViewModel(Game game, INavigationService navigationS
     public override void Initialize()
     {
         base.Initialize();
+
+        Buildings = new ObservableCollection<BuildingViewModel>(Game.Buildings.Select(b => new BuildingViewModel(b)));
 
         Game.Resources.Food().PropertyChanging += (s, e) =>
         {

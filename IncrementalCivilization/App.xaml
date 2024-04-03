@@ -6,6 +6,9 @@
              xmlns:v="clr-namespace:IncrementalCivilization.Views"
              xmlns:p="clr-namespace:IncrementalCivilization.ViewModels.Pages"
              xmlns:pv="clr-namespace:IncrementalCivilization.Views.Pages"
+             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
+             xmlns:i="clr-namespace:IncrementalCivilization.ViewModels.Items"
+             xmlns:iv="clr-namespace:IncrementalCivilization.Views.Items"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
@@ -37,6 +40,14 @@
 
                     <DataTemplate DataType="{x:Type p:HomePageViewModel}">
                         <pv:HomePageView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type i:BuildingViewModel}">
+                        <iv:BuildingView/>
+                    </DataTemplate>
+                    
+                    <DataTemplate DataType="{x:Type i:CostViewModel}">
+                        <iv:CostView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

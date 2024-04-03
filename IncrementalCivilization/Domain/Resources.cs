@@ -48,4 +48,17 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
         rateBuffer.Apply(r => total += r);
         Rate = total / rateBuffer.Capacity;
     }
+
+    public void Limit()
+    {
+        Value = Math.Clamp(Value, 0, Maximum);
+    }
+
+    // This does NOT update the rates (used when buying buildings)
+    public void Subtract(double v)
+    {
+        updateRate = false;
+        Value -= v;
+        updateRate = true;
+    }
 }
