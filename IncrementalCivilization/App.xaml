@@ -6,9 +6,9 @@
              xmlns:v="clr-namespace:IncrementalCivilization.Views"
              xmlns:p="clr-namespace:IncrementalCivilization.ViewModels.Pages"
              xmlns:pv="clr-namespace:IncrementalCivilization.Views.Pages"
-             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
              xmlns:i="clr-namespace:IncrementalCivilization.ViewModels.Items"
              xmlns:iv="clr-namespace:IncrementalCivilization.Views.Items"
+             xmlns:s="clr-namespace:IncrementalCivilization.Services"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
@@ -52,6 +52,10 @@
 
                     <DataTemplate DataType="{x:Type i:JobViewModel}">
                         <iv:JobView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type s:Option}">
+                        <iv:OptionView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

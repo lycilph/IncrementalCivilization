@@ -32,8 +32,9 @@ public partial class App : Application
         services.AddLogging(builder => builder.AddDebug());
 
         // Add services
-        services.AddSingleton<Services.INavigationService, Services.NavigationService>();
+        services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IMessageLog, MessageLog>();
+        services.AddSingleton<ISettingsService, SettingsService>();
 
         // The application shell (a window that shows a single IViewModel)
         services.AddSingleton<ShellWindow>();

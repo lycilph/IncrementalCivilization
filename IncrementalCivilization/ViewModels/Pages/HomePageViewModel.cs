@@ -11,9 +11,9 @@ using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
-public partial class HomePageViewModel(Game game, INavigationService navigationService, ILogger<HomePageViewModel> logger) : PageViewModelBase("Home", SymbolRegular.Home24, navigationService, logger)
+public partial class HomePageViewModel(Game game, ISettingsService settingsService, INavigationService navigationService, ILogger<HomePageViewModel> logger) : PageViewModelBase("Home", SymbolRegular.Home24, navigationService, logger)
 {
-    public Game Game { get; set; } = game;
+    public Game Game { get; private set; } = game;
 
     public ObservableCollection<BuildingViewModel> Buildings { get; private set; } = [];
     public ObservableCollection<JobViewModel> Jobs { get; private set; } = [];
@@ -76,13 +76,27 @@ public partial class HomePageViewModel(Game game, INavigationService navigationS
     [RelayCommand]
     private void AddFood()
     {
-        Game.Resources.Food().Value += 1000;
+        var option = settingsService.Get(OptionType.DebugFood);
+        if (int.TryParse(option.Value, out int food))
+        {
+            Game.Resources.Food().Value += food;
+            _logger.LogInformation("Adding {food} to food", food);
+        }
+        else
+            _logger.LogInformation("Couldn't parse option {name}", option.Name);
     }
 
     [RelayCommand]
     private void AddWood()
     {
-        Game.Resources.Wood().Value += 100;
+        var option = settingsService.Get(OptionType.DebugWood);
+        if (int.TryParse(option.Value, out int wood))
+        {
+            Game.Resources.Wood().Value += wood;
+            _logger.LogInformation("Adding {wood} to wood", wood);
+        }
+        else
+            _logger.LogInformation("Couldn't parse option {name}", option.Name);
     }
 
     [RelayCommand]
