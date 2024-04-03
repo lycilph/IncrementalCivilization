@@ -102,7 +102,8 @@
                                   DockPanel.Dock="Right"
                                   Background="{StaticResource ApplicationAccent5Brush}"
                                   BorderBrush="{StaticResource ApplicationAccent5Brush}"
-                                  Margin="0 0 20 0">
+                                  Margin="0 0 20 0"
+                                  IsChecked="{Binding Game.Timer.IsEnabled}">
                         <ui:SymbolIcon>
                             <ui:SymbolIcon.Style>
                                 <Style TargetType="ui:SymbolIcon">
@@ -126,11 +127,17 @@
             <!-- Main Content status bar -->
             <StatusBar DockPanel.Dock="Bottom"
                        Padding="0">
-                <StatusBarItem MinWidth="125" Content="Ticks: 0"/>
+                <StatusBarItem MinWidth="125">
+                    <TextBlock Text="{Binding Game.Ticks, StringFormat=Ticks: {0}}"/>
+                </StatusBarItem>
                 <Separator/>
-                <StatusBarItem MinWidth="125" Content="Pop Ticks: 0"/>
+                <StatusBarItem MinWidth="125">
+                    <TextBlock Text="{Binding Game.PopulationTicks, StringFormat=Pop Ticks: {0}}"/>
+                </StatusBarItem>
                 <Separator/>
-                <StatusBarItem MinWidth="125" Content="Day: 0"/>
+                <StatusBarItem MinWidth="125">
+                    <TextBlock Text="{Binding Game.Days, StringFormat=Days: {0}}"/>
+                </StatusBarItem>
             </StatusBar>
 
             <!-- Main Content -->

@@ -11,6 +11,10 @@
                  WindowBackdropType="Acrylic"
                  WindowCornerPreference="Default"
                  WindowStartupLocation="CenterScreen">
+    <ui:FluentWindow.InputBindings>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding ToggleDebuggingCommand}"/>
+    </ui:FluentWindow.InputBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

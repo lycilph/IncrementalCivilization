@@ -1,4 +1,5 @@
-﻿using IncrementalCivilization.ViewModels;
+﻿using IncrementalCivilization.Domain;
+using IncrementalCivilization.ViewModels;
 using IncrementalCivilization.ViewModels.Pages;
 using IncrementalCivilization.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +46,9 @@ public partial class App : Application
         services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
+        // Game related stuff
+        services.AddSingleton<Game>();
+
         return services.BuildServiceProvider();
     }
 
@@ -52,16 +56,24 @@ public partial class App : Application
     {
         _logger.LogInformation("Starting");
 
+        var game = Services.GetRequiredService<Game>();
+        game.Initialize();
+
         var win = Services.GetRequiredService<ShellWindow>();
         win.DataContext = Services.GetRequiredService<IShellViewModel>();
         win.Show();
 
         var navigation = Services.GetRequiredService<Services.INavigationService>();
         navigation.NavigateToMain();
+
+        game.Timer.Start();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
         _logger.LogInformation("Exiting");
+
+        var game = Services.GetRequiredService<Game>();
+        game.Timer.Stop();
     }
 }

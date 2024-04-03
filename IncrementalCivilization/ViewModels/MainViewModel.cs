@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using IncrementalCivilization.Domain;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Pages;
 using Microsoft.Extensions.Logging;
@@ -16,9 +17,12 @@ public partial class MainViewModel : ViewModelBase, IMainViewModel
     [ObservableProperty]
     private IPageViewModel? _currentPage;
 
-    public MainViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, ILogger<MainViewModel> logger) : base(logger)
+    public Game Game { get; private set; }
+
+    public MainViewModel(Game game, IEnumerable<IPageViewModel> pages, INavigationService navigationService, ILogger<MainViewModel> logger) : base(logger)
     {
         Pages = new ObservableCollection<IPageViewModel>(pages);
+        Game = game;
         _navigationService = navigationService;
     }
 

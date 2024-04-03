@@ -26,9 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Converters\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
 
   <ItemGroup>
