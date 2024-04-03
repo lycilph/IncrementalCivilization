@@ -57,4 +57,10 @@ public partial class HomePageViewModel(Game game, INavigationService navigationS
     {
         Game.Resources.Food().Value += 100;
     }
+
+    [RelayCommand]
+    private void AddWood()
+    {
+        Game.Resources.Wood().Value += 10;
+    }
 }

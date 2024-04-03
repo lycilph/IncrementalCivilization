@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using IncrementalCivilization.Utils;
+using Microsoft.Extensions.Logging;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;
@@ -9,6 +10,8 @@ public partial class Game : ObservableObject
     private const int ticksPerSecond = 20;
     private const int ticksPerDay = 40;
     private const int ticksPerPopulationIncrease = ticksPerSecond * 4;
+
+    private readonly ILogger _logger;
 
     public ResourcesBundle Resources { get; private set; } = [];
     public BuildingsBundle Buildings { get; private set; } = [];
@@ -26,8 +29,10 @@ public partial class Game : ObservableObject
     [ObservableProperty]
     private bool _isDebugging = false;
 
-    public Game()
+    public Game(ILogger<Game> logger)
     {
+        _logger = logger;
+
         Timer = new DispatcherTimer()
         {
             Interval = TimeSpan.FromMilliseconds(1000 / ticksPerSecond)
@@ -61,6 +66,13 @@ public partial class Game : ObservableObject
         var field = Buildings.Field();
 
         food.Value += 0.125 * field.Count - 0.85 * population.Value;
+
+        if (food.Value < 0)
+        {
+            var dead = Math.Floor(food.Value);
+            population.Value += dead;
+            _logger.LogInformation("Your civilization ran out of food, and people starved, {dead} died {left} left", dead, population.Value);
+        }
 
         if (population.Value < population.Maximum)
         {
