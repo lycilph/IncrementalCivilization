@@ -19,10 +19,13 @@ public partial class MainViewModel : ViewModelBase, IMainViewModel
 
     public Game Game { get; private set; }
 
-    public MainViewModel(Game game, IEnumerable<IPageViewModel> pages, INavigationService navigationService, ILogger<MainViewModel> logger) : base(logger)
+    public IMessageLog Messages { get; private set; }
+
+    public MainViewModel(Game game, IEnumerable<IPageViewModel> pages, INavigationService navigationService, IMessageLog messages, ILogger<MainViewModel> logger) : base(logger)
     {
         Pages = new ObservableCollection<IPageViewModel>(pages);
         Game = game;
+        Messages = messages;
         _navigationService = navigationService;
     }
 

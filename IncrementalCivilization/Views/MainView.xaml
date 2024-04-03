@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:IncrementalCivilization.ViewModels"
+             xmlns:misc="clr-namespace:IncrementalCivilization.Views.Misc"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" 
              d:DesignHeight="600"
@@ -122,8 +123,6 @@
                 </DockPanel>
             </Border>
 
-            <!-- Main Content Messages -->
-
             <!-- Main Content status bar -->
             <StatusBar DockPanel.Dock="Bottom"
                        Padding="0">
@@ -139,6 +138,12 @@
                     <TextBlock Text="{Binding Game.Days, StringFormat=Days: {0}}"/>
                 </StatusBarItem>
             </StatusBar>
+
+            <!-- Main Content Messages -->
+            <misc:LogView DockPanel.Dock="Bottom"
+                          Height="100"
+                          Margin="10"
+                          ItemsSource="{Binding Messages.Log}"/>
 
             <!-- Main Content -->
             <ContentControl Grid.Column="1"
