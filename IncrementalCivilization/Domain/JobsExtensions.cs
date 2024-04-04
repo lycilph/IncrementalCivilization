@@ -4,15 +4,12 @@ public static class JobsExtensions
 {
     public static JobsBundle AllJobs()
     {
-        var bundle = new JobsBundle();
-
-        var farmer = new JobItem(JobItemType.Farmer);
-        bundle.Add(farmer);
-
-        var woodCutter = new JobItem(JobItemType.WoodCutter, "Wood Cutter");
-        bundle.Add(woodCutter);
-
-        return bundle;
+        return
+        [
+            new(JobItemType.Farmer),
+            new(JobItemType.WoodCutter, "Wood Cutter"),
+            new(JobItemType.Scholar)
+        ];
     }
 
     public static JobItem Farmer(this JobsBundle bundle)
@@ -23,5 +20,10 @@ public static class JobsExtensions
     public static JobItem WoodCutters(this JobsBundle bundle)
     {
         return bundle[JobItemType.WoodCutter];
+    }
+
+    public static JobItem Scholar(this JobsBundle bundle)
+    {
+        return bundle[JobItemType.Scholar];
     }
 }

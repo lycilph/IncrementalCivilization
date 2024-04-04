@@ -92,7 +92,8 @@
                     <Run Text="{Binding FreePopulation.Maximum}"/>
                 </TextBlock>
                 <ItemsControl ItemsSource="{Binding Jobs}"/>
-                <Button Content="Clear" Command="{Binding ClearJobsCommand}"/>
+                <Button Content="Clear" 
+                        Command="{Binding ClearJobsCommand}"/>
             </StackPanel>
         </Grid>
     </Grid>

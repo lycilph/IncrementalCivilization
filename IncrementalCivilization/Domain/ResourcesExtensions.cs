@@ -4,27 +4,16 @@ public static class ResourcesExtensions
 {
     public static ResourcesBundle AllResources()
     {
-        var bundle = new ResourcesBundle();
-
-        var population = new ResourceItem(ResourceItemType.Population)
-        {
-            ShowRate = false
-        };
-        bundle.Add(population);
-
-        var food = new ResourceItem(ResourceItemType.Food)
-        {
-            Maximum = 1000
-        };
-        bundle.Add(food);
-
-        var wood = new ResourceItem(ResourceItemType.Wood)
-        {
-            Maximum = 100
-        };
-        bundle.Add(wood);
-
-        return bundle;
+        return
+        [
+            new(ResourceItemType.Population)
+            {
+                ShowRate = false
+            },
+            new(ResourceItemType.Food, 1000),
+            new(ResourceItemType.Wood, 100),
+            new(ResourceItemType.Science, 500)
+        ];
     }
 
     public static ResourceItem Population(this ResourcesBundle bundle)
@@ -40,5 +29,10 @@ public static class ResourcesExtensions
     public static ResourceItem Wood(this ResourcesBundle bundle)
     {
         return bundle[ResourceItemType.Wood];
+    }
+
+    public static ResourceItem Science(this ResourcesBundle bundle)
+    {
+        return bundle[ResourceItemType.Science];
     }
 }

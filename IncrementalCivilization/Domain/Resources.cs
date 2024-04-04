@@ -3,7 +3,7 @@ using IncrementalCivilization.Utils;
 
 namespace IncrementalCivilization.Domain;
 
-public enum ResourceItemType { Population, Food, Wood }
+public enum ResourceItemType { Population, Food, Wood, Science }
 
 public class ResourcesBundle : ItemsBundle<ResourceItemType, ResourceItem> { }
 
@@ -29,13 +29,16 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
     [ObservableProperty]
     private bool showRate = true;
 
-    public ResourceItem(ResourceItemType type, string name)
+    public ResourceItem(ResourceItemType type, string name, double max)
     {
         Type = type;
-        this.name = name;
+        Name = name;
+        Maximum = max;
     }
 
-    public ResourceItem(ResourceItemType type) : this(type, type.ToString()) { }
+    public ResourceItem(ResourceItemType type, double max) : this(type, type.ToString(), max) { }
+
+    public ResourceItem(ResourceItemType type) : this(type, type.ToString(), 0.0) { }
 
     partial void OnValueChanged(double oldValue, double newValue)
     {

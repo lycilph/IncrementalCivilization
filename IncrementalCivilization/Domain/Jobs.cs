@@ -2,7 +2,7 @@
 
 namespace IncrementalCivilization.Domain;
 
-public enum JobItemType { Farmer, WoodCutter };
+public enum JobItemType { Farmer, WoodCutter, Scholar };
 
 public class JobsBundle : ItemsBundle<JobItemType, JobItem> { }
 

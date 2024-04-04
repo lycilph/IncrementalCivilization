@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.Utils;
-using Microsoft.Extensions.Logging;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;
@@ -17,6 +16,7 @@ public partial class Game : ObservableObject
     public ResourcesBundle Resources { get; private set; } = [];
     public BuildingsBundle Buildings { get; private set; } = [];
     public JobsBundle Jobs { get; private set; } = [];
+    public Effects Effects { get; private set; } = new();
 
     public DispatcherTimer Timer { get; private set; }
 
@@ -69,16 +69,19 @@ public partial class Game : ObservableObject
         var population = Resources.Population();
         var food = Resources.Food();
         var wood = Resources.Wood();
+        var science = Resources.Science();
         // Buildings
         var field = Buildings.Field();
         // Jobs
         var farmer = Jobs.Farmer();
         var woodCutters = Jobs.WoodCutters();
+        var scholar = Jobs.Scholar();
 
-        food.Value += 0.125 * field.Count + 1.0 * farmer.Count - 0.85 * population.Value;
-        wood.Value += 0.018 * woodCutters.Count;
+        food.Value += 0.125 * field.Count + 1.0 * farmer.Count * Effects.FarmerEffieciency - 0.85 * population.Value;
+        wood.Value += 0.018 * woodCutters.Count * Effects.WoodCutterEffieciency;
+        science.Value += 0.035 * scholar.Count * Effects.ScholarEffieciency;
 
-        if (food.Value < 0)
+        if (population.Value > 0 && food.Value < 0)
         {
             var dead = Math.Floor(food.Value);
             population.Value += dead;
