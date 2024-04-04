@@ -14,6 +14,6 @@ public class ResearchPageViewModel(Game game, INavigationService navigationServi
     {
         base.Initialize();
 
-        Resources.Add(game.Resources.Science());
+        Resources.Add(game.Resources.Science);
     }
 }

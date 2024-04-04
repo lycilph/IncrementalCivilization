@@ -4,8 +4,6 @@ namespace IncrementalCivilization.Domain;
 
 public enum JobItemType { Farmer, WoodCutter, Scholar };
 
-public class JobsBundle : ItemsBundle<JobItemType, JobItem> { }
-
 public partial class JobItem : ObservableObject, ITypedItem<JobItemType>
 {
     public JobItemType Type { get; private set; }

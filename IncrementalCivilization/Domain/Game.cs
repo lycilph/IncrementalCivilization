@@ -45,9 +45,9 @@ public partial class Game : ObservableObject
 
     public void Initialize()
     {
-        Resources = ResourcesExtensions.AllResources();
-        Buildings = BuildingsExtensions.AllBuildings(Resources);
-        Jobs = JobsExtensions.AllJobs();
+        Resources = ResourcesBundle.AllResources();
+        Buildings = BuildingsBundle.AllBuildings(Resources);
+        Jobs = JobsBundle.AllJobs();
     }
 
     public void ToogleDebugging()
@@ -65,37 +65,25 @@ public partial class Game : ObservableObject
             Days += 1;
         }
 
-        // Resources
-        var population = Resources.Population();
-        var food = Resources.Food();
-        var wood = Resources.Wood();
-        var science = Resources.Science();
-        // Buildings
-        var field = Buildings.Field();
-        // Jobs
-        var farmer = Jobs.Farmer();
-        var woodCutters = Jobs.WoodCutters();
-        var scholar = Jobs.Scholar();
+        Resources.Food.Value += 0.125 * Buildings.Field.Count + 1.0 * Jobs.Farmer.Count * Effects.FarmerEffieciency - 0.85 * Resources.Population.Value;
+        Resources.Wood.Value += 0.018 * Jobs.WoodCutter.Count * Effects.WoodCutterEffieciency;
+        Resources.Science.Value += 0.035 * Jobs.Scholar.Count * Effects.ScholarEffieciency;
 
-        food.Value += 0.125 * field.Count + 1.0 * farmer.Count * Effects.FarmerEffieciency - 0.85 * population.Value;
-        wood.Value += 0.018 * woodCutters.Count * Effects.WoodCutterEffieciency;
-        science.Value += 0.035 * scholar.Count * Effects.ScholarEffieciency;
-
-        if (population.Value > 0 && food.Value < 0)
+        if (Resources.Population.Value > 0 && Resources.Food.Value < 0)
         {
-            var dead = Math.Floor(food.Value);
-            population.Value += dead;
-            _messages.Add($"Your civilization ran out of food, and people starved, {dead} dead {population.Value} left");
+            var dead = Math.Floor(Resources.Food.Value);
+            Resources.Population.Value += dead;
+            _messages.Add($"Your civilization ran out of food, and people starved, {dead} dead {Resources.Population.Value} left");
         }
 
-        if (population.Value < population.Maximum)
+        if (Resources.Population.Value < Resources.Population.Maximum)
         {
             PopulationTicks += 1;
 
             if (PopulationTicks > ticksPerPopulationIncrease)
             {
                 PopulationTicks -= ticksPerPopulationIncrease;
-                population.Value += 1;
+                Resources.Population.Value += 1;
             }
         }
 

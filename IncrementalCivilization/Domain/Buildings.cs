@@ -4,8 +4,6 @@ namespace IncrementalCivilization.Domain;
 
 public enum BuildingItemType { Field, Hut };
 
-public class BuildingsBundle : ItemsBundle<BuildingItemType, BuildingItem> { }
-
 public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemType>
 {
     public BuildingItemType Type { get; private set; }

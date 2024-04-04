@@ -5,8 +5,6 @@ namespace IncrementalCivilization.Domain;
 
 public enum ResourceItemType { Population, Food, Wood, Science }
 
-public class ResourcesBundle : ItemsBundle<ResourceItemType, ResourceItem> { }
-
 public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemType>
 {
     private readonly CircularBuffer<double> rateBuffer = new(10);

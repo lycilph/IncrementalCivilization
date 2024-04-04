@@ -33,7 +33,7 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
         Buildings = new ObservableCollection<BuildingViewModel>(Game.Buildings.Select(b => new BuildingViewModel(b)));
         Jobs = new ObservableCollection<JobViewModel>(Game.Jobs.Select(j => new JobViewModel(j, FreePopulation)));
 
-        Game.Resources.Food().PropertyChanging += (s, e) =>
+        Game.Resources.Food.PropertyChanging += (s, e) =>
         {
             var item = (s as ResourceItem)!;
 
@@ -43,28 +43,28 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
                 ShowRefineFood = true;
         };
 
-        Game.Resources.Population().PropertyChanged += PopulationPropertyChanged;
+        Game.Resources.Population.PropertyChanged += PopulationPropertyChanged;
         foreach (var job in Game.Jobs)
             job.PropertyChanged += PopulationPropertyChanged;
     }
 
     private void PopulationPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        FreePopulation.Maximum = Game.Resources.Population().Value;
+        FreePopulation.Maximum = Game.Resources.Population.Value;
         FreePopulation.Value = FreePopulation.Maximum - Jobs.Aggregate(0, (a, b) => a + b.Item.Count);
     }
 
     [RelayCommand]
     private void GatherFood()
     {
-        Game.Resources.Food().Value += 1;
+        Game.Resources.Food.Value += 1;
     }
 
     [RelayCommand(CanExecute = nameof(CanRefineFood))]
     private void RefineFood()
     {
-        Game.Resources.Wood().Value += 1;
-        Game.Resources.Food().Subtract(100);
+        Game.Resources.Wood.Value += 1;
+        Game.Resources.Food.Subtract(100);
     }
 
     [RelayCommand]
@@ -79,7 +79,7 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
         var option = settingsService.Get(OptionType.DebugFood);
         if (int.TryParse(option.Value, out int food))
         {
-            Game.Resources.Food().Value += food;
+            Game.Resources.Food.Value += food;
             _logger.LogInformation("Adding {food} to food", food);
         }
         else
@@ -92,7 +92,7 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
         var option = settingsService.Get(OptionType.DebugWood);
         if (int.TryParse(option.Value, out int wood))
         {
-            Game.Resources.Wood().Value += wood;
+            Game.Resources.Wood.Value += wood;
             _logger.LogInformation("Adding {wood} to wood", wood);
         }
         else
@@ -102,12 +102,12 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     [RelayCommand]
     private void AddField()
     {
-        Game.Buildings.Field().Buy();
+        Game.Buildings.Field.Buy();
     }
 
     [RelayCommand]
     private void AddHut()
     {
-        Game.Buildings.Hut().Buy();
+        Game.Buildings.Hut.Buy();
     }
 }
