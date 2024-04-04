@@ -25,6 +25,6 @@ public partial class CostItem : ObservableObject, ITypedItem<ResourceItemType>
 
     public void SubtractCostFromResources()
     {
-        resourceItem.Subtract(Cost);
+        resourceItem.Subtract(Cost, skipRateUpdate: true);
     }
 }

@@ -55,10 +55,17 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
         Value = Math.Clamp(Value, 0, Maximum);
     }
 
-    // This does NOT update the rates (used when buying buildings)
-    public void Subtract(double v)
+    public void Add(double v, bool skipRateUpdate = false)
     {
-        updateRate = false;
+        updateRate = !skipRateUpdate;
+        Value += v;
+        updateRate = true;
+    }
+
+    // This does NOT update the rates (used when buying buildings)
+    public void Subtract(double v, bool skipRateUpdate = false)
+    {
+        updateRate = !skipRateUpdate;
         Value -= v;
         updateRate = true;
     }

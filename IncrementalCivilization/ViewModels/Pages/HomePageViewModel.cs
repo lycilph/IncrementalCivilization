@@ -57,14 +57,14 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     [RelayCommand]
     private void GatherFood()
     {
-        Game.Resources.Food.Value += 1;
+        Game.Resources.Food.Add(1, skipRateUpdate: true);
     }
 
     [RelayCommand(CanExecute = nameof(CanRefineFood))]
     private void RefineFood()
     {
-        Game.Resources.Wood.Value += 1;
-        Game.Resources.Food.Subtract(100);
+        Game.Resources.Wood.Add(1, true);
+        Game.Resources.Food.Subtract(100, skipRateUpdate: true);
     }
 
     [RelayCommand]
@@ -79,7 +79,7 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
         var option = settingsService.Get(OptionType.DebugFood);
         if (int.TryParse(option.Value, out int food))
         {
-            Game.Resources.Food.Value += food;
+            Game.Resources.Food.Add(food, skipRateUpdate: true);
             _logger.LogInformation("Adding {food} to food", food);
         }
         else
@@ -92,7 +92,7 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
         var option = settingsService.Get(OptionType.DebugWood);
         if (int.TryParse(option.Value, out int wood))
         {
-            Game.Resources.Wood.Value += wood;
+            Game.Resources.Wood.Add(wood, skipRateUpdate: true);
             _logger.LogInformation("Adding {wood} to wood", wood);
         }
         else
