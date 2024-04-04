@@ -145,6 +145,9 @@
                           Margin="10"
                           ItemsSource="{Binding Messages.Log}"/>
 
+            <Separator DockPanel.Dock="Bottom"
+                       Margin="10 5"/>
+
             <!-- Main Content -->
             <ContentControl Grid.Column="1"
                             Content="{Binding CurrentPage}"

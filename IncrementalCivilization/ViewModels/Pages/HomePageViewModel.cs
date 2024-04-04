@@ -64,7 +64,7 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     private void RefineFood()
     {
         Game.Resources.Wood().Value += 1;
-        Game.Resources.Food().Value -= 100;
+        Game.Resources.Food().Subtract(100);
     }
 
     [RelayCommand]
