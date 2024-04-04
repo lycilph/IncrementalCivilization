@@ -16,6 +16,7 @@ public partial class Game : ObservableObject
     public ResourcesBundle Resources { get; private set; } = [];
     public BuildingsBundle Buildings { get; private set; } = [];
     public JobsBundle Jobs { get; private set; } = [];
+    public ResearchBundle Research { get; private set; } = new();
     public Effects Effects { get; private set; } = new();
 
     public DispatcherTimer Timer { get; private set; }
@@ -48,6 +49,7 @@ public partial class Game : ObservableObject
         Resources = ResourcesBundle.AllResources();
         Buildings = BuildingsBundle.AllBuildings(Resources);
         Jobs = JobsBundle.AllJobs();
+        Research = ResearchBundle.AllResearch(Resources, Effects);
     }
 
     public void ToogleDebugging()

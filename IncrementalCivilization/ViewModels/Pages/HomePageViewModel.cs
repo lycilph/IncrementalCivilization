@@ -77,10 +77,10 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     private void AddFood()
     {
         var option = settingsService.Get(OptionType.DebugFood);
-        if (int.TryParse(option.Value, out int food))
+        if (int.TryParse(option.Value, out int value))
         {
-            Game.Resources.Food.Add(food, skipRateUpdate: true);
-            _logger.LogInformation("Adding {food} to food", food);
+            Game.Resources.Food.Add(value, skipRateUpdate: true);
+            _logger.LogInformation("Adding {food} to food", value);
         }
         else
             _logger.LogInformation("Couldn't parse option {name}", option.Name);
@@ -90,13 +90,34 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     private void AddWood()
     {
         var option = settingsService.Get(OptionType.DebugWood);
-        if (int.TryParse(option.Value, out int wood))
+        if (int.TryParse(option.Value, out int value))
         {
-            Game.Resources.Wood.Add(wood, skipRateUpdate: true);
-            _logger.LogInformation("Adding {wood} to wood", wood);
+            Game.Resources.Wood.Add(value, skipRateUpdate: true);
+            _logger.LogInformation("Adding {wood} to wood", value);
         }
         else
             _logger.LogInformation("Couldn't parse option {name}", option.Name);
+    }
+
+    [RelayCommand]
+    private void AddScience()
+    {
+        var option = settingsService.Get(OptionType.DebugScience);
+        if (int.TryParse(option.Value, out int value))
+        {
+            Game.Resources.Science.Add(value, skipRateUpdate: true);
+            _logger.LogInformation("Adding {science} to science", value);
+        }
+        else
+            _logger.LogInformation("Couldn't parse option {name}", option.Name);
+    }
+
+    [RelayCommand]
+    private void ClearResources()
+    {
+        Game.Resources.Food.Value = 0;
+        Game.Resources.Wood.Value = 0;
+        Game.Resources.Science.Value = 0;
     }
 
     [RelayCommand]

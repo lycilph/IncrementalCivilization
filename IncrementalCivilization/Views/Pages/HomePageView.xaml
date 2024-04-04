@@ -43,6 +43,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="3*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             
@@ -58,6 +59,8 @@
                                 Visibility="{Binding Game.IsDebugging, Converter={StaticResource visibility_converter}}">
                         <Button Content="Food" Margin="0 0 5 0" Command="{Binding AddFoodCommand}"/>
                         <Button Content="Wood" Margin="0 0 5 0" Command="{Binding AddWoodCommand}"/>
+                        <Button Content="Science" Margin="0 0 5 0" Command="{Binding AddScienceCommand}"/>
+                        <Button Content="Clear" Margin="0 0 5 0" Command="{Binding ClearResourcesCommand}"/>
                         <Button Content="Field" Margin="0 0 5 0" Command="{Binding AddFieldCommand}"/>
                         <Button Content="Hut" Margin="0 0 5 0" Command="{Binding AddHutCommand}"/>
                     </StackPanel>
@@ -82,8 +85,10 @@
                           Margin="10"
                           ItemsSource="{Binding Buildings}"/>
 
+            <Separator Grid.Row="2" Margin="10 0"/>
+
             <!-- Jobs area -->
-            <StackPanel Grid.Row="2"
+            <StackPanel Grid.Row="3"
                         Margin="10">
                 <TextBlock FontStyle="Italic">
                     <Run Text="Free population:"/>

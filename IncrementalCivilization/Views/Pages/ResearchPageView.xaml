@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
+             xmlns:i="clr-namespace:IncrementalCivilization.ViewModels.Items"
+             xmlns:conv="clr-namespace:IncrementalCivilization.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="root">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="visibility_converter"/>
+        <conv:MultiBoolToVisibilityConverter x:Key="multi_visibility_converter"
+                                             Invert="True"/>
     </UserControl.Resources>
     
     <Grid>
@@ -41,5 +46,47 @@
                 </ItemsControl>
             </StackPanel>
         </Border>
+        
+        <!-- Research items area -->
+        <Grid Grid.Row="1" 
+              Margin="0 10">
+            <ItemsControl ItemsSource="{Binding Research}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type i:ResearchViewModel}">
+                        <Button Command="{Binding BuyCommand}"
+                                HorizontalContentAlignment="Left"
+                                Width="250"
+                                Margin="0 0 0 5">
+                            <Button.Visibility>
+                                <MultiBinding Converter="{StaticResource multi_visibility_converter}">
+                                    <Binding Path="Item.IsBought"/>
+                                    <Binding ElementName="root" Path="DataContext.HideResearchedInventions"/>
+                                </MultiBinding>
+                            </Button.Visibility>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Item.Name}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Item.Description}" FontStyle="Italic"/>
+                                <Separator Margin="5 2"/>
+                                <ItemsControl ItemsSource="{Binding Cost}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type i:CostViewModel}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Item.Name}"/>
+                                                <TextBlock Text="{Binding Item.Cost}" Margin="10 0 0 0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <CheckBox HorizontalAlignment="Right"
+                      VerticalAlignment="Top"
+                      Content="Hide researched inventions"
+                      IsChecked="{Binding HideResearchedInventions}"/>
+        </Grid>
     </Grid>
 </UserControl>

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.Services;
 
-public enum OptionType { DebugFood, DebugWood };
+public enum OptionType { DebugFood, DebugWood, DebugScience };
 
 public partial class Option(OptionType type, string name, string value) : ObservableObject
 {
@@ -25,7 +25,8 @@ public class SettingsService : ISettingsService
         Options =
         [
             new(OptionType.DebugFood, "Food To Add", "1000"),
-            new(OptionType.DebugWood, "Wood To Add", "100")
+            new(OptionType.DebugWood, "Wood To Add", "100"),
+            new(OptionType.DebugScience, "Science To Add", "10")
         ];
     }
 
