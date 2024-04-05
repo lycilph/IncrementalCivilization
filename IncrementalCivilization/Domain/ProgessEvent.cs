@@ -63,8 +63,26 @@ public static class ProgressEvents
             },
             new()
             {
+                Effect = () =>
+                {
+                    game.Buildings.Library.Active = true;
+                    game.AddMessage("The world is large and there are many things to investigate");
+                },
+                Trigger = () => game.Resources.Wood.Value >= 15
+            },
+            new()
+            {
                 Effect = () => game.AddMessage("Over time people will join your village, be patient"),
                 Trigger = () => game.Buildings.Hut.Count > 0,
+            },
+            new()
+            {
+                Effect = () => 
+                {
+                    game.Jobs.Scholar.Active = true; 
+                    game.AddMessage("What wonders to discover...");
+                },
+                Trigger = () => game.Buildings.Library.Count > 0,
             },
         ];
     }

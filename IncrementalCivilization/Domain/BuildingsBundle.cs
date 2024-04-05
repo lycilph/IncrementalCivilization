@@ -4,6 +4,7 @@ public class BuildingsBundle : ItemsBundle<BuildingItemType, BuildingItem>
 {
     public BuildingItem Field { get; private set; } = new(BuildingItemType.Field);
     public BuildingItem Hut { get; private set; } = new(BuildingItemType.Hut);
+    public BuildingItem Library { get; private set; } = new(BuildingItemType.Library);
 
     public static BuildingsBundle AllBuildings(ResourcesBundle resources)
     {
@@ -23,6 +24,10 @@ public class BuildingsBundle : ItemsBundle<BuildingItemType, BuildingItem>
         bundle.Hut.Cost.Add(new CostItem(resources.Wood, 5));
         bundle.Hut.BuyAction = () => resources.Population.Maximum += 2;
         bundle.Add(bundle.Hut);
+
+        bundle.Library = new BuildingItem(BuildingItemType.Library);
+        bundle.Library.Cost.Add(new CostItem(resources.Wood, 25));
+        bundle.Add(bundle.Library);
 
         return bundle;
     }

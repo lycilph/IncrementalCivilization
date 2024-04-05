@@ -8,24 +8,29 @@ public class ResearchBundle
 
     public void Add(ResearchItem item) => Items.Add(item);
 
-    public static ResearchBundle AllResearch(ResourcesBundle resources, Effects effects)
+    public static ResearchBundle AllResearch(Game game)
     {
         var bundle = new ResearchBundle();
 
-        var betterFarmers = new ResearchItem("Better Farmes", "Increases farmer efficiency");
-        betterFarmers.Cost.Add(new CostItem(resources.Science, 50));
-        betterFarmers.BuyAction = () => effects.FarmerEffieciency += 0.1;
-        bundle.Add(betterFarmers);
+        var agriculture = new ResearchItem("Agriculture", "Enables the farming job");
+        agriculture.Cost.Add(new CostItem(game.Resources.Science, 50));
+        agriculture.BuyAction = () => game.Jobs.Farmer.Active = true;
+        bundle.Add(agriculture);
 
-        var betterWoodCutters = new ResearchItem("Better Wood Cutters", "Increases wood cutter efficiency");
-        betterWoodCutters.Cost.Add(new CostItem(resources.Science, 100));
-        betterWoodCutters.BuyAction = () => effects.WoodCutterEffieciency += 0.1;
-        bundle.Add(betterWoodCutters);
+        //var betterFarmers = new ResearchItem("Better Farmes", "Increases farmer efficiency");
+        //betterFarmers.Cost.Add(new CostItem(game.Resources.Science, 50));
+        //betterFarmers.BuyAction = () => game.Effects.FarmerEffieciency += 0.1;
+        //bundle.Add(betterFarmers);
 
-        var betterScholars = new ResearchItem("Better Scholars", "Increases scholar efficiency");
-        betterScholars.Cost.Add(new CostItem(resources.Science, 200));
-        betterScholars.BuyAction = () => effects.ScholarEffieciency += 0.1;
-        bundle.Add(betterScholars);
+        //var betterWoodCutters = new ResearchItem("Better Wood Cutters", "Increases wood cutter efficiency");
+        //betterWoodCutters.Cost.Add(new CostItem(game.Resources.Science, 100));
+        //betterWoodCutters.BuyAction = () => game.Effects.WoodCutterEffieciency += 0.1;
+        //bundle.Add(betterWoodCutters);
+
+        //var betterScholars = new ResearchItem("Better Scholars", "Increases scholar efficiency");
+        //betterScholars.Cost.Add(new CostItem(game.Resources.Science, 200));
+        //betterScholars.BuyAction = () => game.Effects.ScholarEffieciency += 0.1;
+        //bundle.Add(betterScholars);
 
         return bundle;
     }

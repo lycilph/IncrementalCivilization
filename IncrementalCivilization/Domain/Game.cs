@@ -54,7 +54,7 @@ public partial class Game : ObservableObject
         Resources = ResourcesBundle.AllResources();
         Buildings = BuildingsBundle.AllBuildings(Resources);
         Jobs = JobsBundle.AllJobs();
-        Research = ResearchBundle.AllResearch(Resources, Effects);
+        Research = ResearchBundle.AllResearch(this);
         Events = ProgressEvents.Initialize(this);
     }
 
@@ -81,7 +81,7 @@ public partial class Game : ObservableObject
 
         Resources.Food.Value += 0.125 * Buildings.Field.Count + 1.0 * Jobs.Farmer.Count * Effects.FarmerEffieciency - 0.85 * Resources.Population.Value;
         Resources.Wood.Value += 0.018 * Jobs.WoodCutter.Count * Effects.WoodCutterEffieciency;
-        Resources.Science.Value += 0.035 * Jobs.Scholar.Count * Effects.ScholarEffieciency;
+        Resources.Science.Value += 0.035 * Jobs.Scholar.Count * Effects.ScholarEffieciency * (1 + 0.1 * Buildings.Library.Count);
 
         if (Resources.Population.Value > 0 && Resources.Food.Value < 0)
         {

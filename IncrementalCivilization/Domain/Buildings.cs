@@ -2,7 +2,7 @@
 
 namespace IncrementalCivilization.Domain;
 
-public enum BuildingItemType { Field, Hut };
+public enum BuildingItemType { Field, Hut, Library };
 
 public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemType>
 {
