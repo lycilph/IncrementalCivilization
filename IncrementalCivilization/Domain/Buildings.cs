@@ -20,6 +20,9 @@ public partial class BuildingItem : ObservableObject, ITypedItem<BuildingItemTyp
     [ObservableProperty]
     private int count = 0;
 
+    [ObservableProperty]
+    private bool active = false;
+
     public BuildingItem(BuildingItemType type, string name)
     {
         Type = type;

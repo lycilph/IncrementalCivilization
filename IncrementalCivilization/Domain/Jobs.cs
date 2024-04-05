@@ -14,6 +14,9 @@ public partial class JobItem : ObservableObject, ITypedItem<JobItemType>
     [ObservableProperty]
     private int count = 0;
 
+    [ObservableProperty]
+    private bool active = false;
+
     public JobItem(JobItemType type, string name)
     {
         Type = type;

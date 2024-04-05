@@ -30,6 +30,10 @@
                 </ResourceDictionary>
 
                 <ResourceDictionary>
+                    <BooleanToVisibilityConverter x:Key="visibility_converter"/>
+                </ResourceDictionary>
+
+                <ResourceDictionary>
                     <DataTemplate DataType="{x:Type vm:MainViewModel}">
                         <v:MainView/>
                     </DataTemplate>

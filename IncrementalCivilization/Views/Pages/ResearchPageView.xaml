@@ -10,7 +10,6 @@
              d:DesignHeight="450" d:DesignWidth="800"
              x:Name="root">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="visibility_converter"/>
         <conv:MultiBoolToVisibilityConverter x:Key="multi_visibility_converter"
                                              Invert="True"/>
     </UserControl.Resources>

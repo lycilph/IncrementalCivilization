@@ -27,6 +27,9 @@ public partial class ResourceItem : ObservableObject, ITypedItem<ResourceItemTyp
     [ObservableProperty]
     private bool showRate = true;
 
+    [ObservableProperty]
+    private bool active = false;
+
     public ResourceItem(ResourceItemType type, string name, double max)
     {
         Type = type;

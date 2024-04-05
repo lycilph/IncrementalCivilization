@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ContentControl>
+    <ContentControl Visibility="{Binding Item.Active, Converter={StaticResource visibility_converter}}">
         <ContentControl.Template>
             <ControlTemplate>
                 <!-- This must be under a control template to give a common "namespace", that the trigger below can "see" -->

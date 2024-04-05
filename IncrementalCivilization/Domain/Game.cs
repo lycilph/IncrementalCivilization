@@ -9,6 +9,7 @@ public partial class Game : ObservableObject
 {
     private const int ticksPerSecond = 20;
     private const int ticksPerDay = 40;
+    private const int daysPerYear = 100;
     private const int ticksPerPopulationIncrease = ticksPerSecond * 4;
 
     private readonly IMessageLog _messages;
@@ -18,6 +19,7 @@ public partial class Game : ObservableObject
     public JobsBundle Jobs { get; private set; } = [];
     public ResearchBundle Research { get; private set; } = new();
     public Effects Effects { get; private set; } = new();
+    public List<ProgessEvent> Events { get; private set; } = new();
 
     public DispatcherTimer Timer { get; private set; }
 
@@ -29,6 +31,9 @@ public partial class Game : ObservableObject
 
     [ObservableProperty]
     private int _days = 0;
+
+    [ObservableProperty]
+    private int _years = 0;
 
     [ObservableProperty]
     private bool _isDebugging = false;
@@ -50,6 +55,7 @@ public partial class Game : ObservableObject
         Buildings = BuildingsBundle.AllBuildings(Resources);
         Jobs = JobsBundle.AllJobs();
         Research = ResearchBundle.AllResearch(Resources, Effects);
+        Events = ProgressEvents.Initialize(this);
     }
 
     public void ToogleDebugging()
@@ -65,6 +71,12 @@ public partial class Game : ObservableObject
         {
             Ticks -= ticksPerDay;
             Days += 1;
+
+            if (Days >= daysPerYear) 
+            {
+                Days -= daysPerYear;
+                Years += 1;
+            }
         }
 
         Resources.Food.Value += 0.125 * Buildings.Field.Count + 1.0 * Jobs.Farmer.Count * Effects.FarmerEffieciency - 0.85 * Resources.Population.Value;
@@ -75,7 +87,7 @@ public partial class Game : ObservableObject
         {
             var dead = Math.Floor(Resources.Food.Value);
             Resources.Population.Value += dead;
-            _messages.Add($"Your civilization ran out of food, and people starved, {dead} dead {Resources.Population.Value} left");
+            AddMessage($"Your civilization ran out of food, and people starved, {dead} dead {Resources.Population.Value} left");
         }
 
         if (Resources.Population.Value < Resources.Population.Maximum)
@@ -86,9 +98,26 @@ public partial class Game : ObservableObject
             {
                 PopulationTicks -= ticksPerPopulationIncrease;
                 Resources.Population.Value += 1;
+                AddMessage("A new person joined your civilization");
             }
         }
 
         Resources.Apply(i => i.Limit());
+
+        List<ProgessEvent> triggeredEvents = [];
+        foreach (var pe in Events)
+        {
+            if (pe.Trigger())
+            {
+                pe.Effect();
+                triggeredEvents.Add(pe);
+            }
+        }
+
+        if (triggeredEvents.Count > 0 )
+            foreach (var triggeredEvent in triggeredEvents)
+                Events.Remove(triggeredEvent);
     }
+
+    public void AddMessage(string msg) => _messages.Add(msg);
 }

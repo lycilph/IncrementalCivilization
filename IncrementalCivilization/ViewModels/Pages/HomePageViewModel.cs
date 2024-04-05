@@ -23,6 +23,9 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     private bool _showRefineFood = false;
 
     [ObservableProperty]
+    private bool _showJobs = false;
+
+    [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RefineFoodCommand))]
     private bool _canRefineFood = false;
 
@@ -45,7 +48,15 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
 
         Game.Resources.Population.PropertyChanged += PopulationPropertyChanged;
         foreach (var job in Game.Jobs)
+        {
             job.PropertyChanged += PopulationPropertyChanged;
+            job.PropertyChanged += JobPropertyChanged;
+        }
+    }
+
+    private void JobPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        ShowJobs = Game.Jobs.Any(j => j.Active);
     }
 
     private void PopulationPropertyChanged(object? sender, PropertyChangedEventArgs e)

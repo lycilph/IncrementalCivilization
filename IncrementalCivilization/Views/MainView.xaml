@@ -137,6 +137,10 @@
                 <StatusBarItem MinWidth="125">
                     <TextBlock Text="{Binding Game.Days, StringFormat=Days: {0}}"/>
                 </StatusBarItem>
+                <Separator/>
+                <StatusBarItem MinWidth="125">
+                    <TextBlock Text="{Binding Game.Years, StringFormat=Years: {0}}"/>
+                </StatusBarItem>
             </StatusBar>
 
             <!-- Main Content Messages -->

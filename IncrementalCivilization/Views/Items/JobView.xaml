@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Horizontal"
-                Margin="0 5">
+                Margin="0 5"
+                Visibility="{Binding Item.Active, Converter={StaticResource visibility_converter}}">
         <TextBlock VerticalAlignment="Center" 
                    Width="100">
             <Run Text="{Binding Item.Name}"/>
