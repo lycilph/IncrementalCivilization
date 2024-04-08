@@ -4,6 +4,7 @@ using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Items;
 using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
@@ -35,5 +36,16 @@ public partial class ResearchPageViewModel : PageViewModelBase
 
         Resources.Add(game.Resources.Science);
         Research = new ObservableCollection<ResearchViewModel>(game.Research.Items.Select(i => new ResearchViewModel(i)));
+
+        game.Research.Items.CollectionChanged += Items_CollectionChanged;
+    }
+
+    private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action != NotifyCollectionChangedAction.Add || e.NewItems == null)
+            throw new NotSupportedException("Only additions are supported");
+
+        foreach (var m in e.NewItems.Cast<ResearchItem>())
+            Research.Add(new ResearchViewModel(m));
     }
 }
