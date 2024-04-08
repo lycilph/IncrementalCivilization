@@ -9,6 +9,7 @@
              xmlns:i="clr-namespace:IncrementalCivilization.ViewModels.Items"
              xmlns:iv="clr-namespace:IncrementalCivilization.Views.Items"
              xmlns:s="clr-namespace:IncrementalCivilization.Services"
+             xmlns:c="clr-namespace:IncrementalCivilization.Converters"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
@@ -31,6 +32,10 @@
 
                 <ResourceDictionary>
                     <BooleanToVisibilityConverter x:Key="visibility_converter"/>
+                    
+                    <c:BoolToColorConverter x:Key="color_converter"
+                                            TrueColor="Black"
+                                            FalseColor="Red"/>
                 </ResourceDictionary>
 
                 <ResourceDictionary>
