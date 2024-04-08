@@ -56,6 +56,15 @@ public static class ProgressEvents
             {
                 Effect = () =>
                 {
+                    game.Effects.RefineFoodEnabled = true;
+                    game.AddMessage("Maybe food can be used for other things?");
+                },
+                Trigger = () => game.Resources.Food.Value >= 25
+            },
+            new()
+            {
+                Effect = () =>
+                {
                     game.Buildings.Hut.Active = true;
                     game.AddMessage("You wonder if this wood cannot be used for something, if only you had a little more");
                 },
@@ -83,6 +92,29 @@ public static class ProgressEvents
                     game.AddMessage("What wonders to discover...");
                 },
                 Trigger = () => game.Buildings.Library.Count > 0,
+            },
+            new()
+            {
+                Effect = () =>
+                { 
+                    game.Effects.ResearchPageEnabled = true;
+                    game.AddMessage("The first idea presents itself");
+                    
+                    var agriculture = new ResearchItem("Agriculture", "Enables the farming job");
+                    agriculture.Cost.Add(new CostItem(game.Resources.Science, 50));
+                    agriculture.BuyAction = () => game.Jobs.Farmer.Active = true;
+                    game.Research.Add(agriculture);
+                },
+                Trigger = () => game.Jobs.Scholar.Count > 0,
+            },
+            new()
+            {
+                Effect = () =>
+                {
+                    game.Effects.TimePageEnabled = true;
+                    game.AddMessage("You can now reset the game");
+                },
+                Trigger = () => game.Resources.Population.Value >= 2
             },
         ];
     }

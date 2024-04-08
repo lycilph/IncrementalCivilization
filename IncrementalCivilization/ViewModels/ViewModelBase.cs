@@ -9,6 +9,9 @@ public partial class ViewModelBase(ILogger logger) : ObservableObject, IViewMode
 
     public bool Initialized { get; protected set; } = false;
 
+    [ObservableProperty]
+    private bool _enabled = false;
+
     public virtual void Initialize()
     {
         _logger.LogInformation("ViewModel {vm} is initialized", GetType());

@@ -12,10 +12,10 @@ public class ResearchBundle
     {
         var bundle = new ResearchBundle();
 
-        var agriculture = new ResearchItem("Agriculture", "Enables the farming job");
-        agriculture.Cost.Add(new CostItem(game.Resources.Science, 50));
-        agriculture.BuyAction = () => game.Jobs.Farmer.Active = true;
-        bundle.Add(agriculture);
+        //var agriculture = new ResearchItem("Agriculture", "Enables the farming job");
+        //agriculture.Cost.Add(new CostItem(game.Resources.Science, 50));
+        //agriculture.BuyAction = () => game.Jobs.Farmer.Active = true;
+        //bundle.Add(agriculture);
 
         //var betterFarmers = new ResearchItem("Better Farmes", "Increases farmer efficiency");
         //betterFarmers.Cost.Add(new CostItem(game.Resources.Science, 50));

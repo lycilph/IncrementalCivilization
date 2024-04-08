@@ -61,7 +61,8 @@
                                        Margin="0 0 0 20"
                                        Padding="20 5"
                                        HorizontalContentAlignment="Left"
-                                       Command="{Binding NavigateToPageCommand}"/>
+                                       Command="{Binding NavigateToPageCommand}"
+                                       Visibility="{Binding Enabled, Converter={StaticResource visibility_converter}}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

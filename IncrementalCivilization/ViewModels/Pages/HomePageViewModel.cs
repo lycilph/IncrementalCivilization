@@ -20,9 +20,6 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     public ResourceItem FreePopulation { get; private set; } = new ResourceItem(ResourceItemType.Population);
 
     [ObservableProperty]
-    private bool _showRefineFood = false;
-
-    [ObservableProperty]
     private bool _showJobs = false;
 
     [ObservableProperty]
@@ -33,18 +30,12 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     {
         base.Initialize();
 
+        Enabled = true;
+
         Buildings = new ObservableCollection<BuildingViewModel>(Game.Buildings.Select(b => new BuildingViewModel(b)));
         Jobs = new ObservableCollection<JobViewModel>(Game.Jobs.Select(j => new JobViewModel(j, FreePopulation)));
 
-        Game.Resources.Food.PropertyChanging += (s, e) =>
-        {
-            var item = (s as ResourceItem)!;
-
-            CanRefineFood = item.Value >= 100;
-
-            if (!ShowRefineFood && item.Value >= 100)
-                ShowRefineFood = true;
-        };
+        Game.Resources.Food.PropertyChanged += (s, e) => CanRefineFood = Game.Resources.Food.Value >= 100;
 
         Game.Resources.Population.PropertyChanged += PopulationPropertyChanged;
         foreach (var job in Game.Jobs)
