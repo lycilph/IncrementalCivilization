@@ -12,7 +12,7 @@ public class MultiBoolToVisibilityConverter : IMultiValueConverter
     {
         foreach (var v in values)
             if (v is not bool)
-                return false;
+                return Visibility.Collapsed;
 
         var all_true = values.All(v => (bool)v == true);
 

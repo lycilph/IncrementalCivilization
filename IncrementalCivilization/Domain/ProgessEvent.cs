@@ -116,6 +116,29 @@ public static class ProgressEvents
                 },
                 Trigger = () => game.Resources.Population.Value >= 2
             },
+            new()
+            {
+                Effect = () =>
+                {
+                    game.AddMessage("Everyone can improve (new research available)");
+
+                    var betterFarmers = new ResearchItem("Better Farmes", "Increases farmer efficiency");
+                    betterFarmers.Cost.Add(new CostItem(game.Resources.Science, 50));
+                    betterFarmers.BuyAction = () => game.Effects.FarmerEffieciency += 0.1;
+                    game.Research.Add(betterFarmers);
+
+                    var betterWoodCutters = new ResearchItem("Better Wood Cutters", "Increases wood cutter efficiency");
+                    betterWoodCutters.Cost.Add(new CostItem(game.Resources.Science, 100));
+                    betterWoodCutters.BuyAction = () => game.Effects.WoodCutterEffieciency += 0.1;
+                    game.Research.Add(betterWoodCutters);
+
+                    var betterScholars = new ResearchItem("Better Scholars", "Increases scholar efficiency");
+                    betterScholars.Cost.Add(new CostItem(game.Resources.Science, 200));
+                    betterScholars.BuyAction = () => game.Effects.ScholarEffieciency += 0.1;
+                    game.Research.Add(betterScholars);
+                },
+                Trigger = () => game.Buildings.Library.Count >= 3
+            },
         ];
     }
 }

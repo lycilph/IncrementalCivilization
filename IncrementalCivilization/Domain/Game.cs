@@ -54,7 +54,6 @@ public partial class Game : ObservableObject
         Resources = ResourcesBundle.AllResources();
         Buildings = BuildingsBundle.AllBuildings(Resources);
         Jobs = JobsBundle.AllJobs();
-        Research = ResearchBundle.AllResearch(this);
         Events = ProgressEvents.Initialize(this);
     }
 
@@ -87,6 +86,7 @@ public partial class Game : ObservableObject
         {
             var dead = Math.Floor(Resources.Food.Value);
             Resources.Population.Value += dead;
+            Jobs.Limit(Resources.Population);
             AddMessage($"Your civilization ran out of food, and people starved, {dead} dead {Resources.Population.Value} left");
         }
 
