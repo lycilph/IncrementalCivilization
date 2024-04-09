@@ -3,7 +3,7 @@ using IncrementalCivilization.Utils;
 
 namespace IncrementalCivilization.Domain;
 
-public partial class ResearchItem(string name = "", string description = "") : ObservableObject
+public partial class ImprovementItem(string name = "", string description = "") : ObservableObject
 {
     public CostsBundle Cost { get; set; } = [];
     public Action BuyAction { get; set; } = () => { };

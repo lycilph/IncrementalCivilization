@@ -9,24 +9,24 @@ using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
-public partial class ResearchPageViewModel : PageViewModelBase
+public partial class UpgradesPageViewModel : PageViewModelBase
 {
     private readonly Game game;
 
-    public ObservableCollection<ResourceItem> Resources { get; private set; } = [];
-    public ObservableCollection<ImprovementViewModel> Research { get; private set; } = [];
+    public IEnumerable<ResourceItem> Resources { get => game.Resources; }
+    public ObservableCollection<ImprovementViewModel> Upgrades { get; private set; } = [];
 
     [ObservableProperty]
     private bool _hideResearchedInventions = true;
 
-    public ResearchPageViewModel(Game game, INavigationService navigationService, ILogger<ResearchPageViewModel> logger) : base("Research", SymbolRegular.Beaker24, navigationService, logger)
+    public UpgradesPageViewModel(Game game, INavigationService navigationService, ILogger<ResearchPageViewModel> logger) : base("Upgrades", SymbolRegular.Star24, navigationService, logger)
     {
         this.game = game;
 
         game.Effects.PropertyChanged += (s, e) =>
         {
-            if (e.PropertyName == nameof(game.Effects.ResearchPageEnabled))
-                Enabled = game.Effects.ResearchPageEnabled;
+            if (e.PropertyName == nameof(game.Effects.UpgradesPageEnabled))
+                Enabled = game.Effects.UpgradesPageEnabled;
         };
     }
 
@@ -34,10 +34,9 @@ public partial class ResearchPageViewModel : PageViewModelBase
     {
         base.Initialize();
 
-        Resources.Add(game.Resources.Science);
-        Research = new ObservableCollection<ImprovementViewModel>(game.Research.Items.Select(i => new ImprovementViewModel(i)));
+        Upgrades = new ObservableCollection<ImprovementViewModel>(game.Upgrades.Items.Select(i => new ImprovementViewModel(i)));
 
-        game.Research.Items.CollectionChanged += Items_CollectionChanged;
+        game.Upgrades.Items.CollectionChanged += Items_CollectionChanged;
     }
 
     private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -46,6 +45,6 @@ public partial class ResearchPageViewModel : PageViewModelBase
             throw new NotSupportedException("Only additions are supported");
 
         foreach (var m in e.NewItems.Cast<ImprovementItem>())
-            Research.Add(new ImprovementViewModel(m));
+            Upgrades.Add(new ImprovementViewModel(m));
     }
 }

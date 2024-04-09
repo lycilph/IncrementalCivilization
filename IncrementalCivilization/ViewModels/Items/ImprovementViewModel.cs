@@ -5,16 +5,16 @@ using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.ViewModels.Items;
 
-public partial class ResearchViewModel : ObservableObject
+public partial class ImprovementViewModel : ObservableObject
 {
-    public ResearchItem Item { get; private set; }
+    public ImprovementItem Item { get; private set; }
     public ObservableCollection<CostViewModel> Cost { get; private set; }
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(BuyCommand))]
     public bool canBuy = false;
 
-    public ResearchViewModel(ResearchItem item)
+    public ImprovementViewModel(ImprovementItem item)
     {
         Item = item;
         Cost = new ObservableCollection<CostViewModel>(item.Cost.Select(c => new CostViewModel(c)));

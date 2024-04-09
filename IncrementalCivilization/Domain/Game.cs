@@ -18,6 +18,7 @@ public partial class Game : ObservableObject
     public BuildingsBundle Buildings { get; private set; } = [];
     public JobsBundle Jobs { get; private set; } = [];
     public ResearchBundle Research { get; private set; } = new();
+    public UpgradesBundle Upgrades { get; private set; } = new();
     public Effects Effects { get; private set; } = new();
     public List<ProgessEvent> Events { get; private set; } = new();
 
@@ -54,6 +55,8 @@ public partial class Game : ObservableObject
         Resources = ResourcesBundle.AllResources();
         Buildings = BuildingsBundle.AllBuildings(Resources);
         Jobs = JobsBundle.AllJobs();
+        Research = ResearchBundle.Initialize(this);
+        Upgrades = UpgradesBundle.Initialize(this);
         Events = ProgressEvents.Initialize(this);
     }
 

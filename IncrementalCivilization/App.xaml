@@ -55,6 +55,10 @@
                         <pv:ResearchPageView/>
                     </DataTemplate>
 
+                    <DataTemplate DataType="{x:Type p:UpgradesPageViewModel}">
+                        <pv:UpgradesPageView/>
+                    </DataTemplate>
+
                     <DataTemplate DataType="{x:Type p:TimePageViewModel}">
                         <pv:TimePageView/>
                     </DataTemplate>

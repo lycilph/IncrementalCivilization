@@ -11,6 +11,9 @@ public partial class Effects : ObservableObject
     private bool _researchPageEnabled = false;
 
     [ObservableProperty]
+    private bool _upgradesPageEnabled = false;
+
+    [ObservableProperty]
     private bool _timePageEnabled = false;
 
     public double FarmerEffieciency { get; set; } = 1.0;

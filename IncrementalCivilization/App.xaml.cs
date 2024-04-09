@@ -47,6 +47,7 @@ public partial class App : Application
         // Page view models
         services.AddSingleton<IPageViewModel, HomePageViewModel>();
         services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
+        services.AddSingleton<IPageViewModel, UpgradesPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
         // Game related stuff

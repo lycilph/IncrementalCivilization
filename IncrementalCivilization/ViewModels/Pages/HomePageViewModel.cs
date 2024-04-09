@@ -141,4 +141,10 @@ public partial class HomePageViewModel(Game game, ISettingsService settingsServi
     {
         Game.Buildings.Hut.Buy();
     }
+
+    [RelayCommand]
+    private void AddLibrary()
+    {
+        Game.Buildings.Library.Buy();
+    }
 }
