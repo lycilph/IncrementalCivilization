@@ -1,4 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using IncrementalCivilization.Messages;
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Shared;
@@ -26,5 +29,11 @@ public partial class HomePageViewModel : PageViewModelBase
     private void UpdateDebugMode()
     {
         DebugMode = Settings.Default.Debug;
+    }
+
+    [RelayCommand]
+    private void EnableAllPages()
+    {
+        StrongReferenceMessenger.Default.Send(new EnablePageMessage(EnablePageMessage.Page.All));
     }
 }
