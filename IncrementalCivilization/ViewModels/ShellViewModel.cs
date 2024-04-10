@@ -1,19 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using IncrementalCivilization.Domain;
-using Microsoft.Extensions.Logging;
+using IncrementalCivilization.Properties;
+using IncrementalCivilization.ViewModels.Shared;
+using NLog;
+using Wpf.Ui;
+using Wpf.Ui.Extensions;
 
 namespace IncrementalCivilization.ViewModels;
 
-public partial class ShellViewModel(Game game, ILogger<ShellViewModel> logger) : ViewModelBase(logger), IShellViewModel
+public partial class ShellViewModel(ISnackbarService snackbarService) : ViewModelBase, IShellViewModel
 {
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
     [ObservableProperty]
-    private IViewModel? _current;
+    private IViewModel? _currentScreen;
 
     [RelayCommand]
-    private void ToggleDebugging()
+    private void ToggleDebug()
     {
-        _logger.LogInformation("Toggling debugging");
-        game.ToogleDebugging();
+        Settings.Default.Debug = !Settings.Default.Debug;
+
+        var msg = $"Debug toggled (current value = {Settings.Default.Debug})";
+        logger.Debug(msg);
+        snackbarService.Show("Info", msg, Wpf.Ui.Controls.ControlAppearance.Info);
     }
 }

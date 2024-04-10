@@ -1,11 +1,14 @@
-﻿using IncrementalCivilization.Domain;
-using IncrementalCivilization.Services;
+﻿using IncrementalCivilization.Properties;
 using IncrementalCivilization.ViewModels;
 using IncrementalCivilization.ViewModels.Pages;
+using IncrementalCivilization.ViewModels.Screens;
+using IncrementalCivilization.ViewModels.Shared;
 using IncrementalCivilization.Views;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Windows;
+using Wpf.Ui;
+using INavigationService = IncrementalCivilization.Services.INavigationService;
+using NavigationService = IncrementalCivilization.Services.NavigationService;
 
 namespace IncrementalCivilization;
 
@@ -14,12 +17,10 @@ public partial class App : Application
     public new static App Current => (App)Application.Current;
 
     public IServiceProvider Services { get; private set; }
-    private readonly ILogger _logger;
 
     public App()
     {
         Services = ConfigureServices();
-        _logger = Services.GetRequiredService<ILogger<Application>>();
 
         InitializeComponent();
     }
@@ -28,56 +29,37 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        // Add logging
-        services.AddLogging(builder => builder.AddDebug());
-
-        // Add services
+        // Services
+        services.AddSingleton<ISnackbarService, SnackbarService>();
         services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<IMessageLog, MessageLog>();
-        services.AddSingleton<ISettingsService, SettingsService>();
 
-        // The application shell (a window that shows a single IViewModel)
+        // Shell
         services.AddSingleton<ShellWindow>();
         services.AddSingleton<IShellViewModel, ShellViewModel>();
 
-        // Application view models
-        services.AddSingleton<IMainViewModel, MainViewModel>();
-        services.AddSingleton<ISettingsViewModel, SettingsViewModel>();
+        // Screens
+        services.AddSingleton<IMainScreenViewModel, MainScreenViewModel>();
 
-        // Page view models
+        // Pages
         services.AddSingleton<IPageViewModel, HomePageViewModel>();
         services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
         services.AddSingleton<IPageViewModel, UpgradesPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
-
-        // Game related stuff
-        services.AddSingleton<Game>();
 
         return services.BuildServiceProvider();
     }
 
     private void Application_Startup(object sender, StartupEventArgs e)
     {
-        _logger.LogInformation("Starting");
+        var shell = Services.GetRequiredService<ShellWindow>();
+        shell.Show();
 
-        var game = Services.GetRequiredService<Game>();
-        game.Initialize();
-
-        var win = Services.GetRequiredService<ShellWindow>();
-        win.DataContext = Services.GetRequiredService<IShellViewModel>();
-        win.Show();
-
-        var navigation = Services.GetRequiredService<Services.INavigationService>();
-        navigation.NavigateToMain();
-
-        game.Timer.Start();
+        var navigation = Services.GetRequiredService<INavigationService>();
+        navigation.NavigateToScreen<IMainScreenViewModel>();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
-        _logger.LogInformation("Exiting");
-
-        var game = Services.GetRequiredService<Game>();
-        game.Timer.Stop();
+        Settings.Default.Save();
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace IncrementalCivilization.ViewModels;
+﻿using IncrementalCivilization.ViewModels.Shared;
+
+namespace IncrementalCivilization.ViewModels;
 
 public interface IShellViewModel : IViewModel
 {
-    public IViewModel? Current { get; set; }
+    public IViewModel? CurrentScreen { get; set; }
 }

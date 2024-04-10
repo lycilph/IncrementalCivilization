@@ -3,8 +3,10 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
+                 xmlns:viewmodels="clr-namespace:IncrementalCivilization.ViewModels" 
+                 d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
                  mc:Ignorable="d"
-                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  Height="800" 
                  Width="1000"    
                  ExtendsContentIntoTitleBar="True"
@@ -12,9 +14,9 @@
                  WindowCornerPreference="Default"
                  WindowStartupLocation="CenterScreen">
     <ui:FluentWindow.InputBindings>
-        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding ToggleDebuggingCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding ToggleDebugCommand}"/>
     </ui:FluentWindow.InputBindings>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,7 +26,7 @@
         <ui:TitleBar Grid.Row="0"/>
 
         <Grid Grid.Row="1" >
-            <ContentControl Content="{Binding Current}"/>
+            <ContentControl Content="{Binding CurrentScreen}"/>
             <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
         </Grid>
     </Grid>

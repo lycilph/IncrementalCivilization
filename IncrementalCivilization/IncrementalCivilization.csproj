@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <None Remove="Assets\rubik.png" />
-    <None Remove="Assets\settings.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,13 +20,35 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="NLog" Version="5.2.8" />
     <PackageReference Include="WPF-UI" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="NLog.Config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\rubik.png" />
-    <Resource Include="Assets\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

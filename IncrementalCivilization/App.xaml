@@ -2,14 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:vm="clr-namespace:IncrementalCivilization.ViewModels"
-             xmlns:v="clr-namespace:IncrementalCivilization.Views"
-             xmlns:p="clr-namespace:IncrementalCivilization.ViewModels.Pages"
-             xmlns:pv="clr-namespace:IncrementalCivilization.Views.Pages"
-             xmlns:i="clr-namespace:IncrementalCivilization.ViewModels.Items"
-             xmlns:iv="clr-namespace:IncrementalCivilization.Views.Items"
-             xmlns:s="clr-namespace:IncrementalCivilization.Services"
-             xmlns:c="clr-namespace:IncrementalCivilization.Converters"
+             xmlns:screenVM="clr-namespace:IncrementalCivilization.ViewModels.Screens"
+             xmlns:screenV="clr-namespace:IncrementalCivilization.Views.Screens" 
+             xmlns:pageVM="clr-namespace:IncrementalCivilization.ViewModels.Pages"
+             xmlns:pageV="clr-namespace:IncrementalCivilization.Views.Pages"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
@@ -26,57 +23,23 @@
                     <Color x:Key="ApplicationAccent5">#BFBFBF</Color>
 
                     <SolidColorBrush x:Key="ApplicationAccent1Brush" Color="{StaticResource ApplicationAccent1}"/>
+                    <SolidColorBrush x:Key="ApplicationAccent2Brush" Color="{StaticResource ApplicationAccent2}"/>
                     <SolidColorBrush x:Key="ApplicationAccent3Brush" Color="{StaticResource ApplicationAccent3}"/>
+                    <SolidColorBrush x:Key="ApplicationAccent4Brush" Color="{StaticResource ApplicationAccent4}"/>
                     <SolidColorBrush x:Key="ApplicationAccent5Brush" Color="{StaticResource ApplicationAccent5}"/>
+
+                    <sys:Double x:Key="TitleFontSize">20</sys:Double>
                 </ResourceDictionary>
 
                 <ResourceDictionary>
-                    <BooleanToVisibilityConverter x:Key="visibility_converter"/>
-                    
-                    <c:BoolToColorConverter x:Key="color_converter"
-                                            TrueColor="Black"
-                                            FalseColor="Red"/>
-                </ResourceDictionary>
-
-                <ResourceDictionary>
-                    <DataTemplate DataType="{x:Type vm:MainViewModel}">
-                        <v:MainView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
-                        <v:SettingsView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type p:HomePageViewModel}">
-                        <pv:HomePageView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type p:ResearchPageViewModel}">
-                        <pv:ResearchPageView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type p:UpgradesPageViewModel}">
-                        <pv:UpgradesPageView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type p:TimePageViewModel}">
-                        <pv:TimePageView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type i:BuildingViewModel}">
-                        <iv:BuildingView/>
+                    <!-- Screen mappings -->
+                    <DataTemplate DataType="{x:Type screenVM:MainScreenViewModel}">
+                        <screenV:MainScreenView/>
                     </DataTemplate>
                     
-                    <DataTemplate DataType="{x:Type i:CostViewModel}">
-                        <iv:CostView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type i:JobViewModel}">
-                        <iv:JobView/>
-                    </DataTemplate>
-
-                    <DataTemplate DataType="{x:Type s:Option}">
-                        <iv:OptionView/>
+                    <!-- Page mappings -->
+                    <DataTemplate DataType="{x:Type pageVM:HomePageViewModel}">
+                        <pageV:HomePageView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
