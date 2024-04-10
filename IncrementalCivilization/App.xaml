@@ -30,7 +30,11 @@
 
                     <sys:Double x:Key="TitleFontSize">20</sys:Double>
                 </ResourceDictionary>
-
+                
+                <ResourceDictionary>
+                    <BooleanToVisibilityConverter x:Key="visibility_converter"/>
+                </ResourceDictionary>
+                
                 <ResourceDictionary>
                     <!-- Screen mappings -->
                     <DataTemplate DataType="{x:Type screenVM:MainScreenViewModel}">

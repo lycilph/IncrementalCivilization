@@ -1,5 +1,6 @@
-﻿using IncrementalCivilization.ViewModels.Shared;
-using IncrementalCivilization.ViewModels;
+﻿using IncrementalCivilization.ViewModels;
+using IncrementalCivilization.ViewModels.Screens;
+using IncrementalCivilization.ViewModels.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
@@ -18,7 +19,7 @@ public class NavigationService : INavigationService
 
     public void NavigateToScreen<IVM>() where IVM : notnull
     {
-        logger.Debug("Navigating to {vm}", typeof(IVM).Name);
+        logger.Debug("Navigating to screen {vm}", typeof(IVM).Name);
 
         var shell = _services.GetRequiredService<IShellViewModel>();
         var vm = _services.GetRequiredService<IVM>() as IViewModel;
@@ -27,5 +28,16 @@ public class NavigationService : INavigationService
             vm.Initialize();
 
         shell.CurrentScreen = vm;
+    }
+
+    public void NavigateToPage(IPageViewModel page)
+    {
+        logger.Debug("Navigating to page {page}", page.Title);
+
+        if (!page.Initialized)
+            page.Initialize();
+
+        var mainVM = _services.GetRequiredService<IMainScreenViewModel>();
+        mainVM.CurrentPage = page;
     }
 }

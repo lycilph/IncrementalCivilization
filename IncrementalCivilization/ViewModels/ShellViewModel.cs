@@ -4,6 +4,7 @@ using IncrementalCivilization.Properties;
 using IncrementalCivilization.ViewModels.Shared;
 using NLog;
 using Wpf.Ui;
+using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 
 namespace IncrementalCivilization.ViewModels;
@@ -22,6 +23,6 @@ public partial class ShellViewModel(ISnackbarService snackbarService) : ViewMode
 
         var msg = $"Debug toggled (current value = {Settings.Default.Debug})";
         logger.Debug(msg);
-        snackbarService.Show("Info", msg, Wpf.Ui.Controls.ControlAppearance.Info);
+        snackbarService.Show("Info", msg, ControlAppearance.Info, TimeSpan.FromSeconds(1));
     }
 }
