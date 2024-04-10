@@ -10,6 +10,9 @@ public partial class Resource : ObservableObject, ITypedItem<ResourceType>
     public ResourceType Type { get; private set; }
 
     [ObservableProperty]
+    private bool active = false;
+
+    [ObservableProperty]
     private string _name = string.Empty;
 
     [ObservableProperty]

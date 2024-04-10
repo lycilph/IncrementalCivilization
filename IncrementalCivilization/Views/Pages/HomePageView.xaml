@@ -14,29 +14,8 @@
         </Grid.ColumnDefinitions>
 
         <!-- Resources area -->
-        <StackPanel>
-            <TextBlock Text="Resources:"
-                       FontSize="{StaticResource TitleFontSize}"
-                       FontStyle="Italic"
-                       MinWidth="200"/>
-
-            <!--<ItemsControl ItemsSource="{Binding Game.Resources}"
-                          Margin="0 10">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type domain:ResourceItem}">
-                        <StackPanel Orientation="Horizontal" 
-                                    Margin="0 5"
-                                    Visibility="{Binding Active, Converter={StaticResource visibility_converter}}">
-                            <TextBlock Text="{Binding Name}" Width="75"/>
-                            <TextBlock Text="{Binding Value, StringFormat={}{0:N1}}" Width="50"/>
-                            <TextBlock Text="/ "/>
-                            <TextBlock Text="{Binding Maximum}" Width="50"/>
-                            <TextBlock Text="{Binding Rate, StringFormat={}{0:N2}}" Width="50" Visibility="{Binding ShowRate, Converter={StaticResource visibility_converter}}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
-        </StackPanel>
+        <ContentControl Grid.Column="0"
+                        Content="{Binding Resources}"/>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

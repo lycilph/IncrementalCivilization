@@ -1,15 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using IncrementalCivilization.Domain;
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Shared;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace IncrementalCivilization.ViewModels.Screens;
 
 public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
 {
     private readonly INavigationService navigationService;
+    private readonly Game game;
 
     [ObservableProperty]
     private string _debugMessage = string.Empty;
@@ -19,12 +22,17 @@ public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
     [ObservableProperty]
     private IPageViewModel? _currentPage;
 
-    public MainScreenViewModel(INavigationService navigationService, IEnumerable<IPageViewModel> pages)
+    public Time Time { get => game.Time; }
+    public DispatcherTimer Timer { get => game.Timer; }
+
+    public MainScreenViewModel(INavigationService navigationService, IEnumerable<IPageViewModel> pages, Game game)
     {
+        this.navigationService = navigationService;
+        this.game = game;
         Pages = new ObservableCollection<IPageViewModel>(pages);
 
         Settings.Default.PropertyChanged += (s, e) => UpdateDebugMessage();
-        this.navigationService = navigationService;
+        
     }
 
     public override void Initialize()

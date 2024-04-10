@@ -51,8 +51,11 @@ public partial class App : Application
         services.AddSingleton<IPageViewModel, UpgradesPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
+        // Shared
+        services.AddSingleton<ResourcesViewModel>();
+
         // Domain
-        services.AddSingleton<IGame, Game>();
+        services.AddSingleton<Game>();
 
         return services.BuildServiceProvider();
     }
@@ -66,6 +69,9 @@ public partial class App : Application
 
         var navigation = Services.GetRequiredService<INavigationService>();
         navigation.NavigateToScreen<IMainScreenViewModel>();
+
+        var game = Services.GetRequiredService<Game>();
+        game.Timer.Start();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)

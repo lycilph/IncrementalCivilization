@@ -100,12 +100,12 @@
                                Margin="20 -5 0 0"/>
 
                     <!-- Header Button -->
-                    <!--<ToggleButton x:Name="start_stop_timer_button"
+                    <ToggleButton x:Name="start_stop_timer_button"
                                   DockPanel.Dock="Right"
                                   Background="{StaticResource ApplicationAccent5Brush}"
                                   BorderBrush="{StaticResource ApplicationAccent5Brush}"
                                   Margin="0 0 20 0"
-                                  IsChecked="{Binding Game.Timer.IsEnabled}">
+                                  IsChecked="{Binding Timer.IsEnabled}">
                         <ui:SymbolIcon>
                             <ui:SymbolIcon.Style>
                                 <Style TargetType="ui:SymbolIcon">
@@ -120,7 +120,7 @@
                                 </Style>
                             </ui:SymbolIcon.Style>
                         </ui:SymbolIcon>
-                    </ToggleButton>-->
+                    </ToggleButton>
                 </DockPanel>
             </Border>
 
@@ -128,21 +128,21 @@
             <StatusBar DockPanel.Dock="Bottom"
                        Padding="0"
                        Background="Transparent">
-                <!--<StatusBarItem MinWidth="125">
-                    <TextBlock Text="{Binding Game.Ticks, StringFormat=Ticks: {0}}"/>
+                <StatusBarItem MinWidth="125">
+                    <TextBlock Text="{Binding Time.Ticks, StringFormat=Ticks: {0}}"/>
                 </StatusBarItem>
                 <Separator/>
                 <StatusBarItem MinWidth="125">
-                    <TextBlock Text="{Binding Game.PopulationTicks, StringFormat=Pop Ticks: {0}}"/>
+                    <TextBlock Text="{Binding Time.PopulationTicks, StringFormat=Pop Ticks: {0}}"/>
                 </StatusBarItem>
                 <Separator/>
                 <StatusBarItem MinWidth="125">
-                    <TextBlock Text="{Binding Game.Days, StringFormat=Days: {0}}"/>
+                    <TextBlock Text="{Binding Time.Days, StringFormat=Days: {0}}"/>
                 </StatusBarItem>
                 <Separator/>
                 <StatusBarItem MinWidth="125">
-                    <TextBlock Text="{Binding Game.Years, StringFormat=Years: {0}}"/>
-                </StatusBarItem>-->
+                    <TextBlock Text="{Binding Time.Years, StringFormat=Years: {0}}"/>
+                </StatusBarItem>
                 <StatusBarItem HorizontalAlignment="Right">
                     <TextBlock Text="{Binding DebugMessage}"/>
                 </StatusBarItem>
@@ -150,9 +150,9 @@
 
             <!-- Main Content Messages -->
             <!--<misc:LogView DockPanel.Dock="Bottom"
-                          Height="100"
-                          Margin="10"
-                          ItemsSource="{Binding Messages.Log}"/>-->
+                        Height="100"
+                        Margin="10"
+                        ItemsSource="{Binding Messages.Log}"/>-->
 
             <Separator DockPanel.Dock="Bottom"
                        Margin="10 5"/>

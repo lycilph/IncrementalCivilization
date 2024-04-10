@@ -6,6 +6,8 @@
              xmlns:screenV="clr-namespace:IncrementalCivilization.Views.Screens" 
              xmlns:pageVM="clr-namespace:IncrementalCivilization.ViewModels.Pages"
              xmlns:pageV="clr-namespace:IncrementalCivilization.Views.Pages"
+             xmlns:sharedVM="clr-namespace:IncrementalCivilization.ViewModels.Shared"
+             xmlns:sharedV="clr-namespace:IncrementalCivilization.Views.Shared"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              Startup="Application_Startup"
              Exit="Application_Exit">
@@ -48,6 +50,11 @@
                     <!-- Page mappings -->
                     <DataTemplate DataType="{x:Type pageVM:HomePageViewModel}">
                         <pageV:HomePageView/>
+                    </DataTemplate>
+                    
+                    <!-- Shared mappings -->
+                    <DataTemplate DataType="{x:Type sharedVM:ResourcesViewModel}">
+                        <sharedV:ResourcesView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
