@@ -1,10 +1,12 @@
-﻿using IncrementalCivilization.Properties;
+﻿using IncrementalCivilization.Domain;
+using IncrementalCivilization.Properties;
 using IncrementalCivilization.ViewModels;
 using IncrementalCivilization.ViewModels.Pages;
 using IncrementalCivilization.ViewModels.Screens;
 using IncrementalCivilization.ViewModels.Shared;
 using IncrementalCivilization.Views;
 using Microsoft.Extensions.DependencyInjection;
+using NLog;
 using System.Windows;
 using Wpf.Ui;
 using INavigationService = IncrementalCivilization.Services.INavigationService;
@@ -14,6 +16,8 @@ namespace IncrementalCivilization;
 
 public partial class App : Application
 {
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
     public new static App Current => (App)Application.Current;
 
     public IServiceProvider Services { get; private set; }
@@ -39,6 +43,7 @@ public partial class App : Application
 
         // Screens
         services.AddSingleton<IMainScreenViewModel, MainScreenViewModel>();
+        services.AddSingleton<ISettingsScreenViewModel, SettingsScreenViewModel>();
 
         // Pages
         services.AddSingleton<IPageViewModel, HomePageViewModel>();
@@ -46,11 +51,16 @@ public partial class App : Application
         services.AddSingleton<IPageViewModel, UpgradesPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
 
+        // Domain
+        services.AddSingleton<IGame, Game>();
+
         return services.BuildServiceProvider();
     }
 
     private void Application_Startup(object sender, StartupEventArgs e)
     {
+        logger.Debug("Starting application");
+
         var shell = Services.GetRequiredService<ShellWindow>();
         shell.Show();
 
@@ -60,6 +70,8 @@ public partial class App : Application
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
+        logger.Debug("Exiting application");
+
         Settings.Default.Save();
     }
 }

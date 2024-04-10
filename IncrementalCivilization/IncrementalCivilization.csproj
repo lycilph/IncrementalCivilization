@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Assets\rubik.png" />
+    <None Remove="Assets\settings.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,12 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Utils\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Assets\rubik.png" />
+    <Resource Include="Assets\settings.png" />
   </ItemGroup>
 
   <ItemGroup>

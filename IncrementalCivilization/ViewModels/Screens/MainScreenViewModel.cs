@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Shared;
@@ -36,5 +37,11 @@ public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
     private void UpdateDebugMessage()
     {
         DebugMessage = Settings.Default.Debug ? "Debugging" : string.Empty;
+    }
+
+    [RelayCommand]
+    private void ShowSettings()
+    {
+        navigationService.NavigateToScreen<ISettingsScreenViewModel>();
     }
 }
