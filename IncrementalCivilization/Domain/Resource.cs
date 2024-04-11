@@ -53,7 +53,6 @@ public partial class Resource : ObservableObject, ITypedItem<ResourceType>
         }
     }
 
-
     public void Sub(double v, bool skipRateUpdate = false)
     {
         Value -= v;
@@ -63,5 +62,10 @@ public partial class Resource : ObservableObject, ITypedItem<ResourceType>
             rateBuffer.Insert(v);
             Rate = rateBuffer.Average();
         }
+    }
+
+    public void Limit()
+    {
+        Value = Math.Clamp(Value, 0, Maximum);
     }
 }

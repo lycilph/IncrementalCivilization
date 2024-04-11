@@ -57,6 +57,8 @@
                     Visibility="{Binding DebugMode, Converter={StaticResource visibility_converter}}">
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Enable all pages" Command="{Binding EnableAllPagesCommand}"/>
+                    <Button Content="Add Pop" Command="{Binding AddPopulationCommand}"/>
+                    <Button Content="Add Pop Max" Command="{Binding AddPopulationMaxCommand}"/>
                     <Button Content="Add Field" Command="{Binding AddFieldCommand}"/>
                 </StackPanel>
             </Border>
@@ -69,19 +71,9 @@
             <Separator Grid.Row="3" Margin="10 0"/>
 
             <!-- Jobs area -->
-            <!--<StackPanel Grid.Row="3"
-                        Margin="10"
-                        Visibility="{Binding ShowJobs, Converter={StaticResource visibility_converter}}">
-                <TextBlock FontStyle="Italic">
-                    <Run Text="Free population:"/>
-                    <Run Text="{Binding FreePopulation.Value}"/>
-                    <Run Text=" / "/>
-                    <Run Text="{Binding FreePopulation.Maximum}"/>
-                </TextBlock>
-                <ItemsControl ItemsSource="{Binding Jobs}"/>
-                <Button Content="Clear" 
-                        Command="{Binding ClearJobsCommand}"/>
-            </StackPanel>-->
+            <ContentControl Grid.Row="4"
+                            Margin="10"
+                            Content="{Binding Jobs}"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -53,6 +53,7 @@ public partial class App : Application
 
         // Shared
         services.AddSingleton<ResourcesViewModel>();
+        services.AddSingleton<JobsViewModel>();
 
         // Domain
         services.AddSingleton<Game>();

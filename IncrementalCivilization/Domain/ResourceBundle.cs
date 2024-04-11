@@ -9,10 +9,15 @@ public class ResourceBundle : Bundle<ResourceType, Resource>
     public Resource Wood { get; private set; }
     public Resource Science { get; private set; }
 
+    public void Limit()
+    {
+        this.Apply(i => i.Limit());
+    }
+
     public ResourceBundle()
     {
         Population = new Resource(ResourceType.Population) { Active = true };
-        Food = new Resource(ResourceType.Food) { Active = true };
+        Food = new Resource(ResourceType.Food, 1000) { Active = true };
         Wood = new Resource(ResourceType.Wood) { Active = true };
         Science = new Resource(ResourceType.Science) { Active = true };
         

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IncrementalCivilization.Utils;
 using NLog;
 using System.Windows.Threading;
 
@@ -18,13 +19,16 @@ public partial class Game : ObservableObject
     public Time Time { get; private set; }
     public ResourceBundle Resources { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
+    public JobsBundle Jobs { get; private set; }
 
     public Game()
     {
-        logger.Debug("Creating all resources");
         Time = new Time(ticksPerDay, daysPerYear);
+
+        logger.Debug("Creating all resources");
         Resources = new ResourceBundle();
         Buildings = new BuildingsBundle(Resources);
+        Jobs = new JobsBundle();
 
         Timer = new DispatcherTimer()
         {
@@ -38,5 +42,7 @@ public partial class Game : ObservableObject
         Time.Tick();
 
         Resources.Food.Add(0.125 * Buildings.Field.Count);
+
+        Resources.Limit();
     }
 }

@@ -18,12 +18,14 @@ public partial class HomePageViewModel : PageViewModelBase
     private bool _debugMode = false;
 
     public ResourcesViewModel Resources { get; private set; }
+    public JobsViewModel Jobs { get; private set; }
     public IEnumerable<Building> Buildings { get => game.Buildings; }
 
-    public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
+    public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, JobsViewModel jobs, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
     {
         this.game = game;
         Resources = resources;
+        Jobs = jobs;
 
         Enabled = true;
         Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
@@ -43,7 +45,19 @@ public partial class HomePageViewModel : PageViewModelBase
     [RelayCommand]
     private void GatherFood()
     {
-        game.Resources.Food.Add(1);
+        game.Resources.Food.Add(1, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
+    private void AddPopulation()
+    {
+        game.Resources.Population.Add(1, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
+    private void AddPopulationMax()
+    {
+        game.Resources.Population.Maximum += 1;
     }
 
     [RelayCommand]

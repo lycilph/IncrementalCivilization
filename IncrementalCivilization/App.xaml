@@ -63,6 +63,10 @@
                     <DataTemplate DataType="{x:Type sharedVM:ResourcesViewModel}">
                         <sharedV:ResourcesView/>
                     </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type sharedVM:JobsViewModel}">
+                        <sharedV:JobsView/>
+                    </DataTemplate>
                     
                     <!-- Item mappings -->
                     <DataTemplate DataType="{x:Type domain:Building}">
