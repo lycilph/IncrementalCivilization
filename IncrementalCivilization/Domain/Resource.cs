@@ -31,6 +31,9 @@ public partial class Resource : ObservableObject, ITypedItem<ResourceType>
     [ObservableProperty]
     private bool showRate = true;
 
+    [ObservableProperty]
+    private bool showAsInterger = false;
+
     public Resource(ResourceType type, string name, double max)
     {
         Type = type;

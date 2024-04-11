@@ -19,6 +19,7 @@ public partial class Game : ObservableObject
 
     public Time Time { get; private set; }
     public Capabilities Capabilities { get; private set; }
+    public Effects Effects { get; private set; }
     public ResourceBundle Resources { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
     public JobsBundle Jobs { get; private set; }
@@ -28,6 +29,7 @@ public partial class Game : ObservableObject
         logger.Debug("Creating all resources");
         Time = new Time(ticksPerDay, daysPerYear);
         Capabilities = new Capabilities();
+        Effects = new Effects();
         Resources = new ResourceBundle();
         Buildings = new BuildingsBundle(Resources);
         Jobs = new JobsBundle();
@@ -43,9 +45,12 @@ public partial class Game : ObservableObject
     {
         Time.Tick();
 
-        Resources.Food.Add(0.125 * Buildings.Field.Count + 1.0 * Jobs.Farmer.Count - 0.85 * Resources.Population.Value);
-        Resources.Wood.Add(0.018 * Jobs.WoodCutter.Count);
-        Resources.Science.Add(0.035 * Jobs.Scholar.Count);
+        Resources.Food.Add(0.125 * Buildings.Field.Count 
+                           + 1.0 * Jobs.Farmer.Count * Effects.FarmerEffieciency
+                           - 0.85 * Resources.Population.Value);
+        Resources.Wood.Add(0.018 * Jobs.WoodCutter.Count * Effects.WoodCutterEffieciency);
+        Resources.Science.Add(0.035 * Jobs.Scholar.Count * Effects.ScholarEffieciency
+                              * (1 + 0.1 * Buildings.Library.Count));
 
         if (Resources.Population.Value > 0 && Resources.Food.Value < 0)
         {

@@ -109,6 +109,24 @@
                         <Button Content="+1000" Command="{Binding AddFoodCommand}" CommandParameter="1000"/>
                     </StackPanel>
                 </Border>
+                <TextBlock Text="Wood"/>
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="+1" Command="{Binding AddWoodCommand}" CommandParameter="1"/>
+                        <Button Content="+10" Command="{Binding AddWoodCommand}" CommandParameter="10"/>
+                        <Button Content="+100" Command="{Binding AddWoodCommand}" CommandParameter="100"/>
+                        <Button Content="+1000" Command="{Binding AddWoodCommand}" CommandParameter="1000"/>
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="Science"/>
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="+1" Command="{Binding AddScienceCommand}" CommandParameter="1"/>
+                        <Button Content="+10" Command="{Binding AddScienceCommand}" CommandParameter="10"/>
+                        <Button Content="+100" Command="{Binding AddScienceCommand}" CommandParameter="100"/>
+                        <Button Content="+1000" Command="{Binding AddScienceCommand}" CommandParameter="1000"/>
+                    </StackPanel>
+                </Border>
                 <Button Content="Add Field" Command="{Binding AddFieldCommand}"/>
             </StackPanel>
         </Border>

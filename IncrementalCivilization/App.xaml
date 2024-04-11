@@ -38,8 +38,9 @@
                 </ResourceDictionary>
                 
                 <ResourceDictionary>
-                    <BooleanToVisibilityConverter x:Key="visibility_converter"/>
-                    
+                    <conv:BoolToVisibilityConverter x:Key="visibility_converter"/>
+                    <conv:BoolToVisibilityConverter x:Key="inverted_visibility_converter" Invert="True"/>
+
                     <conv:BoolToColorConverter x:Key="color_converter"
                                                TrueColor="Black"
                                                FalseColor="Red"/>

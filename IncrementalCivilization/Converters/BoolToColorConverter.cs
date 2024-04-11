@@ -4,6 +4,7 @@ using System.Windows.Media;
 
 namespace IncrementalCivilization.Converters;
 
+[ValueConversion(typeof(bool), typeof(SolidColorBrush))]
 public class BoolToColorConverter : IValueConverter
 {
     public required SolidColorBrush TrueColor { get; set; }

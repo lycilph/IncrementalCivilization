@@ -88,6 +88,20 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
+    private void AddWood(string wood)
+    {
+        if (int.TryParse(wood, out int value))
+            game.Resources.Wood.Add(value, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
+    private void AddScience(string science)
+    {
+        if (int.TryParse(science, out int value))
+            game.Resources.Science.Add(value, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
     private void AddField()
     {
         game.Buildings.Field.Buy();
@@ -96,7 +110,9 @@ public partial class HomePageViewModel : PageViewModelBase
     [RelayCommand]
     private void EnableAllPages()
     {
-        StrongReferenceMessenger.Default.Send(EnablePageMessage.All());
+        game.Capabilities.EnableResearchPage = true;
+        game.Capabilities.EnableUpgradesPage = true;
+        game.Capabilities.EnableTimePage = true;
     }
 
     [RelayCommand]

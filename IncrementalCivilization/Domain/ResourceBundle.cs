@@ -16,7 +16,7 @@ public class ResourceBundle : Bundle<ResourceType, Resource>
 
     public ResourceBundle()
     {
-        Population = new Resource(ResourceType.Population);
+        Population = new Resource(ResourceType.Population) { ShowRate = false, ShowAsInterger = true };
         Food = new Resource(ResourceType.Food, 1000);
         Wood = new Resource(ResourceType.Wood, 100);
         Science = new Resource(ResourceType.Science, 500);

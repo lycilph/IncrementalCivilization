@@ -1,21 +1,14 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using IncrementalCivilization.Messages;
+﻿using IncrementalCivilization.Domain;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Shared;
 using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
-public class TimePageViewModel : PageViewModelBase, IRecipient<EnablePageMessage>
+public class TimePageViewModel : PageViewModelBase
 {
-    public TimePageViewModel(INavigationService navigationService) : base(navigationService, "Time", SymbolRegular.HourglassHalf24)
+    public TimePageViewModel(INavigationService navigationService, Game game) : base(navigationService, "Time", SymbolRegular.HourglassHalf24)
     {
-        StrongReferenceMessenger.Default.Register(this);
-    }
-
-    public void Receive(EnablePageMessage message)
-    {
-        if (message.PageToEnable == EnablePageMessage.Page.All || message.PageToEnable == EnablePageMessage.Page.Upgrades)
-            Enabled = true;
+        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.EnableTimePage;
     }
 }
