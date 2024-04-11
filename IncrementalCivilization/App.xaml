@@ -8,6 +8,9 @@
              xmlns:pageV="clr-namespace:IncrementalCivilization.Views.Pages"
              xmlns:sharedVM="clr-namespace:IncrementalCivilization.ViewModels.Shared"
              xmlns:sharedV="clr-namespace:IncrementalCivilization.Views.Shared"
+             xmlns:itemV="clr-namespace:IncrementalCivilization.Views.Items"
+             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
+             xmlns:conv="clr-namespace:IncrementalCivilization.Converters"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              Startup="Application_Startup"
              Exit="Application_Exit">
@@ -35,6 +38,10 @@
                 
                 <ResourceDictionary>
                     <BooleanToVisibilityConverter x:Key="visibility_converter"/>
+                    
+                    <conv:BoolToColorConverter x:Key="color_converter"
+                                               TrueColor="Black"
+                                               FalseColor="Red"/>
                 </ResourceDictionary>
                 
                 <ResourceDictionary>
@@ -55,6 +62,15 @@
                     <!-- Shared mappings -->
                     <DataTemplate DataType="{x:Type sharedVM:ResourcesViewModel}">
                         <sharedV:ResourcesView/>
+                    </DataTemplate>
+                    
+                    <!-- Item mappings -->
+                    <DataTemplate DataType="{x:Type domain:Building}">
+                        <itemV:BuildingView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type domain:Cost}">
+                        <itemV:CostView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

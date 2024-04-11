@@ -8,4 +8,9 @@ public class EnablePageMessage(EnablePageMessage.Page pageToEnable)
     public enum Page { Research, Upgrades, Time, All };
 
     public Page PageToEnable { get; private set; } = pageToEnable;
+
+    public static EnablePageMessage All()
+    {
+        return new EnablePageMessage(Page.All);
+    }
 }

@@ -25,7 +25,7 @@
                         <TextBlock Text="{Binding Value, StringFormat={}{0:N1}}" Width="50"/>
                         <TextBlock Text="/ "/>
                         <TextBlock Text="{Binding Maximum}" Width="50"/>
-                        <!--<TextBlock Text="{Binding Rate, StringFormat={}{0:N2}}" Width="50" Visibility="{Binding ShowRate, Converter={StaticResource visibility_converter}}"/>-->
+                        <TextBlock Text="{Binding Rate, StringFormat={}{0:N2}}" Width="50" Visibility="{Binding ShowRate, Converter={StaticResource visibility_converter}}"/>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

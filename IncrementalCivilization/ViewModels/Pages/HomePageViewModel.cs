@@ -18,6 +18,7 @@ public partial class HomePageViewModel : PageViewModelBase
     private bool _debugMode = false;
 
     public ResourcesViewModel Resources { get; private set; }
+    public IEnumerable<Building> Buildings { get => game.Buildings; }
 
     public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
     {
@@ -42,12 +43,18 @@ public partial class HomePageViewModel : PageViewModelBase
     [RelayCommand]
     private void GatherFood()
     {
-        game.Resources.Food.Value += 1;
+        game.Resources.Food.Add(1);
+    }
+
+    [RelayCommand]
+    private void AddField()
+    {
+        game.Buildings.Field.Buy();
     }
 
     [RelayCommand]
     private void EnableAllPages()
     {
-        StrongReferenceMessenger.Default.Send(new EnablePageMessage(EnablePageMessage.Page.All));
+        StrongReferenceMessenger.Default.Send(EnablePageMessage.All());
     }
 }

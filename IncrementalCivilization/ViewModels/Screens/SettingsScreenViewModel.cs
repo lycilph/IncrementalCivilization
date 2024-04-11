@@ -26,12 +26,9 @@ public partial class SettingsScreenViewModel : ViewModelBase, ISettingsScreenVie
         UpdateDebugMode();
     }
 
-    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    partial void OnDebugModeChanged(bool value)
     {
-        base.OnPropertyChanged(e);
-
-        if (e.PropertyName == nameof(DebugMode))
-            Settings.Default.Debug = DebugMode;
+        Settings.Default.Debug = DebugMode;
     }
 
     private void UpdateDebugMode()

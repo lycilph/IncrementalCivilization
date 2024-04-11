@@ -78,6 +78,9 @@ public partial class App : Application
     {
         logger.Debug("Exiting application");
 
+        var game = Services.GetRequiredService<Game>();
+        game.Timer.Stop();
+
         Settings.Default.Save();
     }
 }

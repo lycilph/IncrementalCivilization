@@ -17,12 +17,14 @@ public partial class Game : ObservableObject
 
     public Time Time { get; private set; }
     public ResourceBundle Resources { get; private set; }
+    public BuildingsBundle Buildings { get; private set; }
 
     public Game()
     {
         logger.Debug("Creating all resources");
         Time = new Time(ticksPerDay, daysPerYear);
         Resources = new ResourceBundle();
+        Buildings = new BuildingsBundle(Resources);
 
         Timer = new DispatcherTimer()
         {
@@ -34,5 +36,7 @@ public partial class Game : ObservableObject
     private void Timer_Tick(object? sender, EventArgs e)
     {
         Time.Tick();
+
+        Resources.Food.Add(0.125 * Buildings.Field.Count);
     }
 }

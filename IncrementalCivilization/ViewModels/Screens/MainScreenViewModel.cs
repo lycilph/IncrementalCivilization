@@ -32,7 +32,6 @@ public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
         Pages = new ObservableCollection<IPageViewModel>(pages);
 
         Settings.Default.PropertyChanged += (s, e) => UpdateDebugMessage();
-        
     }
 
     public override void Initialize()
