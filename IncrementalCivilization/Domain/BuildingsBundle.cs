@@ -16,6 +16,7 @@ public class BuildingsBundle : Bundle<BuildingType, Building>
 
         Hut = new Building(BuildingType.Hut) { CostIncrease = 2.5 };
         Hut.Cost.Add(new Cost(resources.Wood, 5));
+        Hut.BuyAction = () => resources.Population.Maximum += 2;
 
         Library = new Building(BuildingType.Library);
         Library.Cost.Add(new Cost(resources.Wood, 25));

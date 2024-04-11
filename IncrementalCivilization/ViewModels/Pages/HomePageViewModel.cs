@@ -15,12 +15,17 @@ public partial class HomePageViewModel : PageViewModelBase
 {
     private readonly Game game;
 
-    [ObservableProperty]
-    private bool _debugMode = false;
-
     public ResourcesViewModel Resources { get; private set; }
     public JobsViewModel Jobs { get; private set; }
     public IEnumerable<Building> Buildings { get => game.Buildings; }
+    public Capabilities Capabilities { get => game.Capabilities; }
+
+    [ObservableProperty]
+    private bool _debugMode = false;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RefineFoodCommand))]
+    private bool _canRefineFood = false;
 
     public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, JobsViewModel jobs, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
     {
@@ -30,6 +35,7 @@ public partial class HomePageViewModel : PageViewModelBase
 
         Enabled = true;
         Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
+        game.Resources.Food.PropertyChanged += (s, e) => CanRefineFood = game.Resources.Food.Value > 100;
     }
 
     public override void Initialize()
@@ -47,6 +53,13 @@ public partial class HomePageViewModel : PageViewModelBase
     private void GatherFood()
     {
         game.Resources.Food.Add(1, skipRateUpdate: true);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanRefineFood))]
+    private void RefineFood()
+    {
+        game.Resources.Wood.Add(1, skipRateUpdate: true);
+        game.Resources.Food.Sub(100, skipRateUpdate: true);
     }
 
     [RelayCommand]
@@ -68,6 +81,13 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
+    private void AddFood(string food)
+    {
+        if (int.TryParse(food, out int value))
+            game.Resources.Food.Add(value, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
     private void AddField()
     {
         game.Buildings.Field.Buy();
@@ -77,6 +97,12 @@ public partial class HomePageViewModel : PageViewModelBase
     private void EnableAllPages()
     {
         StrongReferenceMessenger.Default.Send(EnablePageMessage.All());
+    }
+
+    [RelayCommand]
+    private void EnableRefineFood()
+    {
+        game.Capabilities.RefineFoodEnabled = true;
     }
 
     [RelayCommand]

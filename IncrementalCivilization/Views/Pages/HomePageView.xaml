@@ -35,9 +35,12 @@
                 <DockPanel>
                     <Button DockPanel.Dock="Right"
                             Content="Refine Food"
-                            Margin="10 0 0 0"/>
-                    <!--Command="{Binding RefineFoodCommand}"
-                            Visibility="{Binding Game.Effects.RefineFoodEnabled, Converter={StaticResource visibility_converter}}"/>-->
+                            Margin="10 0 0 0"
+                            ToolTip="Convert 100 food to 1 wood"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTipService.InitialShowDelay="100"
+                            Command="{Binding RefineFoodCommand}"
+                            Visibility="{Binding Capabilities.RefineFoodEnabled, Converter={StaticResource visibility_converter}}"/>
 
                     <Button DockPanel.Dock="Right" 
                             Content="Gather Food"
@@ -71,11 +74,16 @@
             <StackPanel>
                 <TextBlock Text="Enable stuff"/>
                 <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
-                        <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
-                        <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
-                        <Button Content="Jobs" Command="{Binding EnableAllJobsCommand}"/>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
+                            <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
+                            <Button Content="Jobs" Command="{Binding EnableAllJobsCommand}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
+                            <Button Content="Refine" Command="{Binding EnableRefineFoodCommand}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <TextBlock Text="Population"/>
@@ -90,6 +98,15 @@
                             <TextBlock Text="Pop max: " VerticalAlignment="Center"/>
                             <Button Content="+" Command="{Binding AddPopulationMaxCommand}"/>
                         </StackPanel>
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="Food"/>
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="+1" Command="{Binding AddFoodCommand}" CommandParameter="1"/>
+                        <Button Content="+10" Command="{Binding AddFoodCommand}" CommandParameter="10"/>
+                        <Button Content="+100" Command="{Binding AddFoodCommand}" CommandParameter="100"/>
+                        <Button Content="+1000" Command="{Binding AddFoodCommand}" CommandParameter="1000"/>
                     </StackPanel>
                 </Border>
                 <Button Content="Add Field" Command="{Binding AddFieldCommand}"/>

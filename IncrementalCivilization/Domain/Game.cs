@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using IncrementalCivilization.Utils;
 using NLog;
 using System.Windows.Threading;
 
@@ -17,15 +16,16 @@ public partial class Game : ObservableObject
     public DispatcherTimer Timer { get; private set; }
 
     public Time Time { get; private set; }
+    public Capabilities Capabilities { get; private set; }
     public ResourceBundle Resources { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
     public JobsBundle Jobs { get; private set; }
 
     public Game()
     {
-        Time = new Time(ticksPerDay, daysPerYear);
-
         logger.Debug("Creating all resources");
+        Time = new Time(ticksPerDay, daysPerYear);
+        Capabilities = new Capabilities();
         Resources = new ResourceBundle();
         Buildings = new BuildingsBundle(Resources);
         Jobs = new JobsBundle();
@@ -44,6 +44,25 @@ public partial class Game : ObservableObject
         Resources.Food.Add(0.125 * Buildings.Field.Count + 1.0 * Jobs.Farmer.Count - 0.85 * Resources.Population.Value);
         Resources.Wood.Add(0.018 * Jobs.WoodCutter.Count);
         Resources.Science.Add(0.035 * Jobs.Scholar.Count);
+
+        if (Resources.Population.Value > 0 && Resources.Food.Value < 0)
+        {
+            var dead = Math.Ceiling(Resources.Food.Value / -0.85);
+            Resources.Population.Sub(dead);
+            logger.Debug("Food ran out {dead} died", dead);
+        }
+
+        if (Resources.Population.Value < Resources.Population.Maximum)
+        {
+            Time.PopulationTicks += 1;
+
+            if (Time.PopulationTicks > ticksPerPopulationIncrease)
+            {
+                Time.PopulationTicks -= ticksPerPopulationIncrease;
+                Resources.Population.Value += 1;
+                //AddMessage("A new person joined your civilization");
+            }
+        }
 
         Resources.Limit();
         Jobs.Limit((int)Resources.Population.Value);
