@@ -80,6 +80,18 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
+    private void EnableAllResources()
+    {
+        game.Resources.Apply(r => r.Active = true);
+    }
+
+    [RelayCommand]
+    private void EnableAllBuildings()
+    {
+        game.Buildings.Apply(b => b.Active = true);
+    }
+
+    [RelayCommand]
     private void EnableAllJobs()
     {
         game.Jobs.Apply(j => j.Active = true);

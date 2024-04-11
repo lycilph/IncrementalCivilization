@@ -69,13 +69,29 @@
                 Margin="10 0 0 0"
                 Visibility="{Binding DebugMode, Converter={StaticResource visibility_converter}}">
             <StackPanel>
-                <Button Content="Enable all pages" Command="{Binding EnableAllPagesCommand}"/>
-                <Button Content="Enable all Jobs" Command="{Binding EnableAllJobsCommand}"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Add Pop" Command="{Binding AddPopulationCommand}"/>
-                    <Button Content="Rem Pop" Command="{Binding RemovePopulationCommand}"/>
-                </StackPanel>
-                <Button Content="Add Pop Max" Command="{Binding AddPopulationMaxCommand}"/>
+                <TextBlock Text="Enable stuff"/>
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
+                        <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
+                        <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
+                        <Button Content="Jobs" Command="{Binding EnableAllJobsCommand}"/>
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="Population"/>
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Population: " VerticalAlignment="Center"/>
+                            <Button Content="+" Command="{Binding AddPopulationCommand}"/>
+                            <Button Content="-" Command="{Binding RemovePopulationCommand}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Pop max: " VerticalAlignment="Center"/>
+                            <Button Content="+" Command="{Binding AddPopulationMaxCommand}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
                 <Button Content="Add Field" Command="{Binding AddFieldCommand}"/>
             </StackPanel>
         </Border>

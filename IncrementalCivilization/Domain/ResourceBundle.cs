@@ -16,10 +16,10 @@ public class ResourceBundle : Bundle<ResourceType, Resource>
 
     public ResourceBundle()
     {
-        Population = new Resource(ResourceType.Population) { Active = true };
-        Food = new Resource(ResourceType.Food, 1000) { Active = true };
-        Wood = new Resource(ResourceType.Wood) { Active = true };
-        Science = new Resource(ResourceType.Science) { Active = true };
+        Population = new Resource(ResourceType.Population);
+        Food = new Resource(ResourceType.Food, 1000);
+        Wood = new Resource(ResourceType.Wood, 100);
+        Science = new Resource(ResourceType.Science, 500);
         
         Add(Population, Food, Wood, Science);
     }
