@@ -24,12 +24,14 @@ public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
 
     public Time Time { get => game.Time; }
     public DispatcherTimer Timer { get => game.Timer; }
+    public IMessageLog Messages { get; private set; }
 
-    public MainScreenViewModel(INavigationService navigationService, IEnumerable<IPageViewModel> pages, Game game)
+    public MainScreenViewModel(INavigationService navigationService, IEnumerable<IPageViewModel> pages, Game game, IMessageLog messages)
     {
         this.navigationService = navigationService;
         this.game = game;
         Pages = new ObservableCollection<IPageViewModel>(pages);
+        Messages = messages;
 
         Settings.Default.PropertyChanged += (s, e) => UpdateDebugMessage();
     }

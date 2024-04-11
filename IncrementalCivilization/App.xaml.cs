@@ -1,5 +1,6 @@
 ﻿using IncrementalCivilization.Domain;
 using IncrementalCivilization.Properties;
+using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels;
 using IncrementalCivilization.ViewModels.Pages;
 using IncrementalCivilization.ViewModels.Screens;
@@ -36,6 +37,7 @@ public partial class App : Application
         // Services
         services.AddSingleton<ISnackbarService, SnackbarService>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IMessageLog, MessageLog>();
 
         // Shell
         services.AddSingleton<ShellWindow>();

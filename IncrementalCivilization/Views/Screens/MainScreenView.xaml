@@ -6,6 +6,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:screens="clr-namespace:IncrementalCivilization.ViewModels.Screens" 
              xmlns:shared="clr-namespace:IncrementalCivilization.ViewModels.Shared"
+             xmlns:sharedView="clr-namespace:IncrementalCivilization.Views.Shared"
              d:DataContext="{d:DesignInstance Type=screens:MainScreenViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
@@ -149,10 +150,10 @@
             </StatusBar>
 
             <!-- Main Content Messages -->
-            <!--<misc:LogView DockPanel.Dock="Bottom"
-                        Height="100"
-                        Margin="10"
-                        ItemsSource="{Binding Messages.Log}"/>-->
+            <sharedView:LogView DockPanel.Dock="Bottom"
+                                Height="100"
+                                Margin="10"
+                                ItemsSource="{Binding Messages.Log}"/>
 
             <Separator DockPanel.Dock="Bottom"
                        Margin="10 5"/>

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using IncrementalCivilization.Messages;
 using NLog;
 using System.Windows.Threading;
 
@@ -49,7 +51,7 @@ public partial class Game : ObservableObject
         {
             var dead = Math.Ceiling(Resources.Food.Value / -0.85);
             Resources.Population.Sub(dead);
-            logger.Debug("Food ran out {dead} died", dead);
+            StrongReferenceMessenger.Default.Send(new AddMessageLogMessage($"Food ran out {dead} died"));
         }
 
         if (Resources.Population.Value < Resources.Population.Maximum)
@@ -60,7 +62,7 @@ public partial class Game : ObservableObject
             {
                 Time.PopulationTicks -= ticksPerPopulationIncrease;
                 Resources.Population.Value += 1;
-                //AddMessage("A new person joined your civilization");
+                StrongReferenceMessenger.Default.Send(new AddMessageLogMessage("A new person join your civilization"));
             }
         }
 
