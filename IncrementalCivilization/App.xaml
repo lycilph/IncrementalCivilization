@@ -8,6 +8,7 @@
              xmlns:pageV="clr-namespace:IncrementalCivilization.Views.Pages"
              xmlns:sharedVM="clr-namespace:IncrementalCivilization.ViewModels.Shared"
              xmlns:sharedV="clr-namespace:IncrementalCivilization.Views.Shared"
+             xmlns:itemVM="clr-namespace:IncrementalCivilization.ViewModels.Item"
              xmlns:itemV="clr-namespace:IncrementalCivilization.Views.Items"
              xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
              xmlns:conv="clr-namespace:IncrementalCivilization.Converters"
@@ -75,6 +76,10 @@
 
                     <DataTemplate DataType="{x:Type domain:Cost}">
                         <itemV:CostView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type itemVM:JobViewModel}">
+                        <itemV:JobView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

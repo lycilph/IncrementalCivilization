@@ -7,19 +7,16 @@
              d:DataContext="{d:DesignInstance Type=shared:JobsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-
-        <!--Visibility="{Binding ShowJobs, Converter={StaticResource visibility_converter}}">-->
-
+    <StackPanel Visibility="{Binding ShowJobs, Converter={StaticResource visibility_converter}}">
         <TextBlock FontStyle="Italic">
             <Run Text="Free population:"/>
             <Run Text="{Binding FreePopulation.Value}"/>
             <Run Text=" / "/>
             <Run Text="{Binding FreePopulation.Maximum}"/>
         </TextBlock>
-        
-        <!--<ItemsControl ItemsSource="{Binding Jobs}"/>-->
-    
+
+        <ItemsControl ItemsSource="{Binding Jobs}"/>
+
         <!--<Button Content="Clear" 
             Command="{Binding ClearJobsCommand}"/>-->
 

@@ -10,10 +10,21 @@ public class JobsBundle : Bundle<JobType, Job>
 
     public JobsBundle()
     {
-        Farmer = new Job(JobType.Farmer) { Active = true };
-        WoodCutter = new Job(JobType.WoodCutter, "Wood Cutter") { Active = true };
-        Scholar = new Job(JobType.Scholar) { Active = true };
+        Farmer = new Job(JobType.Farmer);
+        WoodCutter = new Job(JobType.WoodCutter, "Wood Cutter");
+        Scholar = new Job(JobType.Scholar);
 
         Add(Farmer, WoodCutter, Scholar);
+    }
+
+    public void Limit(int max)
+    {
+        var employedPeople = this.Sum(j => j.Count);
+        var to_remove = employedPeople - max;
+        for (int i = 0; i < to_remove; i++)
+        {
+            var job = this.First(i => i.Count > 0);
+            job.Count -= 1;
+        }
     }
 }

@@ -5,6 +5,7 @@ using IncrementalCivilization.Domain;
 using IncrementalCivilization.Messages;
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
+using IncrementalCivilization.Utils;
 using IncrementalCivilization.ViewModels.Shared;
 using Wpf.Ui.Controls;
 
@@ -55,6 +56,12 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
+    private void RemovePopulation()
+    {
+        game.Resources.Population.Sub(1, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
     private void AddPopulationMax()
     {
         game.Resources.Population.Maximum += 1;
@@ -70,5 +77,11 @@ public partial class HomePageViewModel : PageViewModelBase
     private void EnableAllPages()
     {
         StrongReferenceMessenger.Default.Send(EnablePageMessage.All());
+    }
+
+    [RelayCommand]
+    private void EnableAllJobs()
+    {
+        game.Jobs.Apply(j => j.Active = true);
     }
 }

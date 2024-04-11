@@ -1,18 +1,26 @@
-﻿using IncrementalCivilization.Domain;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IncrementalCivilization.Domain;
+using IncrementalCivilization.ViewModels.Item;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace IncrementalCivilization.ViewModels.Shared;
 
-public class JobsViewModel : ViewModelBase
+public partial class JobsViewModel : ViewModelBase
 {
     private readonly Game game;
 
-    public IEnumerable<Job> Jobs { get => game.Jobs; }
+    public ObservableCollection<JobViewModel> Jobs { get; private set; }
     public Resource FreePopulation { get; private set; } = new Resource(ResourceType.Population);
+
+    [ObservableProperty]
+    private bool _showJobs = false;
 
     public JobsViewModel(Game game)
     {
         this.game = game;
+
+        Jobs = new ObservableCollection<JobViewModel>(game.Jobs.Select(j => new JobViewModel(j, FreePopulation)));
 
         game.Resources.Population.PropertyChanged += PopulationPropertyChanged;
         foreach (var job in Jobs)
@@ -23,5 +31,7 @@ public class JobsViewModel : ViewModelBase
     {
         FreePopulation.Maximum = game.Resources.Population.Value;
         FreePopulation.Value = FreePopulation.Maximum - Jobs.Sum(j => j.Count);
+
+        ShowJobs = Jobs.Any(j => j.Active);
     }
 }

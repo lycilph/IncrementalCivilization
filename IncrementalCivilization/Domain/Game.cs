@@ -44,5 +44,6 @@ public partial class Game : ObservableObject
         Resources.Food.Add(0.125 * Buildings.Field.Count);
 
         Resources.Limit();
+        Jobs.Limit((int)Resources.Population.Value);
     }
 }
