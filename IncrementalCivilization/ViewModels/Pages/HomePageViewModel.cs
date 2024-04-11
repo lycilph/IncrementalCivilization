@@ -102,9 +102,39 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
-    private void AddField()
+    private void ClearResources()
     {
-        game.Buildings.Field.Buy();
+        game.Resources.Apply(r => r.Value = 0);
+    }
+
+    [RelayCommand]
+    private void AddField(string amount)
+    {
+        if (int.TryParse(amount, out int value))
+            for (int i = 0; i < value; i++)
+                game.Buildings.Field.Buy();
+    }
+
+    [RelayCommand]
+    private void AddHut(string amount)
+    {
+        if (int.TryParse(amount, out int value))
+            for (int i = 0; i < value; i++)
+                game.Buildings.Hut.Buy();
+    }
+
+    [RelayCommand]
+    private void AddLibrary(string amount)
+    {
+        if (int.TryParse(amount, out int value))
+            for (int i = 0; i < value; i++)
+                game.Buildings.Library.Buy();
+    }
+
+    [RelayCommand]
+    private void ClearBuildings()
+    {
+        game.Buildings.Apply(b => b.Count = 0);
     }
 
     [RelayCommand]
