@@ -53,11 +53,16 @@ public partial class Game : ObservableObject
         Time.Tick();
 
         Resources.Food.Add(0.125 * Buildings.Field.Count 
-                           + 1.0 * Jobs.Farmer.Count * Effects.FarmerEffieciency
-                           - 0.85 * Resources.Population.Value);
+                         + 1.0 * Jobs.Farmer.Count * Effects.FarmerEffieciency
+                         - 0.85 * Resources.Population.Value);
+
         Resources.Wood.Add(0.018 * Jobs.WoodCutter.Count * Effects.WoodCutterEffieciency);
+
+        Resources.Minerals.Add(0.05 * Jobs.Miner.Count 
+                             * (1 + 0.2 * Buildings.Mine.Count));
+
         Resources.Science.Add(0.035 * Jobs.Scholar.Count * Effects.ScholarEffieciency
-                              * (1 + 0.1 * Buildings.Library.Count));
+                            * (1 + 0.1 * Buildings.Library.Count));
 
         if (Resources.Population.Value > 0 && Resources.Food.Value < 0)
         {

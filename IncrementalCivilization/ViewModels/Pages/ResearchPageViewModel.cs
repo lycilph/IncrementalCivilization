@@ -18,7 +18,7 @@ public partial class ResearchPageViewModel : PageViewModelBase
     public ObservableCollection<Improvement> Bought { get => _game.Research.Bought; }
     
     [ObservableProperty]
-    private bool _hideResearchedInventions = true;
+    private bool _hideResearchedInventions = false;
 
     public ResearchPageViewModel(INavigationService navigationService, Game game) : base(navigationService, "Research", SymbolRegular.Beaker24)
     {

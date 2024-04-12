@@ -7,14 +7,16 @@ public class JobsBundle : Bundle<JobType, Job>
     public Job Farmer { get; private set; }
     public Job WoodCutter { get; private set; }
     public Job Scholar { get; private set; }
+    public Job Miner { get; private set; }
 
     public JobsBundle()
     {
         Farmer = new Job(JobType.Farmer);
         WoodCutter = new Job(JobType.WoodCutter, "Wood Cutter");
         Scholar = new Job(JobType.Scholar);
+        Miner = new Job(JobType.Miner);
 
-        Add(Farmer, WoodCutter, Scholar);
+        Add(Farmer, WoodCutter, Scholar, Miner);
     }
 
     public void Limit(int max)

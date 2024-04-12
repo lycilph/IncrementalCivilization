@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace IncrementalCivilization.Domain;
 
-public enum BuildingType { Field, Hut, Library, Test };
+public enum BuildingType { Field, Hut, Library, Barn, Mine, Workshop };
 
 public partial class Building : ObservableObject, ITypedItem<BuildingType>
 {

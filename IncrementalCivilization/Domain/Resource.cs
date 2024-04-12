@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace IncrementalCivilization.Domain;
 
-public enum ResourceType { Population, Food, Wood, Science }
+public enum ResourceType { Population, Food, Wood, Minerals, Science }
 
 [DebuggerDisplay("Name = {Name}, Value = {Value}, Maximum = {Maximum}")]
 public partial class Resource : ObservableObject, ITypedItem<ResourceType>

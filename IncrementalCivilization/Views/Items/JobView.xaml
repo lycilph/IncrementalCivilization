@@ -12,7 +12,7 @@
                 Margin="0 5"
                 Visibility="{Binding Active, Converter={StaticResource visibility_converter}}">
         <TextBlock VerticalAlignment="Center" 
-                   Width="100">
+                   Width="150">
             <Run Text="{Binding Name, Mode=OneWay}"/>
             <Run Text="{Binding Count, Mode=OneWay, StringFormat=({0})}"/>
         </TextBlock>

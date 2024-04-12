@@ -51,13 +51,27 @@ public static class ProgressEvents
             {
                 Effect = () =>
                 {
+                    game.Jobs.Miner.Active = true;
+                    SendMessage("Diggy diggy...");
+                },
+                Trigger = () => game.Buildings.Mine.Count > 0,
+            },
+            new()
+            {
+                Effect = () =>
+                {
+                    game.Capabilities.UpgradesPageEnabled = true;
+                    SendMessage("I'm sure we can do this better!");
+                },
+                Trigger = () => game.Buildings.Workshop.Count > 0,
+            },
+            new()
+            {
+                Effect = () =>
+                {
                     game.Capabilities.ResearchPageEnabled = true;
                     game.Research.Unlocked.Add(game.Research.Calendar);
                     SendMessage("The first idea presents itself");
-
-                    // DEBUG
-                    game.Capabilities.UpgradesPageEnabled = true;
-                    game.Upgrades.Unlocked.Add(game.Upgrades.WoodHoe);
                 },
                 Trigger = () => game.Jobs.Scholar.Count > 0,
             },

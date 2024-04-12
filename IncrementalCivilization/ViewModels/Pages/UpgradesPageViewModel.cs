@@ -19,7 +19,7 @@ public partial class UpgradesPageViewModel : PageViewModelBase
     public ObservableCollection<Improvement> Bought { get => _game.Upgrades.Bought; }
 
     [ObservableProperty]
-    private bool _hideBoughtUpgrades = true;
+    private bool _hideBoughtUpgrades = false;
 
     public UpgradesPageViewModel(INavigationService navigationService, ResourcesViewModel resources, Game game) : base(navigationService, "Upgrades", SymbolRegular.Star24)
     {

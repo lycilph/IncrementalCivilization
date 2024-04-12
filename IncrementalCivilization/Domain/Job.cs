@@ -3,7 +3,7 @@ using IncrementalCivilization.Utils;
 
 namespace IncrementalCivilization.Domain;
 
-public enum JobType { Farmer, WoodCutter, Scholar };
+public enum JobType { Farmer, WoodCutter, Scholar, Miner };
 
 public partial class Job : ObservableObject, ITypedItem<JobType>
 {
