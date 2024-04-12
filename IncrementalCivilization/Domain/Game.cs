@@ -25,21 +25,11 @@ public partial class Game : ObservableObject
     public JobsBundle Jobs { get; private set; }
     public Research Research { get; private set; }
     public Upgrades Upgrades { get; private set; }
-
     public List<ProgessEvent> Events { get; private set; }
 
     public Game()
     {
-        logger.Debug("Creating all resources");
-        Time = new Time(ticksPerDay, daysPerYear);
-        Capabilities = new Capabilities();
-        Effects = new Effects();
-        Resources = new ResourceBundle();
-        Buildings = new BuildingsBundle(Resources);
-        Jobs = new JobsBundle();
-        Research = new Research(this);
-        Upgrades = new Upgrades(this);
-        Events = ProgressEvents.Initialize(this);
+        Initialize();
 
         Timer = new DispatcherTimer()
         {
@@ -99,5 +89,29 @@ public partial class Game : ObservableObject
         if (triggeredEvents.Count > 0)
             foreach (var triggeredEvent in triggeredEvents)
                 Events.Remove(triggeredEvent);
+    }
+
+    private void Initialize()
+    {
+        logger.Debug("Creating all resources etc.");
+        Time = new Time(ticksPerDay, daysPerYear);
+        Capabilities = new Capabilities();
+        Effects = new Effects();
+        Resources = new ResourceBundle();
+        Buildings = new BuildingsBundle(Resources);
+        Jobs = new JobsBundle();
+        Research = new Research(this);
+        Upgrades = new Upgrades(this);
+        Events = ProgressEvents.Initialize(this);
+    }
+
+    public void Reset()
+    {
+        Timer.Stop();
+
+        Initialize();
+        StrongReferenceMessenger.Default.Send(new ResetMessage());
+
+        Timer.Start();
     }
 }

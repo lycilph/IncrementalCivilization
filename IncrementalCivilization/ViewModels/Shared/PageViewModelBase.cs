@@ -10,7 +10,7 @@ public partial class PageViewModelBase(INavigationService navigationService, str
     public SymbolRegular Icon { get; protected set; } = icon;
 
     [RelayCommand]
-    private void NavigateToPage()
+    protected void NavigateToPage()
     {
         navigationService.NavigateToPage(this);
     }

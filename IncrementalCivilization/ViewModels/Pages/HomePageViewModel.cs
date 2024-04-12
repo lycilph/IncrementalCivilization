@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using IncrementalCivilization.Domain;
+using IncrementalCivilization.Messages;
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.Utils;
@@ -9,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
-public partial class HomePageViewModel : PageViewModelBase
+public partial class HomePageViewModel : PageViewModelBase, IRecipient<ResetMessage>
 {
     private readonly Game game;
 
@@ -30,6 +32,8 @@ public partial class HomePageViewModel : PageViewModelBase
         this.game = game;
         Resources = resources;
         Jobs = jobs;
+
+        StrongReferenceMessenger.Default.Register(this);
 
         Enabled = true;
         Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
@@ -58,6 +62,11 @@ public partial class HomePageViewModel : PageViewModelBase
     {
         game.Resources.Wood.Add(1, skipRateUpdate: true);
         game.Resources.Food.Sub(100, skipRateUpdate: true);
+    }
+
+    public void Receive(ResetMessage message)
+    {
+        NavigateToPage();
     }
 
     #region Debug commands

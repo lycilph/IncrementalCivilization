@@ -5,6 +5,7 @@ using NLog;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
+using INavigationService = IncrementalCivilization.Services.INavigationService;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
@@ -12,11 +13,15 @@ public partial class TimePageViewModel : PageViewModelBase
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
+    private readonly INavigationService _navigationService;
     private readonly IContentDialogService _contentDialogService;
+    private readonly Game _game;
 
-    public TimePageViewModel(Services.INavigationService navigationService, IContentDialogService contentDialogService, Game game) : base(navigationService, "Time", SymbolRegular.HourglassHalf24)
+    public TimePageViewModel(INavigationService navigationService, IContentDialogService contentDialogService, Game game) : base(navigationService, "Time", SymbolRegular.HourglassHalf24)
     {
+        _navigationService = navigationService;
         _contentDialogService = contentDialogService;
+        _game = game;
 
         game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.TimePageEnabled;
     }
@@ -41,6 +46,7 @@ public partial class TimePageViewModel : PageViewModelBase
         };
         logger.Debug(text);
 
-
+        if (result == ContentDialogResult.Primary)
+            _game.Reset();
     }
 }

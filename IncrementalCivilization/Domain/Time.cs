@@ -1,9 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using NLog;
 
 namespace IncrementalCivilization.Domain;
 
 public partial class Time(int ticksPerDay, int daysPerYear) : ObservableObject
 {
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
     [ObservableProperty]
     private int _ticks = 0;
 
@@ -31,5 +34,15 @@ public partial class Time(int ticksPerDay, int daysPerYear) : ObservableObject
                 Years += 1;
             }
         }
+    }
+
+    public void Reset()
+    {
+        logger.Debug("Resetting time");
+
+        Ticks = 0;
+        PopulationTicks = 0;
+        Days = 0;
+        Years = 0;
     }
 }
