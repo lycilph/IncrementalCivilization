@@ -80,5 +80,20 @@
         </Grid>
 
         <!-- Bought research items area -->
+        <StackPanel Grid.Row="2"
+                    Visibility="{Binding HideResearchedInventions, Converter={StaticResource visibility_converter}}">
+            <Separator Margin="10 5"/>
+            <ItemsControl Height="150"
+                          ItemsSource="{Binding Bought}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type domain:Improvement}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Description}" FontStyle="Italic" Margin="10 0 0 0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </UserControl>

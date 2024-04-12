@@ -15,6 +15,7 @@ public partial class ResearchPageViewModel : PageViewModelBase
 
     public ObservableCollection<Resource> Resources { get; private set; } = [];
     public ObservableCollection<Improvement> Unlocked { get => _game.Research.Unlocked; }
+    public ObservableCollection<Improvement> Bought { get => _game.Research.Bought; }
     
     [ObservableProperty]
     private bool _hideResearchedInventions = true;
@@ -41,6 +42,7 @@ public partial class ResearchPageViewModel : PageViewModelBase
         {
             improvement.PropertyChanged -= ImprovementPropertyChanged;
             Unlocked.Remove(improvement);
+            Bought.Add(improvement);
         }
     }
 

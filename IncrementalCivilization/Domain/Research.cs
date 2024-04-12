@@ -6,6 +6,7 @@ namespace IncrementalCivilization.Domain;
 
 public class Research
 {
+    public Improvement Calendar { get; private set; }
     public Improvement Agriculture { get; private set; }
 
     public ObservableCollection<Improvement> Unlocked { get; private set; } = [];
@@ -13,8 +14,12 @@ public class Research
 
     public Research(Game game)
     {
+        Calendar = new Improvement("Calendar", "Enables Agriculture");
+        Calendar.Cost.Add(new Cost(game.Resources.Science, 30));
+        Calendar.BuyAction = () => game.Research.Unlocked.Add(Agriculture!);
+
         Agriculture = new Improvement("Agriculture", "Enables the farming job");
-        Agriculture.Cost.Add(new Cost(game.Resources.Science, 50));
+        Agriculture.Cost.Add(new Cost(game.Resources.Science, 100));
         Agriculture.BuyAction = () => 
         {
             game.Jobs.Farmer.Active = true;

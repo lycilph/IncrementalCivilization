@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using IncrementalCivilization.Messages;
 using NLog;
-using System.Collections.ObjectModel;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;

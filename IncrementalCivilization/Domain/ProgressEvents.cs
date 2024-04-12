@@ -52,7 +52,7 @@ public static class ProgressEvents
                 Effect = () =>
                 {
                     game.Capabilities.ResearchPageEnabled = true;
-                    game.Research.Unlocked.Add(game.Research.Agriculture);
+                    game.Research.Unlocked.Add(game.Research.Calendar);
                     SendMessage("The first idea presents itself");
                 },
                 Trigger = () => game.Jobs.Scholar.Count > 0,
