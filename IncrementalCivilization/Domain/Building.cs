@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Utils;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace IncrementalCivilization.Domain;
 
@@ -37,6 +38,16 @@ public partial class Building : ObservableObject, ITypedItem<BuildingType>
         Name = name;
 
         Cost.CollectionChanged += CostCollectionChanged;
+        Cost.PropertyChanged += CostPropertyChanged;
+    }
+
+    private void CostPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (Cost.IsOverThreshold(ActivationThreshold))
+        {
+            Cost.PropertyChanged -= CostPropertyChanged;
+            Active = true;
+        }
     }
 
     public Building(BuildingType type) : this(type, type.ToString()) { }
