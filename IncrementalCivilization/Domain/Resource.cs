@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using IncrementalCivilization.Utils;
+using NLog;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace IncrementalCivilization.Domain;
@@ -9,6 +11,8 @@ public enum ResourceType { Population, Food, Wood, Science }
 [DebuggerDisplay("Name = {Name}, Value = {Value}, Maximum = {Maximum}")]
 public partial class Resource : ObservableObject, ITypedItem<ResourceType>
 {
+    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
     private readonly CircularBuffer<double> rateBuffer = new(10);
 
     public ResourceType Type { get; private set; }
@@ -39,11 +43,23 @@ public partial class Resource : ObservableObject, ITypedItem<ResourceType>
         Type = type;
         Name = name;
         Maximum = max;
+
+        PropertyChanged += ResourcePropertyChanged;
     }
 
     public Resource(ResourceType type, double max) : this(type, type.ToString(), max) { }
 
     public Resource(ResourceType type) : this(type, type.ToString(), 0.0) { }
+
+    private void ResourcePropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (Value > 0)
+        {
+            PropertyChanged -= ResourcePropertyChanged;
+            Active = true;
+            logger.Debug("Resource {name} actived {property}", Name, e.PropertyName);
+        }
+    }
 
     public void Add(double v, bool skipRateUpdate = false)
     {

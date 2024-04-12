@@ -33,4 +33,9 @@ public partial class Cost : ObservableObject, ITypedItem<ResourceType>
     {
         _resource.Sub(CostValue, skipRateUpdate: true);
     }
+
+    public bool IsOverThreshold(double threshold)
+    {
+        return _resource.Value >= CostValue*threshold;
+    }
 }

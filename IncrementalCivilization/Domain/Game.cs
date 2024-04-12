@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using IncrementalCivilization.Messages;
 using NLog;
+using System.Collections.ObjectModel;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;
@@ -23,6 +24,8 @@ public partial class Game : ObservableObject
     public ResourceBundle Resources { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
     public JobsBundle Jobs { get; private set; }
+    public ObservableCollection<Improvement> Research { get; private set; }
+    public ObservableCollection<Improvement> Upgrades { get; private set; }
 
     public Game()
     {
@@ -33,6 +36,8 @@ public partial class Game : ObservableObject
         Resources = new ResourceBundle();
         Buildings = new BuildingsBundle(Resources);
         Jobs = new JobsBundle();
+        Research = new ObservableCollection<Improvement>();
+        Upgrades = new ObservableCollection<Improvement>();
 
         Timer = new DispatcherTimer()
         {

@@ -13,6 +13,7 @@ public partial class Building : ObservableObject, ITypedItem<BuildingType>
 
     public CostsBundle Cost { get; set; } = [];
     public Action BuyAction { get; set; } = () => { };
+    public double ActivationThreshold { get; private set; } = 0.3;
 
     [ObservableProperty]
     private double costIncrease = 1.15;
