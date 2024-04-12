@@ -60,6 +60,10 @@
                     <DataTemplate DataType="{x:Type pageVM:HomePageViewModel}">
                         <pageV:HomePageView/>
                     </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type pageVM:ResearchPageViewModel}">
+                        <pageV:ResearchPageView/>
+                    </DataTemplate>
                     
                     <!-- Shared mappings -->
                     <DataTemplate DataType="{x:Type sharedVM:ResourcesViewModel}">

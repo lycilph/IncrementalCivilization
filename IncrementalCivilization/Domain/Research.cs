@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using IncrementalCivilization.Messages;
+using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.Domain;
 
@@ -13,6 +15,15 @@ public class Research
     {
         Agriculture = new Improvement("Agriculture", "Enables the farming job");
         Agriculture.Cost.Add(new Cost(game.Resources.Science, 50));
-        Agriculture.BuyAction = () => game.Jobs.Farmer.Active = true;
+        Agriculture.BuyAction = () => 
+        {
+            game.Jobs.Farmer.Active = true;
+            SendMessage("Farming is now possible");
+        };
+    }
+
+    public static void SendMessage(string msg)
+    {
+        StrongReferenceMessenger.Default.Send(new AddMessageLogMessage(msg));
     }
 }
