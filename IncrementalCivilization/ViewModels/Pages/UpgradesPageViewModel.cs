@@ -30,6 +30,14 @@ public partial class UpgradesPageViewModel : PageViewModelBase
         Unlocked.CollectionChanged += UnlockedCollectionChanged;
     }
 
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        foreach (var item in Unlocked)
+            item.PropertyChanged += ImprovementPropertyChanged;
+    }
+
     private void UnlockedCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         if (e.Action == NotifyCollectionChangedAction.Add && e.NewItems != null)

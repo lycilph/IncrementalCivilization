@@ -79,23 +79,30 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
-    private void AddFood(string food)
+    private void AddFood(string amount)
     {
-        if (int.TryParse(food, out int value))
+        if (int.TryParse(amount, out int value))
             game.Resources.Food.Add(value, skipRateUpdate: true);
     }
 
     [RelayCommand]
-    private void AddWood(string wood)
+    private void AddWood(string amount)
     {
-        if (int.TryParse(wood, out int value))
+        if (int.TryParse(amount, out int value))
             game.Resources.Wood.Add(value, skipRateUpdate: true);
     }
 
     [RelayCommand]
-    private void AddScience(string science)
+    private void AddMinerals(string amount)
     {
-        if (int.TryParse(science, out int value))
+        if (int.TryParse(amount, out int value))
+            game.Resources.Minerals.Add(value, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
+    private void AddScience(string amount)
+    {
+        if (int.TryParse(amount, out int value))
             game.Resources.Science.Add(value, skipRateUpdate: true);
     }
 

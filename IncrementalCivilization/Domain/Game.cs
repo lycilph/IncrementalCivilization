@@ -61,7 +61,7 @@ public partial class Game : ObservableObject
         Resources.Minerals.Add(0.05 * Jobs.Miner.Count 
                              * (1 + 0.2 * Buildings.Mine.Count));
 
-        Resources.Science.Add(0.035 * Jobs.Scholar.Count * Effects.ScholarEffieciency
+        Resources.Science.Add(0.035 * Jobs.Scholar.Count
                             * (1 + 0.1 * Buildings.Library.Count));
 
         if (Resources.Population.Value > 0 && Resources.Food.Value < 0)

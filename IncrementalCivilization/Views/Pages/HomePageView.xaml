@@ -119,6 +119,15 @@
                             <Button Content="+1000" Command="{Binding AddWoodCommand}" CommandParameter="1000"/>
                         </StackPanel>
                     </Border>
+                    <TextBlock Text="Minerals"/>
+                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="+1" Command="{Binding AddMineralsCommand}" CommandParameter="1"/>
+                            <Button Content="+10" Command="{Binding AddMineralsCommand}" CommandParameter="10"/>
+                            <Button Content="+100" Command="{Binding AddMineralsCommand}" CommandParameter="100"/>
+                            <Button Content="+1000" Command="{Binding AddMineralsCommand}" CommandParameter="1000"/>
+                        </StackPanel>
+                    </Border>
                     <TextBlock Text="Science"/>
                     <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
                         <StackPanel Orientation="Horizontal">
