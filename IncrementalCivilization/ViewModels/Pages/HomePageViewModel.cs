@@ -60,6 +60,7 @@ public partial class HomePageViewModel : PageViewModelBase
         game.Resources.Food.Sub(100, skipRateUpdate: true);
     }
 
+    #region Debug commands
     [RelayCommand]
     private void AddPopulation()
     {
@@ -86,10 +87,22 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
+    private void AddAllFood()
+    {
+        game.Resources.Food.Add(game.Resources.Food.Maximum, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
     private void AddWood(string amount)
     {
         if (int.TryParse(amount, out int value))
             game.Resources.Wood.Add(value, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
+    private void AddAllWood()
+    {
+        game.Resources.Wood.Add(game.Resources.Wood.Maximum, skipRateUpdate: true);
     }
 
     [RelayCommand]
@@ -100,10 +113,22 @@ public partial class HomePageViewModel : PageViewModelBase
     }
 
     [RelayCommand]
+    private void AddAllMinerals()
+    {
+        game.Resources.Minerals.Add(game.Resources.Minerals.Maximum, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
     private void AddScience(string amount)
     {
         if (int.TryParse(amount, out int value))
             game.Resources.Science.Add(value, skipRateUpdate: true);
+    }
+
+    [RelayCommand]
+    private void AddAllScience()
+    {
+        game.Resources.Science.Add(game.Resources.Science.Maximum, skipRateUpdate: true);
     }
 
     [RelayCommand]
@@ -173,4 +198,5 @@ public partial class HomePageViewModel : PageViewModelBase
     {
         game.Jobs.Apply(j => j.Active = true);
     }
+    #endregion
 }

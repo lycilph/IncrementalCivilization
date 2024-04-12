@@ -15,10 +15,12 @@ public partial class JobViewModel : ObservableObject
     
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RemoveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RemoveAllCommand))]
     private bool canRemove = false;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(AddCommand))]
+    [NotifyCanExecuteChangedFor(nameof(AddAllCommand))]
     private bool canAdd = false;
 
     public JobViewModel(Job job, Resource freePopulation)
@@ -42,9 +44,21 @@ public partial class JobViewModel : ObservableObject
         _job.Count += 1;
     }
 
+    [RelayCommand(CanExecute = nameof(CanAdd))]
+    private void AddAll()
+    {
+        _job.Count += (int)_freePopulation.Value;
+    }
+
     [RelayCommand(CanExecute = nameof(CanRemove))]
     private void Remove()
     {
         _job.Count -= 1;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanRemove))]
+    private void RemoveAll()
+    {
+        _job.Count = 0;
     }
 }

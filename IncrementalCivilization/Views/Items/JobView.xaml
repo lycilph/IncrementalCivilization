@@ -25,6 +25,18 @@
         <Button Width="20"
                 Padding="0"
                 Margin="5 0 0 0"
+                Command="{Binding AddAllCommand}">
+            <ui:SymbolIcon Symbol="ChevronDoubleUp20"/>
+        </Button>
+        <Button Width="20"
+                Padding="0"
+                Margin="5 0 0 0"
+                Command="{Binding RemoveAllCommand}">
+            <ui:SymbolIcon Symbol="ChevronDoubleDown20"/>
+        </Button>
+        <Button Width="20"
+                Padding="0"
+                Margin="5 0 0 0"
                 Command="{Binding RemoveCommand}">
             <ui:SymbolIcon Symbol="Subtract24"/>
         </Button>
