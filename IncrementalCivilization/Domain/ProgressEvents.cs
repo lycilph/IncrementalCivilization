@@ -54,6 +54,10 @@ public static class ProgressEvents
                     game.Capabilities.ResearchPageEnabled = true;
                     game.Research.Unlocked.Add(game.Research.Calendar);
                     SendMessage("The first idea presents itself");
+
+                    // DEBUG
+                    game.Capabilities.UpgradesPageEnabled = true;
+                    game.Upgrades.Unlocked.Add(game.Upgrades.WoodHoe);
                 },
                 Trigger = () => game.Jobs.Scholar.Count > 0,
             },

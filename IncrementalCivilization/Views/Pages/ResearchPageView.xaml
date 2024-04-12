@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:pages="clr-namespace:IncrementalCivilization.ViewModels.Pages" 
              xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
+             xmlns:itemV="clr-namespace:IncrementalCivilization.Views.Items"
              d:DataContext="{d:DesignInstance Type=pages:ResearchPageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -47,28 +48,7 @@
             <ItemsControl ItemsSource="{Binding Unlocked}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Improvement}">
-                        <Button Command="{Binding BuyCommand}"
-                                HorizontalContentAlignment="Left"
-                                Width="250"
-                                Margin="0 0 0 5">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Description}" FontStyle="Italic"/>
-                                <Separator Margin="5 2"/>
-                                <ItemsControl ItemsSource="{Binding Cost}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type domain:Cost}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding ResourceName}"/>
-                                                <TextBlock Text="{Binding CostValue}" 
-                                                           Margin="10 0 0 0"
-                                                           Foreground="{Binding CanAfford, Converter={StaticResource color_converter}}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Button>
+                        <itemV:ImprovementView/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -81,16 +61,13 @@
 
         <!-- Bought research items area -->
         <StackPanel Grid.Row="2"
-                    Visibility="{Binding HideResearchedInventions, Converter={StaticResource visibility_converter}}">
+                    Visibility="{Binding HideResearchedInventions, Converter={StaticResource inverted_visibility_converter}}">
             <Separator Margin="10 5"/>
             <ItemsControl Height="150"
                           ItemsSource="{Binding Bought}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type domain:Improvement}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding Description}" FontStyle="Italic" Margin="10 0 0 0"/>
-                        </StackPanel>
+                        <itemV:ImprovementSimpleView/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

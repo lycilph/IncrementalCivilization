@@ -64,7 +64,11 @@
                     <DataTemplate DataType="{x:Type pageVM:ResearchPageViewModel}">
                         <pageV:ResearchPageView/>
                     </DataTemplate>
-                    
+
+                    <DataTemplate DataType="{x:Type pageVM:UpgradesPageViewModel}">
+                        <pageV:UpgradesPageView/>
+                    </DataTemplate>
+
                     <!-- Shared mappings -->
                     <DataTemplate DataType="{x:Type sharedVM:ResourcesViewModel}">
                         <sharedV:ResourcesView/>
