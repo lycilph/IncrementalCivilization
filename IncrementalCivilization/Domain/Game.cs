@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using IncrementalCivilization.Messages;
 using NLog;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;
@@ -91,6 +92,15 @@ public partial class Game : ObservableObject
                 Events.Remove(triggeredEvent);
     }
 
+    [MemberNotNull(nameof(Time))]
+    [MemberNotNull(nameof(Capabilities))]
+    [MemberNotNull(nameof(Effects))]
+    [MemberNotNull(nameof(Resources))]
+    [MemberNotNull(nameof(Buildings))]
+    [MemberNotNull(nameof(Jobs))]
+    [MemberNotNull(nameof(Research))]
+    [MemberNotNull(nameof(Upgrades))]
+    [MemberNotNull(nameof(Events))]
     private void Initialize()
     {
         logger.Debug("Creating all resources etc.");
