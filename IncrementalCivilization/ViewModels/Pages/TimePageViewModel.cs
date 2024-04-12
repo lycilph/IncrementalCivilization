@@ -9,6 +9,6 @@ public class TimePageViewModel : PageViewModelBase
 {
     public TimePageViewModel(INavigationService navigationService, Game game) : base(navigationService, "Time", SymbolRegular.HourglassHalf24)
     {
-        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.EnableTimePage;
+        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.TimePageEnabled;
     }
 }

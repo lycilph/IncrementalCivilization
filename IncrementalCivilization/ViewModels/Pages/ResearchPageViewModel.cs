@@ -9,6 +9,6 @@ public class ResearchPageViewModel : PageViewModelBase
 {
     public ResearchPageViewModel(INavigationService navigationService, Game game) : base(navigationService, "Research", SymbolRegular.Beaker24)
     {
-        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.EnableResearchPage;
+        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.ResearchPageEnabled;
     }
 }

@@ -1,8 +1,13 @@
-﻿namespace IncrementalCivilization.Domain;
+﻿using System.Collections.ObjectModel;
+
+namespace IncrementalCivilization.Domain;
 
 public class Research
 {
     public Improvement Agriculture { get; private set; }
+
+    public ObservableCollection<Improvement> Unlocked { get; private set; } = [];
+    public ObservableCollection<Improvement> Bought { get; private set; } = [];
 
     public Research(Game game)
     {

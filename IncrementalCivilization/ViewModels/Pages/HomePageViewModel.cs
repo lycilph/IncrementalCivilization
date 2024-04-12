@@ -140,9 +140,9 @@ public partial class HomePageViewModel : PageViewModelBase
     [RelayCommand]
     private void EnableAllPages()
     {
-        game.Capabilities.EnableResearchPage = true;
-        game.Capabilities.EnableUpgradesPage = true;
-        game.Capabilities.EnableTimePage = true;
+        game.Capabilities.ResearchPageEnabled = true;
+        game.Capabilities.UpgradesPageEnabled = true;
+        game.Capabilities.TimePageEnabled = true;
     }
 
     [RelayCommand]

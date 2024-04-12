@@ -18,7 +18,6 @@ public class Bundle<TType, TItem> : INotifyCollectionChanged, INotifyPropertyCha
         foreach (var i in items.Values)
             yield return i;
     }
-
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<TItem>)this).GetEnumerator();
 
     public Bundle<TType, TItem> Add(TItem item)

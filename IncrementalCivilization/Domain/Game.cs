@@ -24,8 +24,10 @@ public partial class Game : ObservableObject
     public ResourceBundle Resources { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
     public JobsBundle Jobs { get; private set; }
-    public ObservableCollection<Improvement> Research { get; private set; }
-    public ObservableCollection<Improvement> Upgrades { get; private set; }
+    public Research Research { get; private set; }
+    public Upgrades Upgrades { get; private set; }
+
+    public List<ProgessEvent> Events { get; private set; }
 
     public Game()
     {
@@ -36,8 +38,9 @@ public partial class Game : ObservableObject
         Resources = new ResourceBundle();
         Buildings = new BuildingsBundle(Resources);
         Jobs = new JobsBundle();
-        Research = new ObservableCollection<Improvement>();
-        Upgrades = new ObservableCollection<Improvement>();
+        Research = new Research(this);
+        Upgrades = new Upgrades(this);
+        Events = ProgressEvents.Initialize(this);
 
         Timer = new DispatcherTimer()
         {
@@ -78,5 +81,19 @@ public partial class Game : ObservableObject
 
         Resources.Limit();
         Jobs.Limit((int)Resources.Population.Value);
+
+        var triggeredEvents = new List<ProgessEvent>();
+        foreach (var pe in Events)
+        {
+            if (pe.Trigger())
+            {
+                pe.Effect();
+                triggeredEvents.Add(pe);
+            }
+        }
+
+        if (triggeredEvents.Count > 0)
+            foreach (var triggeredEvent in triggeredEvents)
+                Events.Remove(triggeredEvent);
     }
 }
