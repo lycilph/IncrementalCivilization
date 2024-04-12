@@ -69,6 +69,10 @@
                         <pageV:UpgradesPageView/>
                     </DataTemplate>
 
+                    <DataTemplate DataType="{x:Type pageVM:TimePageViewModel}">
+                        <pageV:TimePageView/>
+                    </DataTemplate>
+
                     <!-- Shared mappings -->
                     <DataTemplate DataType="{x:Type sharedVM:ResourcesViewModel}">
                         <sharedV:ResourcesView/>

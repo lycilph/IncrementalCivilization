@@ -34,8 +34,11 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
-        // Services
+        // Services (from WPF UI)
         services.AddSingleton<ISnackbarService, SnackbarService>();
+        services.AddSingleton<IContentDialogService, ContentDialogService>();
+
+        // Services
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IMessageLog, MessageLog>();
 

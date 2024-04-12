@@ -29,5 +29,9 @@
             <ContentControl Content="{Binding CurrentScreen}"/>
             <ui:SnackbarPresenter x:Name="SnackbarPresenter"/>
         </Grid>
+
+        <ContentPresenter Grid.Row="0"
+                          Grid.RowSpan="2"
+                          x:Name="RootContentDialog"/>
     </Grid>
 </ui:FluentWindow>

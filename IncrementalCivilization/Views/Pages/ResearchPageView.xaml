@@ -24,7 +24,7 @@
                 Padding="10">
             <StackPanel>
                 <TextBlock Text="Science Resources:"
-                           FontSize="20"
+                           FontSize="{StaticResource TitleFontSize}"
                            FontStyle="Italic"/>
                 <ItemsControl ItemsSource="{Binding Resources}"
                               Margin="0 10">
