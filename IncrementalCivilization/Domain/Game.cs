@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using IncrementalCivilization.Messages;
 using NLog;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows.Threading;
 
 namespace IncrementalCivilization.Domain;
@@ -30,7 +29,16 @@ public partial class Game : ObservableObject
 
     public Game()
     {
-        Initialize();
+        logger.Debug("Creating all resources etc.");
+        Time = new Time(ticksPerDay, daysPerYear);
+        Capabilities = new Capabilities();
+        Effects = new Effects();
+        Resources = new ResourceBundle();
+        Buildings = new BuildingsBundle(Resources);
+        Jobs = new JobsBundle();
+        Research = new Research(this);
+        Upgrades = new Upgrades(this);
+        Events = ProgressEvents.Initialize(this);
 
         Timer = new DispatcherTimer()
         {
@@ -92,34 +100,25 @@ public partial class Game : ObservableObject
                 Events.Remove(triggeredEvent);
     }
 
-    [MemberNotNull(nameof(Time))]
-    [MemberNotNull(nameof(Capabilities))]
-    [MemberNotNull(nameof(Effects))]
-    [MemberNotNull(nameof(Resources))]
-    [MemberNotNull(nameof(Buildings))]
-    [MemberNotNull(nameof(Jobs))]
-    [MemberNotNull(nameof(Research))]
-    [MemberNotNull(nameof(Upgrades))]
-    [MemberNotNull(nameof(Events))]
-    private void Initialize()
-    {
-        logger.Debug("Creating all resources etc.");
-        Time = new Time(ticksPerDay, daysPerYear);
-        Capabilities = new Capabilities();
-        Effects = new Effects();
-        Resources = new ResourceBundle();
-        Buildings = new BuildingsBundle(Resources);
-        Jobs = new JobsBundle();
-        Research = new Research(this);
-        Upgrades = new Upgrades(this);
-        Events = ProgressEvents.Initialize(this);
-    }
-
     public void Reset()
     {
         Timer.Stop();
 
-        Initialize();
+        logger.Debug("Resetting game state");
+
+        // These will be reset
+        Time.Reset();
+        Capabilities.Reset();
+        Effects.Reset();
+
+        // These will be recreated
+        //Resources = new ResourceBundle();
+        //Buildings = new BuildingsBundle(Resources);
+        //Jobs = new JobsBundle();
+        //Research = new Research(this);
+        //Upgrades = new Upgrades(this);
+        //Events = ProgressEvents.Initialize(this);
+
         StrongReferenceMessenger.Default.Send(new ResetMessage());
 
         Timer.Start();
