@@ -22,22 +22,23 @@ public class NavigationService : INavigationService
         logger.Debug("Navigating to screen {vm}", typeof(IVM).Name);
 
         var shell = _services.GetRequiredService<IShellViewModel>();
-        var vm = _services.GetRequiredService<IVM>() as IViewModel;
 
-        if (vm != null && !vm.Initialized)
-            vm.Initialize();
+        if (_services.GetRequiredService<IVM>() is not IViewModel vm)
+            throw new InvalidOperationException($"Could not navigate to {typeof(IVM).Name}");
 
+        shell.CurrentScreen?.Deactivate();
         shell.CurrentScreen = vm;
+        shell.CurrentScreen?.Activate();
     }
 
     public void NavigateToPage(IPageViewModel page)
     {
         logger.Debug("Navigating to page {page}", page.Title);
 
-        if (!page.Initialized)
-            page.Initialize();
-
         var mainVM = _services.GetRequiredService<IMainScreenViewModel>();
+
+        mainVM.CurrentPage?.Deactivate();
         mainVM.CurrentPage = page;
+        mainVM.CurrentPage?.Activate();
     }
 }

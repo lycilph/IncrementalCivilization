@@ -33,17 +33,31 @@ public partial class HomePageViewModel : PageViewModelBase, IRecipient<ResetMess
         Resources = resources;
         Jobs = jobs;
 
+        Enabled = true;
         StrongReferenceMessenger.Default.Register(this);
 
-        Enabled = true;
-        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
         game.Resources.Food.PropertyChanged += (s, e) => CanRefineFood = game.Resources.Food.Value > 100;
     }
 
     public override void Initialize()
     {
         base.Initialize();
+
+        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
         UpdateDebugMode();
+    }
+
+    public override void Activate()
+    {
+        base.Activate();
+
+        game.Resources.Food.PropertyChanged += (s, e) => CanRefineFood = game.Resources.Food.Value > 100;
+    }
+
+    public override void Deactivate()
+    {
+        base.Deactivate();
+        game.Resources.Food.PropertyChanged
     }
 
     private void UpdateDebugMode()

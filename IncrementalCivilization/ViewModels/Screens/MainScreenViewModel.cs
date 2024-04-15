@@ -15,7 +15,7 @@ public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
     private readonly Game game;
 
     [ObservableProperty]
-    private string _debugMessage = string.Empty;
+    private string _statusBarModeMessage = string.Empty;
 
     public ObservableCollection<IPageViewModel> Pages { get; private set; }
 
@@ -32,20 +32,21 @@ public partial class MainScreenViewModel : ViewModelBase, IMainScreenViewModel
         this.game = game;
         Pages = new ObservableCollection<IPageViewModel>(pages);
         Messages = messages;
-
-        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMessage();
     }
 
     public override void Initialize()
     {
         base.Initialize();
-        UpdateDebugMessage();
+
+        Settings.Default.PropertyChanged += (s, e) => UpdateStatusBarModeMessage();
+        UpdateStatusBarModeMessage();
+
         navigationService.NavigateToPage(Pages.First());
     }
 
-    private void UpdateDebugMessage()
+    private void UpdateStatusBarModeMessage()
     {
-        DebugMessage = Settings.Default.Debug ? "Debugging" : string.Empty;
+        StatusBarModeMessage = Settings.Default.Debug ? "Debugging" : string.Empty;
     }
 
     [RelayCommand]

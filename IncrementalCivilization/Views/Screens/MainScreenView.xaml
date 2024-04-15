@@ -145,7 +145,7 @@
                     <TextBlock Text="{Binding Time.Years, StringFormat=Years: {0}}"/>
                 </StatusBarItem>
                 <StatusBarItem HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding DebugMessage}"/>
+                    <TextBlock Text="{Binding StatusBarModeMessage}"/>
                 </StatusBarItem>
             </StatusBar>
 

@@ -3,26 +3,19 @@ using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Shared;
-using System.ComponentModel;
 
 namespace IncrementalCivilization.ViewModels.Screens;
 
-public partial class SettingsScreenViewModel : ViewModelBase, ISettingsScreenViewModel
+public partial class SettingsScreenViewModel(INavigationService navigationService) : ViewModelBase, ISettingsScreenViewModel
 {
-    private readonly INavigationService navigationService;
-
     [ObservableProperty]
     private bool _debugMode = false;
-
-    public SettingsScreenViewModel(INavigationService navigationService)
-    {
-        this.navigationService = navigationService;
-        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
-    }
 
     public override void Initialize()
     {
         base.Initialize();
+
+        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
         UpdateDebugMode();
     }
 

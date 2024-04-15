@@ -13,4 +13,12 @@ public partial class ViewModelBase : ObservableObject, IViewModel
     {
         Initialized = true;
     }
+
+    public virtual void Activate()
+    {
+        if (!Initialized)
+            Initialize();
+    }
+
+    public virtual void Deactivate() {}
 }
