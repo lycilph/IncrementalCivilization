@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace IncrementalCivilization.ViewModels.Shared;
+namespace IncrementalCivilization.ViewModels.Core;
 
 public partial class ViewModelBase : ObservableObject, IViewModel
 {

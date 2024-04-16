@@ -2,9 +2,9 @@
 
 namespace IncrementalCivilization.Views.Shared;
 
-public partial class JobsView : UserControl
+public partial class DebugView : UserControl
 {
-    public JobsView()
+    public DebugView()
     {
         InitializeComponent();
     }

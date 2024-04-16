@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using IncrementalCivilization.Utils;
+using IncrementalCivilization.Domain.Core;
 using NLog;
 using System.ComponentModel;
 using System.Diagnostics;

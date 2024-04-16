@@ -1,4 +1,5 @@
-﻿using IncrementalCivilization.Utils;
+﻿using IncrementalCivilization.Domain.Core;
+using IncrementalCivilization.Utils;
 
 namespace IncrementalCivilization.Domain;
 

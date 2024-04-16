@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui.Controls;
 
-namespace IncrementalCivilization.ViewModels.Shared;
+namespace IncrementalCivilization.ViewModels.Core;
 
 public interface IPageViewModel : IViewModel
 {

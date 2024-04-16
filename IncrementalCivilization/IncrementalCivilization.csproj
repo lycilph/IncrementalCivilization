@@ -48,4 +48,10 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Messages\" />
+    <Folder Include="ViewModels\Item\" />
+    <Folder Include="Views\Items\" />
+  </ItemGroup>
+
 </Project>

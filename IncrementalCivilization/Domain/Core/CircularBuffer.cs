@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace IncrementalCivilization.Utils;
+namespace IncrementalCivilization.Domain.Core;
 
 public class CircularBuffer<T> : List<T> where T : INumber<T>
 {
@@ -9,7 +9,7 @@ public class CircularBuffer<T> : List<T> where T : INumber<T>
     public CircularBuffer(int capacity) : base(capacity)
     {
         for (int i = 0; i < capacity; i++)
-            base.Add(default!);
+            Add(default!);
     }
 
     public void Insert(T item)

@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using IncrementalCivilization.Utils;
+using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace IncrementalCivilization.Utils;
+namespace IncrementalCivilization.Domain.Core;
 
 public class Bundle<TType, TItem> : INotifyCollectionChanged, INotifyPropertyChanged, IEnumerable<TItem> where TType : notnull where TItem : ITypedItem<TType>, INotifyPropertyChanged
 {
@@ -23,8 +24,10 @@ public class Bundle<TType, TItem> : INotifyCollectionChanged, INotifyPropertyCha
     public Bundle<TType, TItem> Add(TItem item)
     {
         items.Add(item.Type, item);
+        item.PropertyChanged += OnPropertyChanged;
+
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
-        item.PropertyChanged += (s,e) => OnPropertyChanged(e.PropertyName!);
+
         return this;
     }
 
@@ -33,19 +36,29 @@ public class Bundle<TType, TItem> : INotifyCollectionChanged, INotifyPropertyCha
         foreach (var i in item)
         { 
             items.Add(i.Type, i);
-            i.PropertyChanged += (s, e) => OnPropertyChanged(e.PropertyName!);
+            i.PropertyChanged += OnPropertyChanged;
         }
+
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
+
         return this;
+    }
+
+    public void Clear()
+    {
+        this.Apply(i => i.PropertyChanged -= OnPropertyChanged);
+        items.Clear();
+
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+    }
+
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.PropertyName));
     }
 
     public virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
     {
         CollectionChanged?.Invoke(this, args);
-    }
-
-    public virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

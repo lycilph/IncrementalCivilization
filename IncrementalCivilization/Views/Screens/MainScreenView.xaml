@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:screens="clr-namespace:IncrementalCivilization.ViewModels.Screens" 
-             xmlns:shared="clr-namespace:IncrementalCivilization.ViewModels.Shared"
-             xmlns:sharedView="clr-namespace:IncrementalCivilization.Views.Shared"
-             d:DataContext="{d:DesignInstance Type=screens:MainScreenViewModel}"
+             xmlns:screenVM="clr-namespace:IncrementalCivilization.ViewModels.Screens" 
+             xmlns:coreVM="clr-namespace:IncrementalCivilization.ViewModels.Core"
+             d:DataContext="{d:DesignInstance Type=screenVM:MainScreenViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800">
@@ -55,7 +54,7 @@
                               ItemsSource="{Binding Pages}"
                               HorizontalAlignment="Center">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type shared:IPageViewModel}">
+                        <DataTemplate DataType="{x:Type coreVM:PageViewModelBase}">
                             <ui:Button Content="{Binding Title}"
                                        Icon="{Binding Icon}"
                                        Width="150"
@@ -69,7 +68,7 @@
                 </ItemsControl>
 
                 <!-- Footer buttons -->
-                <ui:Button DockPanel.Dock="Bottom"
+                <!--<ui:Button DockPanel.Dock="Bottom"
                            Content="Settings" 
                            Icon="{ui:SymbolIcon Settings24}"
                            Command="{Binding ShowSettingsCommand}"
@@ -77,7 +76,7 @@
                            Margin="0 0 0 20"
                            Padding="20 5"
                            HorizontalAlignment="Center"
-                           HorizontalContentAlignment="Left"/>
+                           HorizontalContentAlignment="Left"/>-->
             </DockPanel>
         </Border>
 
@@ -101,7 +100,7 @@
                                Margin="20 -5 0 0"/>
 
                     <!-- Header Button -->
-                    <ToggleButton x:Name="start_stop_timer_button"
+                    <!--<ToggleButton x:Name="start_stop_timer_button"
                                   DockPanel.Dock="Right"
                                   Background="{StaticResource ApplicationAccent5Brush}"
                                   BorderBrush="{StaticResource ApplicationAccent5Brush}"
@@ -121,12 +120,12 @@
                                 </Style>
                             </ui:SymbolIcon.Style>
                         </ui:SymbolIcon>
-                    </ToggleButton>
+                    </ToggleButton>-->
                 </DockPanel>
             </Border>
 
             <!-- Main Content status bar -->
-            <StatusBar DockPanel.Dock="Bottom"
+            <!--<StatusBar DockPanel.Dock="Bottom"
                        Padding="0"
                        Background="Transparent">
                 <StatusBarItem MinWidth="125">
@@ -147,13 +146,13 @@
                 <StatusBarItem HorizontalAlignment="Right">
                     <TextBlock Text="{Binding StatusBarModeMessage}"/>
                 </StatusBarItem>
-            </StatusBar>
+            </StatusBar>-->
 
             <!-- Main Content Messages -->
-            <sharedView:LogView DockPanel.Dock="Bottom"
+            <!--<sharedView:LogView DockPanel.Dock="Bottom"
                                 Height="100"
                                 Margin="10"
-                                ItemsSource="{Binding Messages.Log}"/>
+                                ItemsSource="{Binding Messages.Log}"/>-->
 
             <Separator DockPanel.Dock="Bottom"
                        Margin="10 5"/>

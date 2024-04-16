@@ -1,4 +1,4 @@
-﻿namespace IncrementalCivilization.ViewModels.Shared;
+﻿namespace IncrementalCivilization.ViewModels.Core;
 
 public interface IViewModel
 {

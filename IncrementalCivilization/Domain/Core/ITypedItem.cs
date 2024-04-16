@@ -1,4 +1,4 @@
-﻿namespace IncrementalCivilization.Utils;
+﻿namespace IncrementalCivilization.Domain.Core;
 
 public interface ITypedItem<T>
 {

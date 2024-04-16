@@ -1,4 +1,5 @@
 ﻿using IncrementalCivilization.Domain;
+using IncrementalCivilization.ViewModels.Core;
 
 namespace IncrementalCivilization.ViewModels.Shared;
 

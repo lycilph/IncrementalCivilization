@@ -1,4 +1,4 @@
-﻿using IncrementalCivilization.ViewModels.Shared;
+﻿using IncrementalCivilization.ViewModels.Core;
 
 namespace IncrementalCivilization.ViewModels.Screens;
 

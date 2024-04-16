@@ -1,28 +1,36 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Properties;
-using IncrementalCivilization.ViewModels.Shared;
-using NLog;
+using IncrementalCivilization.Services;
+using IncrementalCivilization.ViewModels.Core;
+using System.ComponentModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 
 namespace IncrementalCivilization.ViewModels;
 
-public partial class ShellViewModel(ISnackbarService snackbarService) : ViewModelBase, IShellViewModel
+public partial class ShellViewModel(ISnackbarService snackbarService, ISettingsService settingsService) : ViewModelBase, IShellViewModel
 {
-    private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
     [ObservableProperty]
     private IViewModel? _currentScreen;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        settingsService.PropertyChanged += SettingsServicePropertyChanged;
+    }
+
+    private void SettingsServicePropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(settingsService.Debug))
+            snackbarService.Show("Info", $"Debug mode changed (now {Settings.Default.Debug})", ControlAppearance.Info, TimeSpan.FromSeconds(1));
+    }
 
     [RelayCommand]
     private void ToggleDebug()
     {
-        Settings.Default.Debug = !Settings.Default.Debug;
-
-        var msg = $"Debug toggled (current value = {Settings.Default.Debug})";
-        logger.Debug(msg);
-        snackbarService.Show("Info", msg, ControlAppearance.Info, TimeSpan.FromSeconds(1));
+        settingsService.Debug = !settingsService.Debug;
     }
 }

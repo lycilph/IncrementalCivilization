@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:pages="clr-namespace:IncrementalCivilization.ViewModels.Pages" 
-             d:DataContext="{d:DesignInstance Type=pages:HomePageViewModel}"
+             xmlns:pagesVM="clr-namespace:IncrementalCivilization.ViewModels.Pages" 
+             d:DataContext="{d:DesignInstance Type=pagesVM:HomePageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -16,7 +16,7 @@
 
         <!-- Resources area -->
         <ContentControl Grid.Column="0"
-                        Content="{Binding Resources}"/>
+                        Content="{Binding ResourcesVM}"/>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
 
             <!-- Top area -->
-            <Border Grid.Row="0"
+            <!--<Border Grid.Row="0"
                     BorderBrush="{StaticResource ApplicationAccent5Brush}"
                     BorderThickness="1"
                     CornerRadius="10"
@@ -48,138 +48,24 @@
 
                     <TextBlock Text="Your civilization has just started!"/>
                 </DockPanel>
-            </Border>
+            </Border>-->
 
             <!-- Buildings area -->
-            <ItemsControl Grid.Row="1"
+            <!--<ItemsControl Grid.Row="1"
                           Margin="10"
-                          ItemsSource="{Binding Buildings}"/>
+                          ItemsSource="{Binding Buildings}"/>-->
 
             <Separator Grid.Row="2" Margin="10 0"/>
 
             <!-- Jobs area -->
-            <ContentControl Grid.Row="3"
+            <!--<ContentControl Grid.Row="3"
                             Margin="10"
-                            Content="{Binding Jobs}"/>
+                            Content="{Binding Jobs}"/>-->
         </Grid>
 
         <!-- Debug area -->
-        <Border Grid.Column="2"
-                BorderBrush="{StaticResource ApplicationAccent5Brush}"
-                BorderThickness="1"
-                CornerRadius="10"
-                Padding="10"
-                Margin="10 0 0 0"
-                Visibility="{Binding DebugMode, Converter={StaticResource visibility_converter}}">
-            <ScrollViewer Padding="0 0 18 0">
-                <StackPanel>
-                    <TextBlock Text="Enable stuff"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
-                                <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
-                                <Button Content="Jobs" Command="{Binding EnableAllJobsCommand}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
-                                <Button Content="Refine" Command="{Binding EnableRefineFoodCommand}"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Population"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Pop: " VerticalAlignment="Center"/>
-                                <Button Content="+" Command="{Binding AddPopulationCommand}"/>
-                                <Button Content="-" Command="{Binding RemovePopulationCommand}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="10 0 0 0">
-                                <TextBlock Text="Max: " VerticalAlignment="Center"/>
-                                <Button Content="+" Command="{Binding AddPopulationMaxCommand}"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Food"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddFoodCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddFoodCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddFoodCommand}" CommandParameter="100"/>
-                            <Button Content="+1000" Command="{Binding AddFoodCommand}" CommandParameter="1000"/>
-                            <Button Content="A" Command="{Binding AddAllFoodCommand}"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Wood"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddWoodCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddWoodCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddWoodCommand}" CommandParameter="100"/>
-                            <Button Content="+1000" Command="{Binding AddWoodCommand}" CommandParameter="1000"/>
-                            <Button Content="A" Command="{Binding AddAllWoodCommand}"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Minerals"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddMineralsCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddMineralsCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddMineralsCommand}" CommandParameter="100"/>
-                            <Button Content="+1000" Command="{Binding AddMineralsCommand}" CommandParameter="1000"/>
-                            <Button Content="A" Command="{Binding AddAllMineralsCommand}"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Science"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddScienceCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddScienceCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddScienceCommand}" CommandParameter="100"/>
-                            <Button Content="+1000" Command="{Binding AddScienceCommand}" CommandParameter="1000"/>
-                            <Button Content="A" Command="{Binding AddAllScienceCommand}"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Resources"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Clear" Command="{Binding ClearResourcesCommand}"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Field"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddFieldCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddFieldCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddFieldCommand}" CommandParameter="100"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Hut"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddHutCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddHutCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddHutCommand}" CommandParameter="100"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Library"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="+1" Command="{Binding AddLibraryCommand}" CommandParameter="1"/>
-                            <Button Content="+10" Command="{Binding AddLibraryCommand}" CommandParameter="10"/>
-                            <Button Content="+100" Command="{Binding AddLibraryCommand}" CommandParameter="100"/>
-                        </StackPanel>
-                    </Border>
-                    <TextBlock Text="Buildings"/>
-                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Clear" Command="{Binding ClearBuildingsCommand}"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
-        </Border>
+        <ContentControl Grid.Column="2"
+                        Content="{Binding DebugVM}"
+                        Visibility="{Binding DebugMode, Converter={StaticResource visibility_converter}}"/>
     </Grid>
 </UserControl>

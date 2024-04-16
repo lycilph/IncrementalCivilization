@@ -2,7 +2,7 @@
 using IncrementalCivilization.Services;
 using Wpf.Ui.Controls;
 
-namespace IncrementalCivilization.ViewModels.Shared;
+namespace IncrementalCivilization.ViewModels.Core;
 
 public partial class PageViewModelBase(INavigationService navigationService, string title, SymbolRegular icon) : ViewModelBase, IPageViewModel
 {

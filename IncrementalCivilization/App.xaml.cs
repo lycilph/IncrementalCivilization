@@ -2,6 +2,7 @@
 using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels;
+using IncrementalCivilization.ViewModels.Core;
 using IncrementalCivilization.ViewModels.Pages;
 using IncrementalCivilization.ViewModels.Screens;
 using IncrementalCivilization.ViewModels.Shared;
@@ -39,8 +40,9 @@ public partial class App : Application
         services.AddSingleton<IContentDialogService, ContentDialogService>();
 
         // Services
+        services.AddSingleton<ISettingsService, SettingsService>();
         services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<IMessageLog, MessageLog>();
+        //services.AddSingleton<IMessageLog, MessageLog>();
 
         // Shell
         services.AddSingleton<ShellWindow>();
@@ -48,7 +50,7 @@ public partial class App : Application
 
         // Screens
         services.AddSingleton<IMainScreenViewModel, MainScreenViewModel>();
-        services.AddSingleton<ISettingsScreenViewModel, SettingsScreenViewModel>();
+        //services.AddSingleton<ISettingsScreenViewModel, SettingsScreenViewModel>();
 
         // Pages
         services.AddSingleton<IPageViewModel, HomePageViewModel>();
@@ -58,7 +60,8 @@ public partial class App : Application
 
         // Shared
         services.AddSingleton<ResourcesViewModel>();
-        services.AddSingleton<JobsViewModel>();
+        services.AddSingleton<DebugViewModel>();
+        //services.AddSingleton<JobsViewModel>();
 
         // Domain
         services.AddSingleton<Game>();
@@ -70,22 +73,26 @@ public partial class App : Application
     {
         logger.Debug("Starting application");
 
+        var vm = Services.GetRequiredService<IShellViewModel>();
         var shell = Services.GetRequiredService<ShellWindow>();
+        
+        vm.Initialize();
+        shell.DataContext = vm;
         shell.Show();
 
         var navigation = Services.GetRequiredService<INavigationService>();
         navigation.NavigateToScreen<IMainScreenViewModel>();
 
-        var game = Services.GetRequiredService<Game>();
-        game.Timer.Start();
+        //var game = Services.GetRequiredService<Game>();
+        //game.Timer.Start();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
         logger.Debug("Exiting application");
 
-        var game = Services.GetRequiredService<Game>();
-        game.Timer.Stop();
+        //var game = Services.GetRequiredService<Game>();
+        //game.Timer.Stop();
 
         Settings.Default.Save();
     }
