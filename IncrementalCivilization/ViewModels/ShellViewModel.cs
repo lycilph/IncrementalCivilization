@@ -9,14 +9,16 @@ using Wpf.Ui.Extensions;
 
 namespace IncrementalCivilization.ViewModels;
 
-public partial class ShellViewModel(ISnackbarService snackbarService) : ViewModelBase, IShellViewModel
+public partial class ShellViewModel : ViewModelBase, IShellViewModel
 {
+    private readonly ISnackbarService _snackbarService;
+    
     [ObservableProperty]
     private IViewModel? _currentScreen;
 
-    public override void Initialize()
+    public ShellViewModel(ISnackbarService snackbarService)
     {
-        base.Initialize();
+        _snackbarService = snackbarService;
 
         Settings.Default.PropertyChanged += SettingsServicePropertyChanged;
     }
@@ -24,7 +26,7 @@ public partial class ShellViewModel(ISnackbarService snackbarService) : ViewMode
     private void SettingsServicePropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(Settings.Default.DebugMode))
-            snackbarService.Show("Info", $"Debug mode changed (now {Settings.Default.DebugMode})", ControlAppearance.Info, TimeSpan.FromSeconds(1));
+            _snackbarService.Show("Info", $"Debug mode changed (now {Settings.Default.DebugMode})", ControlAppearance.Info, TimeSpan.FromSeconds(1));
     }
 
     [RelayCommand]

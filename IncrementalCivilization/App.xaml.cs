@@ -74,11 +74,7 @@ public partial class App : Application
     {
         logger.Debug("Starting application");
 
-        var vm = Services.GetRequiredService<IShellViewModel>();
         var shell = Services.GetRequiredService<ShellWindow>();
-        
-        vm.Initialize();
-        shell.DataContext = vm;
         shell.Show();
 
         var navigation = Services.GetRequiredService<INavigationService>();

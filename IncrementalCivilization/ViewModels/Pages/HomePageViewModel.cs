@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using IncrementalCivilization.Properties;
+﻿using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Core;
 using IncrementalCivilization.ViewModels.Shared;
@@ -7,27 +6,26 @@ using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
-public partial class HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, DebugViewModel debugViewModel) 
-    : PageViewModelBase(navigationService, "Home", SymbolRegular.Home24), IHomePageViewModel
+public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
 {
-    public ResourcesViewModel ResourcesVM { get => resources; }
-    public DebugViewModel DebugVM { get => debugViewModel; }
-    
-    [ObservableProperty]
-    private bool _debugMode = false;
+    private readonly ResourcesViewModel _resources;
+    private readonly DebugViewModel _debugViewModel;
 
-    public override void Initialize()
+    public ResourcesViewModel ResourcesVM { get => _resources; }
+    public DebugViewModel DebugVM { get => _debugViewModel; }
+
+    public bool DebugMode
     {
-        base.Initialize();
-
-        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
-        UpdateDebugMode();
-
-        Enabled = true;
+        get => Settings.Default.DebugMode;
+        set => SetProperty(Settings.Default.DebugMode, value, Settings.Default, (o, v) => o.DebugMode = v);
     }
 
-    private void UpdateDebugMode()
+    public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, DebugViewModel debugViewModel) : base(navigationService, "Home", SymbolRegular.Home24)
     {
-        DebugMode = Settings.Default.DebugMode;
+        _resources = resources;
+        _debugViewModel = debugViewModel;
+
+        Enabled = true;
+        Settings.Default.PropertyChanged += (s, e) => OnPropertyChanged(e.PropertyName); // Forward change notifications to VM
     }
 }
