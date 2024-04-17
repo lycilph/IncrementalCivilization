@@ -17,6 +17,12 @@ public partial class DebugViewModel(Game game) : ViewModelBase
     }
 
     [RelayCommand]
+    private void EnableRefineFood()
+    {
+        game.Capabilities.RefineFoodEnabled = true;
+    }
+
+    [RelayCommand]
     private void EnableAllResources()
     {
         game.Resources.Apply(r => r.Active = true);
@@ -78,5 +84,36 @@ public partial class DebugViewModel(Game game) : ViewModelBase
     {
         if (int.TryParse(amount, out int value))
             game.Resources.Science.Add(value == 0 ? game.Resources.Science.Maximum : value, skipRateUpdate: true);
+    }
+
+
+    [RelayCommand]
+    private void ClearBuildings()
+    {
+        game.Buildings.Apply(r => r.Count = 0);
+    }
+
+    [RelayCommand]
+    private void AddFields(string amount)
+    {
+        if (int.TryParse(amount, out int value))
+            for (int i = 0; i < value; i++)
+                game.Buildings.Field.Buy();
+    }
+
+    [RelayCommand]
+    private void AddHuts(string amount)
+    {
+        if (int.TryParse(amount, out int value))
+            for (int i = 0; i < value; i++)
+                game.Buildings.Hut.Buy();
+    }
+
+    [RelayCommand]
+    private void AddLibraries(string amount)
+    {
+        if (int.TryParse(amount, out int value))
+            for (int i = 0; i < value; i++)
+                game.Buildings.Library.Buy();
     }
 }

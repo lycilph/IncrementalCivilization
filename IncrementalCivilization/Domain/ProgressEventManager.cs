@@ -5,18 +5,32 @@ namespace IncrementalCivilization.Domain;
 
 public class ProgressEventManager
 {
-    private List<ProgessEvent> events;
+    private readonly List<ProgessEvent> events;
 
     private void Send(string text) => StrongReferenceMessenger.Default.Send(new ShowMessage(text));
 
-    public ProgressEventManager()
+    public ProgressEventManager(Game game)
     {
         events = [
             new()
             {
                 Effect = () => Send("Your civilization has started its long journey..."),
                 Trigger = () => true
+            },
+            new()
+            {
+                Effect = () =>
+                {
+                    Send("Maybe food can be used for other things?");
+                    game.Capabilities.RefineFoodEnabled = true;
+                },
+                Trigger = () => game.Resources.Food.Value >= 25
             }];
+    }
+
+    public void Clear()
+    {
+        events.Clear();
     }
 
     public void Process()

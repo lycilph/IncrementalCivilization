@@ -27,17 +27,18 @@
                     <Setter Property="Margin" Value="0 0 0 5"/>
                 </Style>
             </ScrollViewer.Resources>
-            
+
             <StackPanel>
                 <TextBlock Text="Enable"/>
                 <Border>
                     <WrapPanel Orientation="Horizontal">
                         <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
+                        <Button Content="Refine" Command="{Binding EnableRefineFoodCommand}"/>
                         <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
                         <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
                     </WrapPanel>
                 </Border>
-                
+
                 <Border>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -65,7 +66,7 @@
                             <Button Content="1000" Command="{Binding AddFoodCommand}" CommandParameter="1000"/>
                             <Button Content="Max" Command="{Binding AddFoodCommand}" CommandParameter="0"/>
                         </StackPanel>
-                        
+
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Wood" VerticalAlignment="Center" Margin="0 0 5 0"/>
                             <Button Content="1" Command="{Binding AddWoodCommand}" CommandParameter="1"/>
@@ -94,86 +95,23 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
+
+                <Border>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Buildings" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <Button Content="Clear" Command="{Binding ClearBuildingsCommand}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Fields" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <Button Content="1" Command="{Binding AddFieldsCommand}" CommandParameter="1"/>
+                            <Button Content="10" Command="{Binding AddFieldsCommand}" CommandParameter="10"/>
+                            <Button Content="100" Command="{Binding AddFieldsCommand}" CommandParameter="100"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </StackPanel>
         </ScrollViewer>
     </Border>
-
-    <!--<Border Grid.Column="2"
-        BorderBrush="{StaticResource ApplicationAccent5Brush}"
-        BorderThickness="1"
-        CornerRadius="10"
-        Padding="10"
-        Margin="10 0 0 0"
-        Visibility="{Binding DebugMode, Converter={StaticResource visibility_converter}}">
-    <ScrollViewer Padding="0 0 18 0">
-        <StackPanel>
-            <TextBlock Text="Enable stuff"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
-                        <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
-                        <Button Content="Jobs" Command="{Binding EnableAllJobsCommand}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
-                        <Button Content="Refine" Command="{Binding EnableRefineFoodCommand}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-            <TextBlock Text="Population"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Pop: " VerticalAlignment="Center"/>
-                        <Button Content="+" Command="{Binding AddPopulationCommand}"/>
-                        <Button Content="-" Command="{Binding RemovePopulationCommand}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"
-                                Margin="10 0 0 0">
-                        <TextBlock Text="Max: " VerticalAlignment="Center"/>
-                        <Button Content="+" Command="{Binding AddPopulationMaxCommand}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-           
-            <TextBlock Text="Resources"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Clear" Command="{Binding ClearResourcesCommand}"/>
-                </StackPanel>
-            </Border>
-            <TextBlock Text="Field"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="+1" Command="{Binding AddFieldCommand}" CommandParameter="1"/>
-                    <Button Content="+10" Command="{Binding AddFieldCommand}" CommandParameter="10"/>
-                    <Button Content="+100" Command="{Binding AddFieldCommand}" CommandParameter="100"/>
-                </StackPanel>
-            </Border>
-            <TextBlock Text="Hut"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="+1" Command="{Binding AddHutCommand}" CommandParameter="1"/>
-                    <Button Content="+10" Command="{Binding AddHutCommand}" CommandParameter="10"/>
-                    <Button Content="+100" Command="{Binding AddHutCommand}" CommandParameter="100"/>
-                </StackPanel>
-            </Border>
-            <TextBlock Text="Library"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="+1" Command="{Binding AddLibraryCommand}" CommandParameter="1"/>
-                    <Button Content="+10" Command="{Binding AddLibraryCommand}" CommandParameter="10"/>
-                    <Button Content="+100" Command="{Binding AddLibraryCommand}" CommandParameter="100"/>
-                </StackPanel>
-            </Border>
-            <TextBlock Text="Buildings"/>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="2">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Clear" Command="{Binding ClearBuildingsCommand}"/>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-    </ScrollViewer>
-</Border>-->
 </UserControl>

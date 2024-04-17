@@ -25,7 +25,7 @@ public class Game
         Capabilities = new Capabilities();
         Resources = new ResourceBundle();
         Buildings = new BuildingsBundle(Resources);
-        ProgressEventManager = new ProgressEventManager();
+        ProgressEventManager = new ProgressEventManager(this);
     }
 
     private void Tick()
@@ -54,5 +54,8 @@ public class Game
 
         Buildings.Clear();
         Buildings = new BuildingsBundle(Resources);
+
+        ProgressEventManager.Clear();
+        ProgressEventManager = new ProgressEventManager(this);
     }
 }
