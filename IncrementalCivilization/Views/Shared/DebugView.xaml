@@ -31,10 +31,11 @@
             <StackPanel>
                 <TextBlock Text="Enable"/>
                 <Border>
-                    <WrapPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Horizontal" MaxWidth="200">
                         <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
                         <Button Content="Refine" Command="{Binding EnableRefineFoodCommand}"/>
                         <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
+                        <Button Content="Jobs" Command="{Binding EnableAllJobsCommand}"/>
                         <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
                     </WrapPanel>
                 </Border>
@@ -108,6 +109,20 @@
                             <Button Content="1" Command="{Binding AddFieldsCommand}" CommandParameter="1"/>
                             <Button Content="10" Command="{Binding AddFieldsCommand}" CommandParameter="10"/>
                             <Button Content="100" Command="{Binding AddFieldsCommand}" CommandParameter="100"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Huts" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <Button Content="1" Command="{Binding AddHutsCommand}" CommandParameter="1"/>
+                            <Button Content="10" Command="{Binding AddHutsCommand}" CommandParameter="10"/>
+                            <Button Content="100" Command="{Binding AddHutsCommand}" CommandParameter="100"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Fields" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <Button Content="1" Command="{Binding AddLibrariesCommand}" CommandParameter="1"/>
+                            <Button Content="10" Command="{Binding AddLibrariesCommand}" CommandParameter="10"/>
+                            <Button Content="100" Command="{Binding AddLibrariesCommand}" CommandParameter="100"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>

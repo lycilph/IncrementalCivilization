@@ -14,6 +14,7 @@ public class Game
     public Time Time { get; private set; }
     public Capabilities Capabilities { get; private set; }
     public ResourceBundle Resources { get; private set; }
+    public JobsBundle Jobs { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
     public ProgressEventManager ProgressEventManager { get; private set; }
 
@@ -24,6 +25,7 @@ public class Game
         Time = new Time(ticksPerSecond, ticksPerDay, daysPerYear) { TickAction = Tick };
         Capabilities = new Capabilities();
         Resources = new ResourceBundle();
+        Jobs = new JobsBundle();
         Buildings = new BuildingsBundle(Resources);
         ProgressEventManager = new ProgressEventManager(this);
     }
@@ -35,6 +37,7 @@ public class Game
         // Do stuff here
 
         Resources.Limit();
+        Jobs.Limit((int)Resources.Population.Value);
 
         ProgressEventManager.Process();
     }
@@ -51,6 +54,9 @@ public class Game
 
         Resources.Clear();
         Resources = new ResourceBundle();
+
+        Jobs.Clear();
+        Jobs = new JobsBundle();
 
         Buildings.Clear();
         Buildings = new BuildingsBundle(Resources);

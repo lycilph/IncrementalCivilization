@@ -63,7 +63,7 @@ public partial class App : Application
         // Shared
         services.AddSingleton<ResourcesViewModel>();
         services.AddSingleton<DebugViewModel>();
-        //services.AddSingleton<JobsViewModel>();
+        services.AddSingleton<JobsViewModel>();
 
         // Domain
         services.AddSingleton<Game>();

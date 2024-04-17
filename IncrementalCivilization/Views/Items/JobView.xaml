@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="IncrementalCivilization.Views.Items.JobView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:item="clr-namespace:IncrementalCivilization.ViewModels.Item" 
+             d:DataContext="{d:DesignInstance Type=item:JobViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Horizontal"
+                Margin="0 5"
+                Visibility="{Binding Active, Converter={StaticResource visibility_converter}}">
+        <TextBlock VerticalAlignment="Center" 
+                   Width="150">
+            <Run Text="{Binding Name, Mode=OneWay}"/>
+            <Run Text="{Binding Count, Mode=OneWay, StringFormat=({0})}"/>
+        </TextBlock>
+        <Button Width="20"
+                Padding="0"
+                Margin="5 0 0 0"
+                Command="{Binding AddCommand}">
+            <ui:SymbolIcon Symbol="Add24"/>
+        </Button>
+        <Button Width="20"
+                Padding="0"
+                Margin="5 0 0 0"
+                Command="{Binding AddAllCommand}">
+            <ui:SymbolIcon Symbol="ChevronDoubleUp20"/>
+        </Button>
+        <Button Width="20"
+                Padding="0"
+                Margin="5 0 0 0"
+                Command="{Binding RemoveAllCommand}">
+            <ui:SymbolIcon Symbol="ChevronDoubleDown20"/>
+        </Button>
+        <Button Width="20"
+                Padding="0"
+                Margin="5 0 0 0"
+                Command="{Binding RemoveCommand}">
+            <ui:SymbolIcon Symbol="Subtract24"/>
+        </Button>
+    </StackPanel>
+</UserControl>

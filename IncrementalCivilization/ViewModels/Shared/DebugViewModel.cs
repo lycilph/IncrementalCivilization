@@ -29,6 +29,12 @@ public partial class DebugViewModel(Game game) : ViewModelBase
     }
 
     [RelayCommand]
+    private void EnableAllJobs()
+    {
+        game.Jobs.Apply(j => j.Active = true);
+    }
+
+    [RelayCommand]
     private void EnableAllBuildings()
     {
         game.Buildings.Apply(b  => b.Active = true);

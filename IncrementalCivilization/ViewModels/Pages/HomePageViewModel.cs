@@ -13,10 +13,12 @@ namespace IncrementalCivilization.ViewModels.Pages;
 public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
 {
     private readonly ResourcesViewModel _resources;
+    private readonly JobsViewModel _jobs;
     private readonly DebugViewModel _debugViewModel;
     private readonly Game _game;
 
     public ResourcesViewModel ResourcesVM { get => _resources; }
+    public JobsViewModel JobsVM { get => _jobs; }
     public DebugViewModel DebugVM { get => _debugViewModel; }
     public BuildingsBundle Buildings { get => _game.Buildings; }
     public Capabilities Capabilities { get => _game.Capabilities; }
@@ -31,9 +33,10 @@ public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
     [NotifyCanExecuteChangedFor(nameof(RefineFoodCommand))]
     private bool _canRefineFood = false;
 
-    public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, DebugViewModel debugViewModel, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
+    public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, JobsViewModel jobs, DebugViewModel debugViewModel, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
     {
         _resources = resources;
+        _jobs = jobs;
         _debugViewModel = debugViewModel;
         _game = game;
 
@@ -46,6 +49,7 @@ public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
         base.Activate();
 
         _game.Resources.Food.PropertyChanged += FoodPropertyChanged;
+        JobsVM.Activate();
     }
 
     public override void Deactivate()
@@ -53,6 +57,7 @@ public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
         base.Deactivate();
 
         _game.Resources.Food.PropertyChanged -= FoodPropertyChanged;
+        JobsVM.Deactivate();
     }
 
     private void FoodPropertyChanged(object? sender, PropertyChangedEventArgs e)

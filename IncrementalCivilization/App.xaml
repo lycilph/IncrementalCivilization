@@ -8,6 +8,7 @@
              xmlns:screenVM="clr-namespace:IncrementalCivilization.ViewModels.Screens"
              xmlns:pageVM="clr-namespace:IncrementalCivilization.ViewModels.Pages"
              xmlns:sharedVM="clr-namespace:IncrementalCivilization.ViewModels.Shared"
+             xmlns:itemVM="clr-namespace:IncrementalCivilization.ViewModels.Item"
              xmlns:screenV="clr-namespace:IncrementalCivilization.Views.Screens"
              xmlns:pageV="clr-namespace:IncrementalCivilization.Views.Pages"
              xmlns:sharedV="clr-namespace:IncrementalCivilization.Views.Shared"
@@ -77,6 +78,10 @@
                         <sharedV:ResourcesView/>
                     </DataTemplate>
 
+                    <DataTemplate DataType="{x:Type sharedVM:JobsViewModel}">
+                        <sharedV:JobsView/>
+                    </DataTemplate>
+
                     <DataTemplate DataType="{x:Type sharedVM:DebugViewModel}">
                         <sharedV:DebugView/>
                     </DataTemplate>
@@ -88,6 +93,10 @@
 
                     <DataTemplate DataType="{x:Type domain:Cost}">
                         <itemV:CostView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type itemVM:JobViewModel}">
+                        <itemV:JobView/>
                     </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
