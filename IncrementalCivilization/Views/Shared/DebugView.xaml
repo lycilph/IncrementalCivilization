@@ -32,8 +32,9 @@
                 <TextBlock Text="Enable"/>
                 <Border>
                     <WrapPanel Orientation="Horizontal">
-                        <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
                         <Button Content="Pages" Command="{Binding EnableAllPagesCommand}"/>
+                        <Button Content="Resources" Command="{Binding EnableAllResourcesCommand}"/>
+                        <Button Content="Buildings" Command="{Binding EnableAllBuildingsCommand}"/>
                     </WrapPanel>
                 </Border>
                 

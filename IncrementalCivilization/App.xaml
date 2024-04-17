@@ -4,12 +4,14 @@
              xmlns:sys="clr-namespace:System;assembly=System.Runtime" 
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:conv="clr-namespace:IncrementalCivilization.Converters"
+             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
              xmlns:screenVM="clr-namespace:IncrementalCivilization.ViewModels.Screens"
              xmlns:pageVM="clr-namespace:IncrementalCivilization.ViewModels.Pages"
              xmlns:sharedVM="clr-namespace:IncrementalCivilization.ViewModels.Shared"
              xmlns:screenV="clr-namespace:IncrementalCivilization.Views.Screens"
              xmlns:pageV="clr-namespace:IncrementalCivilization.Views.Pages"
              xmlns:sharedV="clr-namespace:IncrementalCivilization.Views.Shared"
+             xmlns:itemV="clr-namespace:IncrementalCivilization.Views.Items"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
@@ -80,6 +82,13 @@
                     </DataTemplate>
 
                     <!-- Item mappings -->
+                    <DataTemplate DataType="{x:Type domain:Building}">
+                        <itemV:BuildingView/>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type domain:Cost}">
+                        <itemV:CostView/>
+                    </DataTemplate>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

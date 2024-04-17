@@ -14,6 +14,7 @@ public class Game
     public Time Time { get; private set; }
     public Capabilities Capabilities { get; private set; }
     public ResourceBundle Resources { get; private set; }
+    public BuildingsBundle Buildings { get; private set; }
     public ProgressEventManager ProgressEventManager { get; private set; }
 
     public Game()
@@ -23,6 +24,7 @@ public class Game
         Time = new Time(ticksPerSecond, ticksPerDay, daysPerYear) { TickAction = Tick };
         Capabilities = new Capabilities();
         Resources = new ResourceBundle();
+        Buildings = new BuildingsBundle(Resources);
         ProgressEventManager = new ProgressEventManager();
     }
 
@@ -49,5 +51,8 @@ public class Game
 
         Resources.Clear();
         Resources = new ResourceBundle();
+
+        Buildings.Clear();
+        Buildings = new BuildingsBundle(Resources);
     }
 }

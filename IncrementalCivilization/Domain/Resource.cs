@@ -8,7 +8,7 @@ namespace IncrementalCivilization.Domain;
 
 public enum ResourceType { Population, Food, Wood, Minerals, Science }
 
-[DebuggerDisplay("Name = {Name}, Value = {Value}, Maximum = {Maximum}")]
+[DebuggerDisplay("Name = {Name}, Value = {Value}, Maximum = {Maximum}, Active = {Active}")]
 public partial class Resource : ObservableObject, ITypedItem<ResourceType>
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();

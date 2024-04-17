@@ -16,6 +16,7 @@ public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
 
     public ResourcesViewModel ResourcesVM { get => _resources; }
     public DebugViewModel DebugVM { get => _debugViewModel; }
+    public BuildingsBundle Buildings { get => _game.Buildings; }
 
     public bool DebugMode
     {

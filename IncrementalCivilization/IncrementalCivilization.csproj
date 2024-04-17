@@ -50,7 +50,6 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\Item\" />
-    <Folder Include="Views\Items\" />
   </ItemGroup>
 
 </Project>

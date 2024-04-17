@@ -9,17 +9,23 @@ public partial class DebugViewModel(Game game) : ViewModelBase
 {
 
     [RelayCommand]
+    private void EnableAllPages()
+    {
+        game.Capabilities.ResearchPageEnabled = true;
+        game.Capabilities.UpgradesPageEnabled = true;
+        game.Capabilities.TimePageEnabled = true;
+    }
+
+    [RelayCommand]
     private void EnableAllResources()
     {
         game.Resources.Apply(r => r.Active = true);
     }
 
     [RelayCommand]
-    private void EnableAllPages()
+    private void EnableAllBuildings()
     {
-        game.Capabilities.ResearchPageEnabled = true;
-        game.Capabilities.UpgradesPageEnabled = true;
-        game.Capabilities.TimePageEnabled = true;
+        game.Buildings.Apply(b  => b.Active = true);
     }
 
     [RelayCommand]

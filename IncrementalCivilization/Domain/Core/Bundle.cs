@@ -44,7 +44,7 @@ public class Bundle<TType, TItem> : INotifyCollectionChanged, INotifyPropertyCha
         return this;
     }
 
-    public void Clear()
+    public virtual void Clear()
     {
         this.Apply(i => i.PropertyChanged -= OnPropertyChanged);
         items.Clear();
