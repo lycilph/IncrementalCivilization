@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
              xmlns:shared="clr-namespace:IncrementalCivilization.ViewModels.Shared" 
              d:DataContext="{d:DesignInstance Type=shared:DebugViewModel}"
              mc:Ignorable="d" 
@@ -124,6 +125,19 @@
                             <Button Content="10" Command="{Binding AddLibrariesCommand}" CommandParameter="10"/>
                             <Button Content="100" Command="{Binding AddLibrariesCommand}" CommandParameter="100"/>
                         </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel>
+                        <TextBlock Text="Events"/>
+                        <ItemsControl ItemsSource="{Binding Events}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type domain:ProgessEvent}">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
                 </Border>
             </StackPanel>

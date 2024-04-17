@@ -2,11 +2,13 @@
 using IncrementalCivilization.Domain;
 using IncrementalCivilization.Utils;
 using IncrementalCivilization.ViewModels.Core;
+using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.ViewModels.Shared;
 
 public partial class DebugViewModel(Game game) : ViewModelBase
 {
+    public ObservableCollection<ProgessEvent> Events { get => game.ProgressEventManager.Events; }
 
     [RelayCommand]
     private void EnableAllPages()
