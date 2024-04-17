@@ -1,11 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IncrementalCivilization.Domain;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Core;
 using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.ViewModels.Screens;
 
-public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, ISettingsService settingsService) 
+public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, ISettingsService settingsService, Game game) 
     : ViewModelBase, IMainScreenViewModel
 {
     public ObservableCollection<IPageViewModel> Pages { get; private set; } = new ObservableCollection<IPageViewModel>(pages);
@@ -15,6 +16,8 @@ public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INav
     
     [ObservableProperty]
     private string _statusBarModeMessage = string.Empty;
+
+    public Time Time { get => game.Time; }
 
     public override void Initialize()
     {

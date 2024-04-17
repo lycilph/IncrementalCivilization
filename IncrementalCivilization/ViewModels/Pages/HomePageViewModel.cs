@@ -7,7 +7,7 @@ using Wpf.Ui.Controls;
 namespace IncrementalCivilization.ViewModels.Pages;
 
 public partial class HomePageViewModel(INavigationService navigationService, ISettingsService settingsService, ResourcesViewModel resources, DebugViewModel debugViewModel) 
-    : PageViewModelBase(navigationService, "Home", SymbolRegular.Home24)
+    : PageViewModelBase(navigationService, "Home", SymbolRegular.Home24), IHomePageViewModel
 {
     public ResourcesViewModel ResourcesVM { get => resources; }
     public DebugViewModel DebugVM { get => debugViewModel; }

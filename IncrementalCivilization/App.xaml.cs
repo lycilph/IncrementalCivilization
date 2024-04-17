@@ -53,7 +53,10 @@ public partial class App : Application
         //services.AddSingleton<ISettingsScreenViewModel, SettingsScreenViewModel>();
 
         // Pages
-        services.AddSingleton<IPageViewModel, HomePageViewModel>();
+        services.AddSingleton<HomePageViewModel>();
+        services.AddSingleton<IPageViewModel>(x => x.GetRequiredService<HomePageViewModel>());
+        services.AddSingleton<IHomePageViewModel>(x => x.GetRequiredService<HomePageViewModel>());
+
         services.AddSingleton<IPageViewModel, ResearchPageViewModel>();
         services.AddSingleton<IPageViewModel, UpgradesPageViewModel>();
         services.AddSingleton<IPageViewModel, TimePageViewModel>();
@@ -83,16 +86,16 @@ public partial class App : Application
         var navigation = Services.GetRequiredService<INavigationService>();
         navigation.NavigateToScreen<IMainScreenViewModel>();
 
-        //var game = Services.GetRequiredService<Game>();
-        //game.Timer.Start();
+        var game = Services.GetRequiredService<Game>();
+        game.Start();
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
         logger.Debug("Exiting application");
 
-        //var game = Services.GetRequiredService<Game>();
-        //game.Timer.Stop();
+        var game = Services.GetRequiredService<Game>();
+        game.Stop();
 
         Settings.Default.Save();
     }

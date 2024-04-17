@@ -100,12 +100,12 @@
                                Margin="20 -5 0 0"/>
 
                     <!-- Header Button -->
-                    <!--<ToggleButton x:Name="start_stop_timer_button"
+                    <ToggleButton x:Name="start_stop_timer_button"
                                   DockPanel.Dock="Right"
                                   Background="{StaticResource ApplicationAccent5Brush}"
                                   BorderBrush="{StaticResource ApplicationAccent5Brush}"
                                   Margin="0 0 20 0"
-                                  IsChecked="{Binding Timer.IsEnabled}">
+                                  IsChecked="{Binding Time.IsRunning}">
                         <ui:SymbolIcon>
                             <ui:SymbolIcon.Style>
                                 <Style TargetType="ui:SymbolIcon">
@@ -120,12 +120,12 @@
                                 </Style>
                             </ui:SymbolIcon.Style>
                         </ui:SymbolIcon>
-                    </ToggleButton>-->
+                    </ToggleButton>
                 </DockPanel>
             </Border>
 
             <!-- Main Content status bar -->
-            <!--<StatusBar DockPanel.Dock="Bottom"
+            <StatusBar DockPanel.Dock="Bottom"
                        Padding="0"
                        Background="Transparent">
                 <StatusBarItem MinWidth="125">
@@ -146,7 +146,7 @@
                 <StatusBarItem HorizontalAlignment="Right">
                     <TextBlock Text="{Binding StatusBarModeMessage}"/>
                 </StatusBarItem>
-            </StatusBar>-->
+            </StatusBar>
 
             <!-- Main Content Messages -->
             <!--<sharedView:LogView DockPanel.Dock="Bottom"

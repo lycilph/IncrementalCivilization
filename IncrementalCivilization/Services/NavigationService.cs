@@ -23,6 +23,21 @@ public class NavigationService(IServiceProvider services) : INavigationService
         shell.CurrentScreen = vm;
         shell.CurrentScreen?.Activate();
     }
+
+    public void NavigateToPage<IVM>() where IVM : IPageViewModel
+    {
+        logger.Debug("Navigating to page {vm}", typeof(IVM).Name);
+
+        var mainVM = services.GetRequiredService<IMainScreenViewModel>();
+
+        if (services.GetRequiredService<IVM>() is not IPageViewModel vm)
+            throw new InvalidOperationException($"Could not navigate to {typeof(IVM).Name}");
+
+        mainVM.CurrentPage?.Deactivate();
+        mainVM.CurrentPage = vm;
+        mainVM.CurrentPage?.Activate();
+    }
+
     public void NavigateToPage(IPageViewModel page)
     {
         logger.Debug("Navigating to page {page}", page.Title);
