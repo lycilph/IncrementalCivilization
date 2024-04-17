@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Core;
 using IncrementalCivilization.ViewModels.Shared;
@@ -6,7 +7,7 @@ using Wpf.Ui.Controls;
 
 namespace IncrementalCivilization.ViewModels.Pages;
 
-public partial class HomePageViewModel(INavigationService navigationService, ISettingsService settingsService, ResourcesViewModel resources, DebugViewModel debugViewModel) 
+public partial class HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, DebugViewModel debugViewModel) 
     : PageViewModelBase(navigationService, "Home", SymbolRegular.Home24), IHomePageViewModel
 {
     public ResourcesViewModel ResourcesVM { get => resources; }
@@ -19,7 +20,7 @@ public partial class HomePageViewModel(INavigationService navigationService, ISe
     {
         base.Initialize();
 
-        settingsService.PropertyChanged += (s, e) => UpdateDebugMode();
+        Settings.Default.PropertyChanged += (s, e) => UpdateDebugMode();
         UpdateDebugMode();
 
         Enabled = true;
@@ -27,6 +28,6 @@ public partial class HomePageViewModel(INavigationService navigationService, ISe
 
     private void UpdateDebugMode()
     {
-        DebugMode = settingsService.Debug;
+        DebugMode = Settings.Default.DebugMode;
     }
 }

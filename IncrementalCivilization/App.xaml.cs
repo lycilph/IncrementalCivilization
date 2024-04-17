@@ -1,6 +1,5 @@
 ﻿using IncrementalCivilization.Domain;
 using IncrementalCivilization.Properties;
-using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels;
 using IncrementalCivilization.ViewModels.Core;
 using IncrementalCivilization.ViewModels.Pages;
@@ -40,7 +39,6 @@ public partial class App : Application
         services.AddSingleton<IContentDialogService, ContentDialogService>();
 
         // Services
-        services.AddSingleton<ISettingsService, SettingsService>();
         services.AddSingleton<INavigationService, NavigationService>();
         //services.AddSingleton<IMessageLog, MessageLog>();
 
@@ -50,7 +48,7 @@ public partial class App : Application
 
         // Screens
         services.AddSingleton<IMainScreenViewModel, MainScreenViewModel>();
-        //services.AddSingleton<ISettingsScreenViewModel, SettingsScreenViewModel>();
+        services.AddSingleton<ISettingsScreenViewModel, SettingsScreenViewModel>();
 
         // Pages
         services.AddSingleton<HomePageViewModel>();

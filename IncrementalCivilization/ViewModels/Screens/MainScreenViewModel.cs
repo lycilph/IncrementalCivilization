@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using IncrementalCivilization.Domain;
+using IncrementalCivilization.Properties;
 using IncrementalCivilization.Services;
 using IncrementalCivilization.ViewModels.Core;
 using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.ViewModels.Screens;
 
-public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, ISettingsService settingsService, Game game) 
+public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, Game game) 
     : ViewModelBase, IMainScreenViewModel
 {
     public ObservableCollection<IPageViewModel> Pages { get; private set; } = new ObservableCollection<IPageViewModel>(pages);
@@ -23,7 +25,7 @@ public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INav
     {
         base.Initialize();
 
-        settingsService.PropertyChanged += (s,e) => UpdateStatusBarModeMessage();
+        Settings.Default.PropertyChanged += (s,e) => UpdateStatusBarModeMessage();
         UpdateStatusBarModeMessage();
 
         navigationService.NavigateToPage(Pages.First());
@@ -31,6 +33,12 @@ public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INav
 
     private void UpdateStatusBarModeMessage()
     {
-        StatusBarModeMessage = settingsService.Debug ? "Debug Mode" : string.Empty;
+        StatusBarModeMessage = Settings.Default.DebugMode ? "Debug Mode" : string.Empty;
+    }
+
+    [RelayCommand]
+    private void ShowSettings()
+    {
+        navigationService.NavigateToScreen<ISettingsScreenViewModel>();
     }
 }

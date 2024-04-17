@@ -26,12 +26,12 @@ namespace IncrementalCivilization.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Debug {
+        public bool DebugMode {
             get {
-                return ((bool)(this["Debug"]));
+                return ((bool)(this["DebugMode"]));
             }
             set {
-                this["Debug"] = value;
+                this["DebugMode"] = value;
             }
         }
     }

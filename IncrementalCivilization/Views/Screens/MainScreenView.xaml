@@ -68,7 +68,7 @@
                 </ItemsControl>
 
                 <!-- Footer buttons -->
-                <!--<ui:Button DockPanel.Dock="Bottom"
+                <ui:Button DockPanel.Dock="Bottom"
                            Content="Settings" 
                            Icon="{ui:SymbolIcon Settings24}"
                            Command="{Binding ShowSettingsCommand}"
@@ -76,7 +76,7 @@
                            Margin="0 0 0 20"
                            Padding="20 5"
                            HorizontalAlignment="Center"
-                           HorizontalContentAlignment="Left"/>-->
+                           HorizontalContentAlignment="Left"/>
             </DockPanel>
         </Border>
 
