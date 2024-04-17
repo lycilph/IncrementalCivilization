@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace IncrementalCivilization.ViewModels.Screens;
 
-public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, Game game) 
+public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INavigationService navigationService, IMessageService messageService, Game game) 
     : ViewModelBase, IMainScreenViewModel
 {
     public ObservableCollection<IPageViewModel> Pages { get; private set; } = new ObservableCollection<IPageViewModel>(pages);
@@ -20,6 +20,7 @@ public partial class MainScreenViewModel(IEnumerable<IPageViewModel> pages, INav
     private string _statusBarModeMessage = string.Empty;
 
     public Time Time { get => game.Time; }
+    public ObservableCollection<string> Log { get => messageService.Log; }
 
     public override void Initialize()
     {

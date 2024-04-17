@@ -27,20 +27,20 @@
             </Grid.RowDefinitions>
 
             <!-- Top area -->
-            <!--<Border Grid.Row="0"
+            <Border Grid.Row="0"
                     BorderBrush="{StaticResource ApplicationAccent5Brush}"
                     BorderThickness="1"
                     CornerRadius="10"
                     Padding="10">
                 <DockPanel>
-                    <Button DockPanel.Dock="Right"
+                    <!--<Button DockPanel.Dock="Right"
                             Content="Refine Food"
                             Margin="10 0 0 0"
                             ToolTip="Convert 100 food to 1 wood"
                             ToolTipService.ShowOnDisabled="True"
                             ToolTipService.InitialShowDelay="100"
                             Command="{Binding RefineFoodCommand}"
-                            Visibility="{Binding Capabilities.RefineFoodEnabled, Converter={StaticResource visibility_converter}}"/>
+                            Visibility="{Binding Capabilities.RefineFoodEnabled, Converter={StaticResource visibility_converter}}"/>-->
 
                     <Button DockPanel.Dock="Right" 
                             Content="Gather Food"
@@ -48,7 +48,7 @@
 
                     <TextBlock Text="Your civilization has just started!"/>
                 </DockPanel>
-            </Border>-->
+            </Border>
 
             <!-- Buildings area -->
             <!--<ItemsControl Grid.Row="1"

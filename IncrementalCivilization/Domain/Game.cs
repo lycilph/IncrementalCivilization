@@ -14,6 +14,7 @@ public class Game
     public Time Time { get; private set; }
     public Capabilities Capabilities { get; private set; }
     public ResourceBundle Resources { get; private set; }
+    public ProgressEventManager ProgressEventManager { get; private set; }
 
     public Game()
     {
@@ -22,6 +23,7 @@ public class Game
         Time = new Time(ticksPerSecond, ticksPerDay, daysPerYear) { TickAction = Tick };
         Capabilities = new Capabilities();
         Resources = new ResourceBundle();
+        ProgressEventManager = new ProgressEventManager();
     }
 
     private void Tick()
@@ -31,6 +33,8 @@ public class Game
         // Do stuff here
 
         Resources.Limit();
+
+        ProgressEventManager.Process();
     }
 
     public void Start() => Time.IsRunning = true;
