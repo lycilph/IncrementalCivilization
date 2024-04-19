@@ -22,7 +22,11 @@ public class ResearchQueue
     {
         Calendar = new Improvement("Calendar", "Enables Agriculture");
         Calendar.Cost.Add(new Cost(game.Resources.Science, 30));
-        Calendar.BuyAction = () => game.Research.Unlocked.Add(Agriculture!);
+        Calendar.BuyAction = () => 
+        { 
+            game.Research.Unlocked.Add(Agriculture!); 
+            game.Capabilities.TimePageEnabled = true;
+        };
 
         Agriculture = new Improvement("Agriculture", "Enables the farming job");
         Agriculture.Cost.Add(new Cost(game.Resources.Science, 100));
