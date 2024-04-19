@@ -3,11 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:domain="clr-namespace:IncrementalCivilization.Domain"
              xmlns:pages="clr-namespace:IncrementalCivilization.ViewModels.Pages" 
+             xmlns:itemV="clr-namespace:IncrementalCivilization.Views.Items"
              d:DataContext="{d:DesignInstance Type=pages:UpgradesPageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Resources area -->
+        <ContentControl Grid.Column="0"
+                        Content="{Binding ResourcesVM}"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Unlocked research items area -->
+            <Grid Grid.Row="0" >
+                <ItemsControl ItemsSource="{Binding Unlocked}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type domain:Improvement}">
+                            <itemV:ImprovementView/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <CheckBox HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          Content="Hide bought upgrades"
+                          IsChecked="{Binding HideBoughtUpgrades}"/>
+            </Grid>
+
+            <!-- Bought research items area -->
+            <StackPanel Grid.Row="1"
+                        Visibility="{Binding HideBoughtUpgrades, Converter={StaticResource inverted_visibility_converter}}">
+                <Separator Margin="10 5"/>
+                <ItemsControl Height="150"
+                              ItemsSource="{Binding Bought}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type domain:Improvement}">
+                            <itemV:ImprovementSimpleView/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

@@ -20,6 +20,7 @@ public class Game
     public JobsBundle Jobs { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
     public ResearchQueue Research {  get; private set; }
+    public UpgradesQueue Upgrades { get; private set; }
     public ProgressEventManager ProgressEventManager { get; private set; }
 
     public Game()
@@ -33,6 +34,7 @@ public class Game
         Jobs = new JobsBundle();
         Buildings = new BuildingsBundle(Resources);
         Research = new ResearchQueue(this);
+        Upgrades = new UpgradesQueue(this);
         ProgressEventManager = new ProgressEventManager(this);
     }
 
@@ -102,6 +104,9 @@ public class Game
 
         Research.Clear();
         Research = new ResearchQueue(this);
+
+        Upgrades.Clear();
+        Upgrades = new UpgradesQueue(this);
 
         ProgressEventManager.Clear();
         ProgressEventManager = new ProgressEventManager(this);

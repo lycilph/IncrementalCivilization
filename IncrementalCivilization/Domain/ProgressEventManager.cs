@@ -80,6 +80,15 @@ public class ProgressEventManager
                     game.Jobs.Miner.Active = true;
                 },
                 Trigger = () => game.Buildings.Mine.Count > 0,
+            },
+            new()
+            {
+                Effect = () =>
+                {
+                    ShowMessage("I'm sure we can do this better!");
+                    game.Capabilities.UpgradesPageEnabled = true;
+                },
+                Trigger = () => game.Buildings.Workshop.Count > 0,
             }];
     }
 

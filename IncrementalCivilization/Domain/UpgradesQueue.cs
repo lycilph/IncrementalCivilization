@@ -1,48 +1,34 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using IncrementalCivilization.Messages;
-using IncrementalCivilization.Utils;
+﻿using IncrementalCivilization.Utils;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace IncrementalCivilization.Domain;
 
-public class ResearchQueue
+public class UpgradesQueue
 {
-    private static void ShowMessage(string text) => StrongReferenceMessenger.Default.Send(new ShowMessage(text));
-
-    public Improvement Calendar { get; private set; }
-    public Improvement Agriculture { get; private set; }
-    public Improvement Mining { get; private set; }
+    public Improvement MineralHoe { get; private set; }
+    public Improvement MineralAxe { get; private set; }
 
     public ObservableCollection<Improvement> Unlocked { get; private set; } = [];
     public ObservableCollection<Improvement> Bought { get; private set; } = [];
 
-    public ResearchQueue(Game game)
+    public UpgradesQueue(Game game)
     {
-        Calendar = new Improvement("Calendar", "Enables Agriculture");
-        Calendar.Cost.Add(new Cost(game.Resources.Science, 30));
-        Calendar.BuyAction = () => game.Research.Unlocked.Add(Agriculture!);
+        MineralHoe = new Improvement("Mineral Hoe", "Farmer are 50% more efficient");
+        MineralHoe.Cost.Add(new Cost(game.Resources.Science, 100));
+        MineralHoe.Cost.Add(new Cost(game.Resources.Minerals, 275));
+        MineralHoe.BuyAction = () => game.Effects.FarmerEffieciency += 0.5;
 
-        Agriculture = new Improvement("Agriculture", "Enables the farming job");
-        Agriculture.Cost.Add(new Cost(game.Resources.Science, 100));
-        Agriculture.BuyAction = () =>
-        {
-            ShowMessage("Farming is now possible");
-            game.Jobs.Farmer.Active = true;
-            game.Buildings.Add(game.Buildings.Barn);
-            game.Research.Unlocked.Add(Mining!);
-        };
-
-        Mining = new Improvement("Mining", "Enables mines and the workshop");
-        Mining.Cost.Add(new Cost(game.Resources.Science, 500));
-        Mining.BuyAction = () =>
-        {
-            game.Buildings.Add(game.Buildings.Mine);
-            game.Buildings.Add(game.Buildings.Workshop);
-        };
+        MineralAxe = new Improvement("Mineral Axe", "Wood cutters are 70% more efficient");
+        MineralAxe.Cost.Add(new Cost(game.Resources.Science, 100));
+        MineralAxe.Cost.Add(new Cost(game.Resources.Minerals, 500));
+        MineralAxe.BuyAction = () => game.Effects.WoodCutterEffieciency += 0.7;
 
         Unlocked.CollectionChanged += UnlockedCollectionChanged;
+
+        Unlocked.Add(MineralHoe);
+        Unlocked.Add(MineralAxe);
     }
 
     private void UnlockedCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
