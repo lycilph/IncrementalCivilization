@@ -9,6 +9,6 @@ public partial class UpgradesPageViewModel : PageViewModelBase
 {
     public UpgradesPageViewModel(INavigationService navigationService, Game game) : base(navigationService, "Upgrades", SymbolRegular.Star24)
     {
-        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.ResearchPageEnabled;
+        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.UpgradesPageEnabled;
     }
 }

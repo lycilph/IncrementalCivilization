@@ -23,7 +23,7 @@ public partial class TimePageViewModel : PageViewModelBase
         _contentDialogService = contentDialogService;
         _game = game;
 
-        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.ResearchPageEnabled;
+        game.Capabilities.PropertyChanged += (s, e) => Enabled = game.Capabilities.TimePageEnabled;
     }
 
     [RelayCommand]

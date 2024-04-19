@@ -28,6 +28,8 @@ public partial class JobsViewModel(Game game) : ViewModelBase
         Jobs.Apply(j => j.PropertyChanged += UpdateOnPropertyChanged);
 
         game.Resources.Population.PropertyChanged += UpdateOnPropertyChanged;
+
+        Update();
     }
 
     public override void Deactivate()
@@ -45,6 +47,11 @@ public partial class JobsViewModel(Game game) : ViewModelBase
     }
 
     private void UpdateOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        Update();
+    }
+
+    private void Update()
     {
         FreePopulation.Maximum = game.Resources.Population.Value;
         FreePopulation.Value = FreePopulation.Maximum - Jobs.Sum(j => j.Count);

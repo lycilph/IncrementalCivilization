@@ -6,9 +6,9 @@ namespace IncrementalCivilization.Domain;
 
 public class ProgressEventManager
 {
+    private static void ShowMessage(string text) => StrongReferenceMessenger.Default.Send(new ShowMessage(text));
+ 
     public ObservableCollection<ProgessEvent> Events { get; private set; }
-
-    private void Send(string text) => StrongReferenceMessenger.Default.Send(new ShowMessage(text));
 
     public ProgressEventManager(Game game)
     {
@@ -16,7 +16,7 @@ public class ProgressEventManager
             new()
             {
                 Name = "Start",
-                Effect = () => Send("Your civilization has started its long journey..."),
+                Effect = () => ShowMessage("Your civilization has started its long journey..."),
                 Trigger = () => true
             },
             new()
@@ -24,7 +24,7 @@ public class ProgressEventManager
                 Name = "Unlock Refine Food",
                 Effect = () =>
                 {
-                    Send("Maybe food can be used for other things?");
+                    ShowMessage("Maybe food can be used for other things?");
                     game.Capabilities.RefineFoodEnabled = true;
                 },
                 Trigger = () => game.Resources.Food.Value >= 25
@@ -32,22 +32,22 @@ public class ProgressEventManager
             new()
             {
                 Name = "More Wood Message",
-                Effect = () => Send("Try collecting a little more wood"),
+                Effect = () => ShowMessage("Try collecting a little more wood"),
                 Trigger = () => game.Resources.Wood.Value > 0
             },
             new()
             {
                 Name = "Population Increase Message",
-                Effect = () => Send("Over time people will join your village, be patient"),
+                Effect = () => ShowMessage("Over time people will join your village, be patient"),
                 Trigger = () => game.Buildings.Hut.Count > 0
             },
             new()
             {
                 Name = "Enable Wood Cutters",
-                Effect = () => 
+                Effect = () =>
                 {
-                    Send("Wood cutters are now available");
-                    game.Jobs.WoodCutter.Active = true; 
+                    ShowMessage("Wood cutters are now available");
+                    game.Jobs.WoodCutter.Active = true;
                 },
                 Trigger = () => game.Resources.Population.Value > 0
             },
@@ -56,17 +56,27 @@ public class ProgressEventManager
                 Name = "Enable Scholars",
                 Effect = () =>
                 {
-                    Send("What wonders to discover...");
+                    ShowMessage("What wonders to discover...");
                     game.Jobs.Scholar.Active = true;
                 },
                 Trigger = () => game.Buildings.Library.Count > 0,
             },
             new()
             {
+                Effect = () =>
+                {
+                    ShowMessage("The first idea presents itself");
+                    game.Capabilities.ResearchPageEnabled = true;
+                    game.Research.Unlocked.Add(game.Research.Calendar);
+                },
+                Trigger = () => game.Jobs.Scholar.Count > 0,
+            },
+            new()
+            {
                 Name = "Enable Miners",
                 Effect = () =>
                 {
-                    Send("Diggy diggy...");
+                    ShowMessage("Diggy diggy...");
                     game.Jobs.Miner.Active = true;
                 },
                 Trigger = () => game.Buildings.Mine.Count > 0,

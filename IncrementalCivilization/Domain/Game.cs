@@ -19,6 +19,7 @@ public class Game
     public ResourceBundle Resources { get; private set; }
     public JobsBundle Jobs { get; private set; }
     public BuildingsBundle Buildings { get; private set; }
+    public ResearchQueue Research {  get; private set; }
     public ProgressEventManager ProgressEventManager { get; private set; }
 
     public Game()
@@ -31,6 +32,7 @@ public class Game
         Resources = new ResourceBundle();
         Jobs = new JobsBundle();
         Buildings = new BuildingsBundle(Resources);
+        Research = new ResearchQueue(this);
         ProgressEventManager = new ProgressEventManager(this);
     }
 
@@ -97,6 +99,9 @@ public class Game
 
         Buildings.Clear();
         Buildings = new BuildingsBundle(Resources);
+
+        Research.Clear();
+        Research = new ResearchQueue(this);
 
         ProgressEventManager.Clear();
         ProgressEventManager = new ProgressEventManager(this);
