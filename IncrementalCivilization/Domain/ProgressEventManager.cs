@@ -87,6 +87,7 @@ public class ProgressEventManager
                 {
                     ShowMessage("I'm sure we can do this better!");
                     game.Capabilities.UpgradesPageEnabled = true;
+                    game.Capabilities.RefineAllEnabled = true;
                 },
                 Trigger = () => game.Buildings.Workshop.Count > 0,
             }];

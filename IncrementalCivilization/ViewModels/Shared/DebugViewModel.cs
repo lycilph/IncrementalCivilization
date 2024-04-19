@@ -22,6 +22,7 @@ public partial class DebugViewModel(Game game) : ViewModelBase
     private void EnableRefineFood()
     {
         game.Capabilities.RefineFoodEnabled = true;
+        game.Capabilities.RefineAllEnabled = true;
     }
 
     [RelayCommand]

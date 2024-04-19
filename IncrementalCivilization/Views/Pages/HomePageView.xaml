@@ -34,6 +34,15 @@
                     Padding="10">
                 <DockPanel>
                     <Button DockPanel.Dock="Right"
+                            Content="Refine All"
+                            Margin="10 0 0 0"
+                            ToolTip="Convert all food to wood (100:1)"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTipService.InitialShowDelay="100"
+                            Command="{Binding RefineAllFoodCommand}"
+                            Visibility="{Binding Capabilities.RefineAllEnabled, Converter={StaticResource visibility_converter}}"/>
+
+                    <Button DockPanel.Dock="Right"
                             Content="Refine Food"
                             Margin="10 0 0 0"
                             ToolTip="Convert 100 food to 1 wood"
@@ -46,7 +55,8 @@
                             Content="Gather Food"
                             Command="{Binding GatherFoodCommand}"/>
 
-                    <TextBlock Text="Your civilization has just started!"/>
+                    <TextBlock Text="Your civilization has just started!"
+                               TextWrapping="WrapWithOverflow"/>
                 </DockPanel>
             </Border>
 

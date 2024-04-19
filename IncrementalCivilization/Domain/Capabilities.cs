@@ -10,6 +10,9 @@ public partial class Capabilities : ObservableObject
     private bool _refineFoodEnabled = false;
 
     [ObservableProperty]
+    private bool _refineAllEnabled = false;
+
+    [ObservableProperty]
     private bool _researchPageEnabled = false;
 
     [ObservableProperty]

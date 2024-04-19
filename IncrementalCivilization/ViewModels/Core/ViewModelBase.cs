@@ -12,6 +12,7 @@ public partial class ViewModelBase : ObservableObject, IViewModel
     [ObservableProperty]
     private bool _enabled = false;
 
+
     public virtual void Initialize()
     {
         logger.Debug($"Initialize {GetType().Name}");

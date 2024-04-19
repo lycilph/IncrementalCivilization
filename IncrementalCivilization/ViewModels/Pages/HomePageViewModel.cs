@@ -31,6 +31,7 @@ public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RefineFoodCommand))]
+    [NotifyCanExecuteChangedFor(nameof(RefineAllFoodCommand))]
     private bool _canRefineFood = false;
 
     public HomePageViewModel(INavigationService navigationService, ResourcesViewModel resources, JobsViewModel jobs, DebugViewModel debugViewModel, Game game) : base(navigationService, "Home", SymbolRegular.Home24)
@@ -76,5 +77,13 @@ public partial class HomePageViewModel : PageViewModelBase, IHomePageViewModel
     {
         _game.Resources.Wood.Add(1, skipRateUpdate: true);
         _game.Resources.Food.Sub(100, skipRateUpdate: true);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanRefineFood))]
+    private void RefineAllFood()
+    {
+        var amount = Math.Floor(_game.Resources.Food.Value / 100);
+        _game.Resources.Wood.Add(amount, skipRateUpdate: true);
+        _game.Resources.Food.Sub(100 * amount, skipRateUpdate: true);
     }
 }
