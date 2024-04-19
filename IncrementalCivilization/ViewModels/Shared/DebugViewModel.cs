@@ -47,6 +47,15 @@ public partial class DebugViewModel(Game game) : ViewModelBase
     {
         game.Resources.Apply(r => r.Value = 0);
     }
+
+    [RelayCommand]
+    private void MaxAllResources()
+    {
+        AddFood("0");
+        AddWood("0");
+        AddMinerals("0");
+        AddScience("0");
+    }
     
     [RelayCommand]
     private void AddPopulation()
